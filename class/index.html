@@ -1,4 +1,4 @@
-<!doctype html><html><head><script>window.PC_SYNC=1;window.PC_HOOK="https://script.google.com/macros/s/AKfycbxPG25Asy3KiFr0ZGjjw1mhh_LsqxV76OPz-4-t6BbVbqFDUQgNuCudxNHEW6VtZ-Py2g/exec";</script><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><script>try{localStorage.setItem("pc_dev",innerWidth>=900?"desk":"phone")}catch(e){}window.PC_SYNC=1;window.PC_HOOK="https://script.google.com/macros/s/AKfycbxPG25Asy3KiFr0ZGjjw1mhh_LsqxV76OPz-4-t6BbVbqFDUQgNuCudxNHEW6VtZ-Py2g/exec";</script><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -5816,4 +5816,16 @@ function form(){var me=J(M)||{};
  var off=m.querySelector('#soff');if(off)off.onclick=function(){var x=J(M)||{};x.ok=0;S(M,x);close();paint()}}
 btn.onclick=form;paint();setTimeout(function(){push()},2500);
 })();</script>
-</body></html>
+<script>
+(function(){
+var path=location.pathname.replace(/\/+$/,'').split('/').pop();var T={today:'home',schedule:'cal',ipsi:'ipsi',lib:'lib',class:'home'};
+var links=[['/today','오늘 수업'],['/schedule','수업 일정'],['/ipsi','입시'],['/lib','훈련 자료']];
+var css='#sx{position:fixed;top:0;left:0;right:0;z-index:9600;background:#fff;height:64px;display:flex;align-items:center;gap:8px;padding:0 16px;font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif}#sx .lg{display:block;width:112px;height:26px;background:#07803f;-webkit-mask:url(/img/logo-xl.png) left center/contain no-repeat;mask:url(/img/logo-xl.png) left center/contain no-repeat;margin-right:auto}#sx a.t{height:40px;padding:0 14px;display:inline-flex;align-items:center;font-weight:800;font-size:15px;color:#06301f;text-decoration:none}#sx a.t.on{background:#07803f;color:#fff}#sx a.h{height:40px;padding:0 16px;display:inline-flex;align-items:center;font-weight:800;font-size:15px;background:#d4f53c;color:#041f14;text-decoration:none;margin-left:6px}#sx a{white-space:nowrap}@media(max-width:720px){#sx{gap:0;padding:0 6px;overflow:hidden}#sx .lg{display:none}#sx a.t{padding:0 7px;font-size:13px}#sx a.h{padding:0 8px;font-size:13px;margin-left:auto}}body{padding-top:80px!important}#nav,#dvq{display:none!important}';
+var s=document.createElement('style');s.textContent=css;document.head.appendChild(s);
+var h='<header id="sx"><a class="lg" href="/" aria-label="PISTON 홈"></a>'+links.map(function(l){return '<a class="t'+(location.pathname.indexOf(l[0])===0||(path==='class'&&l[0]==='/today')?' on':'')+'" href="'+l[0]+'">'+l[1]+'</a>'}).join('')+'<a class="h" href="/#join"><span>등록신청</span></a></header>';
+document.body.insertAdjacentHTML('afterbegin',h);
+document.documentElement.setAttribute('data-theme','light');
+function pick(){var b=document.querySelector('#nav button[data-t="'+(T[path]||'home')+'"]');if(b&&!b.classList.contains('on'))b.click()}
+pick();window.addEventListener('load',function(){setTimeout(pick,150)});
+})();
+</script></body></html>
