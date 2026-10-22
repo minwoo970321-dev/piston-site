@@ -21,11 +21,20 @@ const OUT = resolve(ROOT, 'out', slug + (mode ? '-' + mode : ''));
 // 수시/정시 따로 만들기: 반대 시기 항목을 걸러낸다
 if (MODE) {
   const [LB, OTHER] = MODE;
-  d.depts = d.depts.map(x => ({ ...x, tracks: x.tracks.filter(t => t.when.startsWith(LB)), changes: x.changes.filter(c => !c.startsWith(OTHER)) }));
-  d.common = (d.common || []).filter(c => !c.startsWith(OTHER));
-  d.tables = (d.tables || []).filter(t => !t.only || t.only === LB);
-  if (LB === '정시') d.tables = d.tables.map(t => t.title.startsWith('검정고시') ? { ...t, title: '학교폭력 감점', blocks: t.blocks.filter(b => /학교폭력/.test(b.cap || '')), notes: (t.notes || []).filter(n => /학폭/.test(n)) } : t);
-  d.noGrade = LB === '정시'; // 내신 9등급 vs 5등급 장은 수시 전용
+  const strip = c => c.replace(/^(수시|정시) /, '');
+  // 실기전형만: 학생부종합·교과 환산 관련 항목은 뺀다
+  const drop = c => c.startsWith(OTHER) || /학생부종합|교과성적/.test(c);
+  d.depts = d.depts.map(x => ({ ...x, tracks: x.tracks.filter(t => t.when.startsWith(LB)), changes: x.changes.filter(c => !drop(c)).map(strip) }));
+  d.common = [];
+  d.tables = (d.tables || []).filter(t => t.only === '정시' ? LB === '정시' : !/내신 환산|학생부종합/.test(t.title)).map(t => {
+    if (!t.title.startsWith('검정고시')) return t;
+    const blocks = t.blocks.filter(b => /학교폭력/.test(b.cap || '')).map(b => {
+      const keep = b.head.map((h, k) => k === 0 || (LB === '수시' ? /수시 실기/.test(h) : h === '정시'));
+      return { ...b, hl: undefined, head: b.head.filter((_, k) => keep[k]).map((h, k) => k && LB === '수시' ? '수시 실기우수자' : h), rows: b.rows.map(r => r.filter((_, k) => keep[k])) };
+    });
+    return { ...t, title: '학교폭력 감점', blocks, notes: (t.notes || []).filter(n => /학폭/.test(n)) };
+  });
+  d.noGrade = true; // 내신 9등급 vs 5등급 장은 교과 관련이라 뺌
 }
 const LBL = MODE ? MODE[0] : '수시·정시';
 const G = d.noGrade ? 0 : 1;
@@ -50,7 +59,7 @@ body{width:1080px;height:var(--h);background:#fff;color:var(--tx);font-family:P,
 .top{display:flex;align-items:center;justify-content:space-between;padding-bottom:26px;border-bottom:3px solid var(--dk)}
 .logo{width:150px;height:35px;background:var(--dk);-webkit-mask:url(${logo}) left center/contain no-repeat}
 .brand{display:flex;align-items:center;gap:18px}.brand span{font-size:30px;font-weight:900;color:var(--dk);letter-spacing:-.5px;padding-left:18px;border-left:2px solid var(--ln)}.end .brand span{color:#fff;border-color:rgba(255,255,255,.3)}
-.tag{font-size:26px;font-weight:700;color:var(--g);letter-spacing:-.2px}
+.tag{font-size:34px;font-weight:900;color:var(--lime);background:var(--dk);padding:10px 24px;border-radius:6px;letter-spacing:-.5px}
 .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-size:21px;color:var(--mu);padding-top:22px;border-top:1px solid var(--ln)}
 .foot b{font-weight:800;color:var(--dk);font-size:24px}
 .hl{background:linear-gradient(transparent 58%,var(--lime) 58% 92%,transparent 92%)}
@@ -71,7 +80,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .dn{font-size:96px;margin-top:44px}
 .tr{margin-top:46px}
 .th{display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:18px;border-bottom:2px solid var(--dk)}
-.th .w{font-size:24px;font-weight:800;color:#fff;background:var(--g);padding:5px 14px;border-radius:4px;margin-right:16px;vertical-align:middle;position:relative;top:-6px}
+.th .w{font-size:32px;font-weight:800;color:#fff;background:var(--g);padding:5px 14px;border-radius:4px;margin-right:16px;vertical-align:middle;position:relative;top:-6px}
 .th .nm{font-size:42px;font-weight:800;letter-spacing:-1px}
 .th .n{font-size:84px;font-weight:900;color:var(--dk);letter-spacing:-3px;line-height:.9}
 .th .n small{font-size:34px;font-weight:800;letter-spacing:0;margin-left:4px}
@@ -107,7 +116,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .tb tr:nth-child(odd) td{background:#fafcfa}
 .tn{margin-top:20px;list-style:none}.tn li{font-size:22px;color:var(--mu);font-weight:600;padding:3px 0 3px 22px;position:relative;line-height:1.45}.tn li:before{content:"※";position:absolute;left:0}
 /* changes */
-.cg{margin-top:44px}
+.cg{margin-top:44px}.dc{margin-top:48px}
 .cg h3{font-size:34px;font-weight:900;color:var(--g);letter-spacing:-.5px;padding-bottom:12px;border-bottom:2px solid var(--dk)}
 .cg li{list-style:none;font-size:31px;font-weight:700;padding:15px 0 15px 40px;border-bottom:1px solid var(--ln);position:relative;letter-spacing:-.5px}
 .cg li:before{content:"";position:absolute;left:4px;top:27px;width:18px;height:18px;background:var(--lime);border:2px solid var(--dk)}
@@ -115,7 +124,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 /* end */
 .end{background:var(--dk);color:#fff}
 .end .top{border-color:var(--lime)}.end .logo{background:#fff}.end .brand{display:flex;align-items:center;gap:18px}.brand span{font-size:30px;font-weight:900;color:var(--dk);letter-spacing:-.5px;padding-left:18px;border-left:2px solid var(--ln)}.end .brand span{color:#fff;border-color:rgba(255,255,255,.3)}
-.end .tag{color:var(--lime)}
+.end .tag{color:var(--dk);background:var(--lime)}
 .end h2{color:#fff;font-size:118px;margin-top:150px;letter-spacing:-4px}
 .end h2 em{font-style:normal;color:var(--lime)}
 .end p{font-size:36px;font-weight:600;color:rgba(255,255,255,.78);margin-top:36px;line-height:1.5}
@@ -134,7 +143,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 `;
 
 const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${CSS}</style></head><body style="--h:${h}px"><div class="f ${cls}">${inner}</div></body></html>`;
-const top = () => `<div class="top"><div class="brand"><div class="logo"></div><span>안산시흥피스톤</span></div><div class="tag">${d.year}학년도 전형계획</div></div>`;
+const top = () => `<div class="top"><div class="brand"><div class="logo"></div><span>안산시흥피스톤</span></div><div class="tag">${d.year} ${MODE ? LBL + ' 실기전형' : '전형계획'}</div></div>`;
 const total = (dep, k) => dep.tracks.filter(t => t.when.startsWith(k)).reduce((a, t) => a + t.n, 0);
 
 function gradeSlide() {
@@ -162,7 +171,7 @@ ${foot(N - 1 - T.length)}`;
 const slides = [];
 const T = d.tables || [];
 const SECS = [...d.depts.map(x => [x.name, x.changes]), ...(d.common?.length ? [['공통', d.common]] : [])];
-const CP = []; { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > (MODE ? 15 : 12)) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
+const CP = []; if (!MODE) { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > (MODE ? 15 : 12)) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
 const N = d.depts.length + 2 + G + CP.length + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
@@ -185,6 +194,7 @@ ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(
 <div class="stg">${esc(t.stage)}</div>
 <div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
+${MODE && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>` : ''}
 ${foot(i + 2)}`, 1350, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
 });
 
