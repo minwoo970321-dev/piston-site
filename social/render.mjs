@@ -26,15 +26,15 @@ if (MODE) {
   const drop = c => c.startsWith(OTHER) || /학생부종합|교과성적/.test(c);
   d.depts = d.depts.map(x => ({ ...x, tracks: x.tracks.filter(t => t.when.startsWith(LB)), changes: x.changes.filter(c => !drop(c)).map(strip) }));
   d.common = [];
-  d.tables = (d.tables || []).filter(t => t.only === '정시' ? LB === '정시' : !/내신 환산|학생부종합/.test(t.title)).map(t => {
-    if (!t.title.startsWith('검정고시')) return t;
+  d.tables = (d.tables || []).filter(t => t.only === '정시' ? LB === '정시' : !/학생부종합/.test(t.title) && !(LB === '정시' && /내신 환산/.test(t.title))).map(t => {
+    if (!t.title.startsWith('검정고시') || LB === '수시') return t;
     const blocks = t.blocks.filter(b => /학교폭력/.test(b.cap || '')).map(b => {
       const keep = b.head.map((h, k) => k === 0 || (LB === '수시' ? /수시 실기/.test(h) : h === '정시'));
       return { ...b, hl: undefined, head: b.head.filter((_, k) => keep[k]).map((h, k) => k && LB === '수시' ? '수시 실기우수자' : h), rows: b.rows.map(r => r.filter((_, k) => keep[k])) };
     });
     return { ...t, title: '학교폭력 감점', blocks, notes: (t.notes || []).filter(n => /학폭/.test(n)) };
   });
-  d.noGrade = true; // 내신 9등급 vs 5등급 장은 교과 관련이라 뺌
+  d.noGrade = LB === '정시'; // 내신 9등급 vs 5등급·내신 환산표는 수시 실기우수자 환산에 쓰이므로 수시에만 둠
 }
 const LBL = MODE ? MODE[0] : '수시·정시';
 const G = d.noGrade ? 0 : 1;
