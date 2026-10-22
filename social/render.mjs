@@ -80,6 +80,18 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .cmp .h{font-size:21px;color:var(--mu);font-weight:700;padding:10px 0}.cmp .h em{font-size:21px}
 .gbox{margin-top:30px;background:var(--bg);padding:24px 28px;font-size:25px;line-height:1.55;font-weight:600}.gbox b{color:var(--dk);font-weight:900}
 .gt{width:100%;border-collapse:collapse;margin-top:12px;font-size:24px;text-align:center}.gt th,.gt td{border:1px solid var(--ln);padding:8px 4px}.gt th{background:#fff;color:var(--mu);font-weight:700}.gt td{font-weight:800}
+.ctight h2{font-size:72px!important;margin-top:32px!important}.ctight .cg{margin-top:26px}.ctight .cg h3{font-size:30px;padding-bottom:8px}.ctight .cg li{font-size:27px;padding:9px 0 9px 36px}.ctight .cg li:before{top:19px;width:16px;height:16px}
+/* tables */
+.ttl{font-size:72px;margin-top:34px}.tsub{font-size:26px;font-weight:700;color:var(--g);margin-top:12px}
+.tcap{font-size:28px;font-weight:900;color:var(--dk);margin:30px 0 10px}
+.tb{width:100%;border-collapse:collapse;margin-top:22px;font-size:27px}.tcap+.tb{margin-top:0}
+.tb th{background:var(--dk);color:#fff;font-weight:800;padding:12px 8px;font-size:23px}
+.tb td{padding:8px 8px;text-align:center;border-bottom:1px solid var(--ln);font-weight:600}
+.tb td.c0{font-weight:800;text-align:center}.tb td.h{font-weight:900;color:var(--g)}
+.tb tr.hr td{background:var(--bg);font-weight:900;color:var(--dk)}
+.tb.dense{font-size:23px}.tb.dense td{padding:4px 8px}.tb.dense th{padding:9px 8px}
+.tb tr:nth-child(odd) td{background:#fafcfa}
+.tn{margin-top:20px;list-style:none}.tn li{font-size:22px;color:var(--mu);font-weight:600;padding:3px 0 3px 22px;position:relative;line-height:1.45}.tn li:before{content:"※";position:absolute;left:0}
 /* changes */
 .cg{margin-top:44px}
 .cg h3{font-size:34px;font-weight:900;color:var(--g);letter-spacing:-.5px;padding-bottom:12px;border-bottom:2px solid var(--dk)}
@@ -119,7 +131,7 @@ function gradeSlide() {
 <table class="gt"><tr><th></th>${g.nine ? g.nine.map((_, i) => `<th>${i + 1}</th>`).join('') : g.five.map((_, i) => `<th>${i + 1}</th>`).join('')}</tr>
 <tr><th>5등급</th>${g.five.map(v => `<td>${esc(v)}</td>`).join('')}${g.nine ? '<td></td>'.repeat(g.nine.length - g.five.length) : ''}</tr>
 ${g.nine ? `<tr><th>9등급</th>${g.nine.map(v => `<td>${esc(v)}</td>`).join('')}</tr>` : ''}</table></div>`
-    : `<div class="gbox"><b>${esc(d.short)} 5등급 환산점수표</b>는 아직 발표 전이에요. 모집요강이 나오면 바로 업데이트할게요.<br>졸업생(N수생)의 9등급 성적을 어떻게 반영하는지도 모집요강에서 확인이 필요해요.</div>`;
+    : d.gradeRef ? `<div class="gbox"><b>${esc(d.gradeRef)}</b> →</div>` : '';
   return `${top()}
 <h2 style="font-size:80px;margin-top:44px">내신 <span class="hl">9등급 vs 5등급</span></h2>
 <div style="font-size:28px;font-weight:600;color:var(--mu);margin-top:16px">2025년 고1 입학생(${d.year}학년도 수험생)부터 내신 5등급 상대평가</div>
@@ -130,11 +142,12 @@ ${g.nine ? `<tr><th>9등급</th>${g.nine.map(v => `<td>${esc(v)}</td>`).join('')
 <div><span>3등급까지</span><em>23%</em><i>→</i><em class="n">66%</em></div></div>
 <div style="font-size:20px;color:var(--mu);margin-top:10px">등급 비율 출처 · 교육부 2028 대입제도 개편안 (2023.12 확정)</div>
 ${box}
-${foot(N - 1)}`;
+${foot(N - 1 - T.length)}`;
 }
 
 const slides = [];
-const N = d.depts.length + 4;
+const T = d.tables || [];
+const N = d.depts.length + 4 + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
 // 1 표지
@@ -164,10 +177,18 @@ slides.push(page(`${top()}
 <h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span></h2>
 ${d.depts.map(x => `<div class="cg"><h3>${esc(x.name)}</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>`).join('')}
 ${d.common?.length ? `<div class="cg"><h3>공통</h3><ul>${d.common.map(c => `<li>${esc(c)}</li>`).join('')}</ul></div>` : ''}
-${foot(N - 2)}`, 1350));
+${foot(N - 2 - T.length)}`, 1350, d.depts.reduce((a, x) => a + x.changes.length, 0) + (d.common || []).length > 9 ? 'ctight' : ''));
 
 // 내신 9등급 vs 5등급
 slides.push(page(gradeSlide(), 1350));
+
+// 표 장 (시행계획 세부 규정)
+T.forEach((t, i) => slides.push(page(`${top()}
+<h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}
+${t.blocks.map(b => `${b.cap ? `<div class="tcap">${esc(b.cap)}</div>` : ''}<table class="tb${t.dense ? ' dense' : ''}"><tr>${b.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>
+${b.rows.map((r, ri) => `<tr class="${b.hlRow === ri ? 'hr' : ''}">${r.map((c, ci) => `<td class="${(b.hl || []).includes(ci) ? 'h' : ''}${ci === 0 ? ' c0' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`).join('')}
+${t.notes?.length ? `<ul class="tn">${t.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
+${foot(N - 1 - T.length + i + 1)}`, 1350)));
 
 // 마무리
 slides.push(page(`${top()}
@@ -208,7 +229,7 @@ ${x.tracks.map(t => `### ${t.when} ${t.name} — ${t.n}명
 ${d.depts.map(x => `**${x.name}**\n${x.changes.map(c => `- ${c}`).join('\n')}`).join('\n\n')}
 ${d.common?.length ? `\n**공통**\n${d.common.map(c => `- ${c}`).join('\n')}` : ''}
 
-[이미지: post-${N - 2}.jpg]
+[이미지: post-${N - 2 - T.length}.jpg]
 
 ## 내신 9등급 vs 5등급
 ${d.year}학년도 수험생(2025년 고1 입학생)부터 내신이 5등급 상대평가로 바뀝니다.
@@ -216,9 +237,17 @@ ${d.year}학년도 수험생(2025년 고1 입학생)부터 내신이 5등급 상
 - 2등급까지: 누적 11% → 34%
 - 3등급까지: 누적 23% → 66%
 - 졸업생(N수생)은 9등급 성적이라, 대학마다 따로 환산합니다.
-${d.grades && d.grades.five ? `\n${d.short} ${d.year} 내신 등급별 점수(5등급): ${d.grades.five.join(' / ')}${d.grades.nine ? `\n9등급(졸업생): ${d.grades.nine.join(' / ')}` : ''}` : `\n${d.short}의 5등급 환산점수표는 모집요강 발표 후 업데이트하겠습니다.`}
+${d.grades && d.grades.five ? `\n${d.short} ${d.year} 내신 등급별 점수(5등급): ${d.grades.five.join(' / ')}${d.grades.nine ? `\n9등급(졸업생): ${d.grades.nine.join(' / ')}` : ''}` : ''}
 
-[이미지: post-${N - 1}.jpg]
+[이미지: post-${N - 1 - T.length}.jpg]
+
+${T.map((t, i) => `## ${t.title}${t.sub ? ` (${t.sub})` : ''}
+${t.blocks.map(b => `${b.cap ? `**${b.cap}**\n\n` : ''}| ${b.head.join(' | ')} |
+| ${b.head.map(() => '---').join(' | ')} |
+${b.rows.map(r => `| ${r.join(' | ')} |`).join('\n')}`).join('\n\n')}
+${(t.notes || []).map(n => `\n※ ${n}`).join('')}
+
+[이미지: post-${N - T.length + i}.jpg]`).join('\n\n')}
 
 ## 안산시흥피스톤 안내
 안산시흥피스톤(안산 고잔·시흥 배곧·시흥 장현)은 ${d.short} 실기 종목을 배점표 기준으로 측정하고 점수로 관리합니다. 상담과 등록신청은 홈페이지에서 할 수 있어요.
@@ -237,6 +266,8 @@ async function shot(html, w, h, file) {
   await p.setViewportSize({ width: w, height: h });
   await p.goto(pathToFileURL(tmp).href);
   await p.evaluate(() => document.fonts.ready);
+  const over = await p.evaluate(() => { const f = document.querySelector('.f'); return f.scrollHeight - f.clientHeight; });
+  if (over > 0) console.warn('넘침 경고', file, over + 'px');
   await p.screenshot({ path: resolve(OUT, file), type: 'jpeg', quality: 92, clip: { x: 0, y: 0, width: w, height: h } });
 }
 for (let i = 0; i < slides.length; i++) await shot(slides[i], 1080, 1350, `post-${i + 1}.jpg`);
