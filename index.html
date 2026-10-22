@@ -203,9 +203,9 @@ footer{padding:56px 0 28px}
 .tile:active{transform:scale(.98)}
 .back{display:inline-flex;align-items:center;height:44px;font-weight:800;color:inherit;margin:0 0 28px;opacity:.85}
 .back:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
-.cls,.time,.app,.join,.ct{padding-top:48px!important}
-body:not([data-v="class"]) #class,body:not([data-v="time"]) #time,body:not([data-v="join"]) #join,body:not([data-v="contact"]) #contact{display:none}
-body[data-v="class"] #top,body[data-v="time"] #top,body[data-v="join"] #top,body[data-v="contact"] #top{display:none}
+.cls,.time,.app,.join,.ct,.nw{padding-top:48px!important}
+body:not([data-v="class"]) #class,body:not([data-v="time"]) #time,body:not([data-v="join"]) #join,body:not([data-v="contact"]) #contact,body:not([data-v="news"]) #news{display:none}
+body[data-v="class"] #top,body[data-v="time"] #top,body[data-v="join"] #top,body[data-v="contact"] #top,body[data-v="news"] #top{display:none}
 @media(max-width:900px){.tiles{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.tiles{grid-template-columns:1fr 1fr;margin-top:36px}.tile{min-height:120px;padding:18px 16px}.tile span{font-size:14px}.hero h1{font-size:44px}}
 @media(max-width:640px){.hero .btns .bt[style]{display:none}.hp{display:none}.hero .btns .bt{height:50px;flex:1}.hero{padding:36px 0 56px}}
@@ -221,9 +221,19 @@ body[data-v="today"] #top,body[data-v="sched"] #top,body[data-v="ipsi"] #top,bod
 .tiles{grid-template-columns:repeat(4,1fr)}
 @media(max-width:900px){.tiles{grid-template-columns:1fr 1fr}#appf{height:max(560px,calc(100svh - 190px))}}
 @media(max-width:1100px){#nv .l{display:none}}
+
+.nw{padding:48px 0 96px;background:var(--paper)}
+.nw .src{font-size:var(--s-sm);color:var(--soft);margin-top:14px}
+.nw .set{margin-top:48px;padding-top:24px;border-top:3px solid var(--ground)}
+.nw .set h3{font-size:clamp(24px,2.6vw,34px)}
+.nw .set .m{font-size:var(--s-sm);color:var(--soft);margin:8px 0 18px}
+.nw .strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x proximity}
+.nw .strip a{flex:none;scroll-snap-align:start;display:block;background:#fff}
+.nw .strip img{display:block;height:min(560px,64vw);width:auto;aspect-ratio:4/5}
+.nw .acts{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
 </style></head>
 <body>
-<nav id="nv"><div class="w"><a class="nl" href="#top" aria-label="PISTON 처음으로"></a><span class="sp"></span><a class="l" href="#class">수업</a><a class="l" href="#time">시간</a><a class="l" href="/today">오늘 수업</a><a class="l" href="/ipsi">입시</a><a class="l" href="/lib">훈련 자료</a><a class="l" href="#contact">지점</a><a class="bt sm" href="#join">수강 등록신청</a></div></nav>
+<nav id="nv"><div class="w"><a class="nl" href="#top" aria-label="PISTON 처음으로"></a><span class="sp"></span><a class="l" href="#class">수업</a><a class="l" href="#time">시간</a><a class="l" href="/today">오늘 수업</a><a class="l" href="/ipsi">입시</a><a class="l" href="/lib">훈련 자료</a><a class="l" href="#news">입시 소식</a><a class="l" href="#contact">지점</a><a class="bt sm" href="#join">수강 등록신청</a></div></nav>
 
 <header class="hero" id="top"><div class="w hg">
 <div><h1 class="rv">기록이 합격을<br>만듭니다.</h1>
@@ -237,6 +247,7 @@ body[data-v="today"] #top,body[data-v="sched"] #top,body[data-v="ipsi"] #top,bod
 <a class="tile" href="/ipsi"><b>입시</b><span>대학별 전형 · 배점 · 기록 계산</span></a>
 <a class="tile" href="/lib"><b>훈련 자료</b><span>수업 전 3D 영상 99개</span></a>
 <a class="tile" href="#join"><b>수강 등록신청</b><span>상담 후 바로 시작</span></a>
+<a class="tile" href="#news"><b>입시 소식</b><span>2028 전형계획 카드</span></a>
 <a class="tile" href="#contact"><b>지점 안내</b><span>안산 · 배곧 · 장현</span></a></div>
 </header>
 
@@ -274,6 +285,11 @@ body[data-v="today"] #top,body[data-v="sched"] #top,body[data-v="ipsi"] #top,bod
 <div class="done" id="dn" hidden><h3>신청이 접수됐어요</h3><p>확인 후 입력하신 연락처로 안내드릴게요. 아래에서 입시 자료를 먼저 보실 수 있어요.</p><a class="btn p" href="/ipsi">입시·훈련 자료 보기</a></div></div>
 </div></section>
 
+<section class="nw" id="news"><div class="w"><a class="back" href="#top">← 처음으로</a></div><div class="w"><h2 class="rv">입시 소식</h2><p class="lead rv" style="--d:80ms">대학별 2028학년도 전형계획을 원문과 대조해 카드로 정리합니다. 매일 한 학교씩 인스타그램에도 올라가요.</p>
+<div class="set"><h3>인천대학교 체육계열 2028 전형계획</h3><div class="m">스포츠의학부 · 스포츠과학부 · 체육교육과 · 2026.10.22 확인 · 특기자 전형 제외</div>
+<div class="strip"><a href="/social/out/inu/post-1.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-1.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 1/12"></a><a href="/social/out/inu/post-2.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-2.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 2/12"></a><a href="/social/out/inu/post-3.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-3.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 3/12"></a><a href="/social/out/inu/post-4.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-4.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 4/12"></a><a href="/social/out/inu/post-5.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-5.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 5/12"></a><a href="/social/out/inu/post-6.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-6.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 6/12"></a><a href="/social/out/inu/post-7.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-7.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 7/12"></a><a href="/social/out/inu/post-8.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-8.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 8/12"></a><a href="/social/out/inu/post-9.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-9.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 9/12"></a><a href="/social/out/inu/post-10.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-10.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 10/12"></a><a href="/social/out/inu/post-11.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-11.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 11/12"></a><a href="/social/out/inu/post-12.jpg" target="_blank" rel="noopener"><img src="/social/out/inu/post-12.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 전형 카드 12/12"></a></div>
+<div class="acts"><a class="bt" href="#join">수강 등록신청</a><a class="bt dk" href="https://www.instagram.com/siheung_piston" target="_blank" rel="noopener">인스타그램에서 보기</a></div>
+<p class="src">출처: 인천대학교 2028학년도 대학입학전형 시행계획. 전형계획은 변경될 수 있으니 지원 전 반드시 대학 모집요강 원문을 확인하세요.</p></div></div></section>
 <section class="ct" id="contact"><div class="w"><a class="back" href="#top">← 처음으로</a></div><div class="w"><h2 class="rv">가까운 지점에서<br>만나요.</h2><p class="lead rv" style="--d:80ms">전화번호와 상세 주소는 곧 채워 넣겠습니다. 지금은 신청서나 인스타그램으로 문의해 주세요.</p>
 <div class="brs"><div class="rv paper"><b>안산점</b><span>경기 안산시 단원구 고잔동</span><a href="https://www.instagram.com/ansan_piston" target="_blank" rel="noopener">@ansan_piston</a></div>
 <div class="rv paper" style="--d:80ms"><b>시흥 배곧점</b><span>경기 시흥시 배곧동</span><a href="https://www.instagram.com/siheung_piston" target="_blank" rel="noopener">@siheung_piston</a></div>
@@ -304,7 +320,7 @@ document.documentElement.className+=' js';
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});els.forEach(function(e){io.observe(e)});
 setTimeout(function(){els.forEach(function(e){e.classList.add('in')})},4000)})();
 
-(function(){var P=['class','time','join','contact'];
+(function(){var P=['class','time','join','contact','news'];
 function r(){var id=location.hash.slice(1),v=P.indexOf(id)>=0?id:'';document.body.setAttribute('data-v',v);window.scrollTo(0,0)}
 window.addEventListener('hashchange',r);r()})();
 </script><script>(function(){function k(){try{document.querySelectorAll('body *').forEach(function(e){var s=e.shadowRoot;if(s&&/Netlify/i.test(s.textContent||'')){e.style.setProperty('display','none','important')}})}catch(x){}}new MutationObserver(k).observe(document.documentElement,{childList:true,subtree:true});k();setInterval(k,800)})()</script><style>#nl-badge-frame,iframe[title="Powered by Netlify"]{display:none!important;visibility:hidden!important}</style><script>(function(){function k(){var e=document.getElementById("nl-badge-frame");if(e&&e.parentNode)e.parentNode.removeChild(e)}new MutationObserver(k).observe(document.documentElement,{childList:true,subtree:true});k()})()</script></body></html>
