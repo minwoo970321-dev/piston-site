@@ -150,7 +150,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 `;
 
 const schoolLogo = d.logo ? 'data:image/png;base64,' + readFileSync(resolve(ROOT, d.logo)).toString('base64') : '';
-const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${CSS}.sch{position:absolute;right:80px;top:182px;width:132px;height:132px}.st .sch{top:250px;width:150px;height:150px}</style></head><body style="--h:${h}px"><div class="f ${cls}">${inner}${schoolLogo && !/\bend\b/.test(cls) ? `<img class="sch" src="${schoolLogo}" alt="">` : ''}</div></body></html>`;
+const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${CSS}.sch{position:absolute;right:80px;top:215px;width:310px;height:310px}</style></head><body style="--h:${h}px"><div class="f ${cls}">${inner}${schoolLogo && /\bcover\b/.test(cls) ? `<img class="sch" src="${schoolLogo}" alt="">` : ''}</div></body></html>`;
 const top = () => `<div class="top"><div class="brand"><div class="logo"></div><span>안산시흥피스톤</span></div><div class="tag">${d.year} ${MODE ? LBL + ' 실기전형' : '전형계획'}</div></div>`;
 const total = (dep, k) => dep.tracks.filter(t => t.when.startsWith(k)).reduce((a, t) => a + t.n, 0);
 
@@ -191,7 +191,7 @@ slides.push(page(`${top()}
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}</em>`).join('')}</div>
 ${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
 <div class="swipe">넘기면 학과별 반영비율·실기종목 →</div>
-${foot(1)}`, 1350));
+${foot(1)}`, 1350, 'cover'));
 
 // 학과별
 d.depts.forEach((x, i) => {
