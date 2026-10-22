@@ -13,9 +13,23 @@ catch { ({ chromium } = require('/opt/npm-tools/node_modules/playwright')); }
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SITE = 'ansansiheungpiston.netlify.app';
 const slug = process.argv[2];
+const mode = process.argv[3]; // susi | jeongsi (생략하면 전체)
+const MODE = { susi: ['수시', '정시'], jeongsi: ['정시', '수시'] }[mode];
 if (!slug) { console.error('usage: node social/render.mjs <slug>'); process.exit(1); }
 const d = JSON.parse(readFileSync(resolve(ROOT, 'data', slug + '.json'), 'utf8'));
-const OUT = resolve(ROOT, 'out', slug);
+const OUT = resolve(ROOT, 'out', slug + (mode ? '-' + mode : ''));
+// 수시/정시 따로 만들기: 반대 시기 항목을 걸러낸다
+if (MODE) {
+  const [LB, OTHER] = MODE;
+  d.depts = d.depts.map(x => ({ ...x, tracks: x.tracks.filter(t => t.when.startsWith(LB)), changes: x.changes.filter(c => !c.startsWith(OTHER)) }));
+  d.common = (d.common || []).filter(c => !c.startsWith(OTHER));
+  d.tables = (d.tables || []).filter(t => !t.only || t.only === LB);
+  if (LB === '정시') d.tables = d.tables.map(t => t.title.startsWith('검정고시') ? { ...t, title: '학교폭력 감점', blocks: t.blocks.filter(b => /학교폭력/.test(b.cap || '')), notes: (t.notes || []).filter(n => /학폭/.test(n)) } : t);
+  d.noGrade = LB === '정시'; // 내신 9등급 vs 5등급 장은 수시 전용
+}
+const LBL = MODE ? MODE[0] : '수시·정시';
+const G = d.noGrade ? 0 : 1;
+const cnt = x => MODE ? `${LBL} ${total(x, LBL)}명` : `수시 ${total(x, '수시')}명 · 정시 ${total(x, '정시')}명`;
 mkdirSync(OUT, { recursive: true });
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -51,7 +65,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .dl span{font-size:40px;font-weight:800;letter-spacing:-1px}
 .dl em{font-style:normal;text-align:right;font-size:26px;color:var(--mu);font-weight:600}
 .dl em b{font-size:52px;font-weight:900;color:var(--dk);letter-spacing:-1px;margin-left:8px}
-.dl .h{padding:0 0 12px;border:0}.dl .h em{font-size:22px;font-weight:700;color:var(--g)}
+.dl.one div{grid-template-columns:1fr 200px}.dl .h{padding:0 0 12px;border:0}.dl .h em{font-size:22px;font-weight:700;color:var(--g)}
 .swipe{margin-top:34px;font-size:26px;font-weight:700;color:var(--g)}
 /* dept */
 .dn{font-size:96px;margin-top:44px}
@@ -148,17 +162,17 @@ ${foot(N - 1 - T.length)}`;
 const slides = [];
 const T = d.tables || [];
 const SECS = [...d.depts.map(x => [x.name, x.changes]), ...(d.common?.length ? [['공통', d.common]] : [])];
-const CP = []; { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > 12) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
-const N = d.depts.length + 3 + CP.length + T.length;
+const CP = []; { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > (MODE ? 15 : 12)) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
+const N = d.depts.length + 2 + G + CP.length + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
 // 1 표지
 slides.push(page(`${top()}
-<div class="kick">${d.year} 체육계열 실기전형</div>
+<div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형</div>
 <h1 class="big">${esc(d.short)}</h1>
-<div class="sub"><span class="hl">${d.depts.length}개 학과</span> 수시·정시 한 번에</div>
-<div class="dl"><div class="h"><span></span><em>수시</em><em>정시</em></div>
-${d.depts.map(x => `<div><span>${esc(x.name)}</span><em><b>${total(x, '수시') || '-'}</b>명</em><em><b>${total(x, '정시') || '-'}</b>명</em></div>`).join('')}</div>
+<div class="sub"><span class="hl">${d.depts.length}개 학과</span> ${LBL} 한 번에</div>
+<div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}</em>`).join('')}</div>
+${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
 <div class="swipe">넘기면 학과별 반영비율·실기종목 →</div>
 ${foot(1)}`, 1350));
 
@@ -178,10 +192,10 @@ ${foot(i + 2)}`, 1350, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? '
 CP.forEach((pg, k) => slides.push(page(`${top()}
 <h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span>${CP.length > 1 ? `<span style="font-size:40px;color:var(--mu)"> ${k + 1}/${CP.length}</span>` : ''}</h2>
 ${pg.map(([nm, items]) => `<div class="cg"><h3>${esc(nm)}</h3><ul>${items.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>`).join('')}
-${foot(N - 1 - T.length - CP.length + k)}`, 1350, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
+${foot(d.depts.length + 2 + k)}`, 1350, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
 
 // 내신 9등급 vs 5등급
-slides.push(page(gradeSlide(), 1350));
+if (G) slides.push(page(gradeSlide(), 1350));
 
 // 표 장 (시행계획 세부 규정)
 T.forEach((t, i) => slides.push(page(`${top()}
@@ -203,18 +217,18 @@ slides.push(page(`${top()}
 const story = page(`${top()}
 <div class="kick">${d.year} 실기전형 요약</div>
 <h1 class="big">${esc(d.short)}</h1>
-<div class="sd">${d.depts.map(x => `<div><h4>${esc(x.name)}<span>수시 ${total(x, '수시')} · 정시 ${total(x, '정시')}명</span></h4>
+<div class="sd">${d.depts.map(x => `<div><h4>${esc(x.name)}<span>${cnt(x)}</span></h4>
 <p>${x.tracks.map(t => `${esc(t.when.split(' ')[0])}: ${t.events.map(e => esc(e[0])).join(' · ')}`).join('<br>')}</p></div>`).join('')}</div>
 <div class="cta"><span>반영비율·배점은 게시물에서</span><b>↓</b></div>
 <div class="foot" style="border:0;padding-top:18px"><span>출처 · ${esc(d.source)}</span><b>${ymd}</b></div>`, 1920, 'st');
 
 // 블로그 글
-const blog = `# ${d.year}학년도 ${d.school} 체육계열 실기전형 정리 (${d.depts.map(x => x.name).join('·')})
+const blog = `# ${d.year}학년도 ${d.school} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형 정리 (${d.depts.map(x => x.name).join('·')})
 
 ${d.region} ${d.short} 체대입시를 준비한다면, ${d.year}학년도 전형계획에서 꼭 볼 것만 정리했습니다.
 
 ## 결론 먼저
-${d.depts.map(x => `- **${x.name}**: 수시 ${total(x, '수시')}명 · 정시 ${total(x, '정시')}명 (${x.tracks.map(t => `${t.when.split(' ')[0]} ${t.events.map(e => e[0]).join('·')}`).join(' / ')})`).join('\n')}
+${d.depts.map(x => `- **${x.name}**: ${cnt(x)} (${x.tracks.map(t => `${t.when.split(' ')[0]} ${t.events.map(e => e[0]).join('·')}`).join(' / ')})`).join('\n')}
 
 [이미지: post-1.jpg]
 
@@ -230,9 +244,9 @@ ${x.tracks.map(t => `### ${t.when} ${t.name} — ${t.n}명
 ${d.depts.map(x => `**${x.name}**\n${x.changes.map(c => `- ${c}`).join('\n')}`).join('\n\n')}
 ${d.common?.length ? `\n**공통**\n${d.common.map(c => `- ${c}`).join('\n')}` : ''}
 
-${CP.map((_, k) => `[이미지: post-${N - 1 - T.length - CP.length + k}.jpg]`).join('\n')}
+${CP.map((_, k) => `[이미지: post-${d.depts.length + 2 + k}.jpg]`).join('\n')}
 
-## 내신 9등급 vs 5등급
+${G ? `## 내신 9등급 vs 5등급
 ${d.year}학년도 수험생(2025년 고1 입학생)부터 내신이 5등급 상대평가로 바뀝니다.
 - 1등급: 상위 4% → 상위 10%
 - 2등급까지: 누적 11% → 34%
@@ -242,7 +256,7 @@ ${d.grades && d.grades.five ? `\n${d.short} ${d.year} 내신 등급별 점수(5�
 
 [이미지: post-${N - 1 - T.length}.jpg]
 
-${T.map((t, i) => `## ${t.title}${t.sub ? ` (${t.sub})` : ''}
+` : ''}${T.map((t, i) => `## ${t.title}${t.sub ? ` (${t.sub})` : ''}
 ${t.blocks.map(b => `${b.cap ? `**${b.cap}**\n\n` : ''}| ${b.head.join(' | ')} |
 | ${b.head.map(() => '---').join(' | ')} |
 ${b.rows.map(r => `| ${r.join(' | ')} |`).join('\n')}`).join('\n\n')}
@@ -279,13 +293,13 @@ await browser.close();
 const { unlinkSync } = await import('node:fs'); unlinkSync(resolve(OUT, '_tmp.html'));
 writeFileSync(resolve(OUT, 'blog.md'), blog);
 writeFileSync(resolve(OUT, 'caption.txt'),
-`${d.year} ${d.short} 체육계열 실기전형 한 번에 📌
-${d.depts.map(x => `▪️ ${x.name} 수시 ${total(x, '수시')}명 · 정시 ${total(x, '정시')}명`).join('\n')}
+`${d.year} ${d.short} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형 한 번에 📌
+${d.depts.map(x => `▪️ ${x.name} ${cnt(x)}`).join('\n')}
 
 넘겨서 학과별 반영비율·실기종목·2027 대비 변경점 확인하세요.
 안산시흥피스톤 · 상담·등록신청은 프로필 링크(홈페이지)에서.
 
 출처: ${d.source} (${ymd} 확인)
 
-#${d.short}체대입시 #${d.year}체대입시 #체대입시 #체대실기 #체대입시학원 #안산체대입시 #시흥체대입시 #배곧체대입시 #장현체대입시 #안산시흥피스톤 #피스톤체대입시 #제자리멀리뛰기 #체육교육과 #스포츠과학 #고3 #고2`);
+#${d.short}체대입시 ${MODE ? `#${d.short}${LBL} ` : ''}#${d.year}체대입시 #체대입시 #체대실기 #체대입시학원 #안산체대입시 #시흥체대입시 #배곧체대입시 #장현체대입시 #안산시흥피스톤 #피스톤체대입시 #제자리멀리뛰기 #체육교육과 #스포츠과학 #고3 #고2`);
 console.log('done', OUT, slides.length, 'slides');
