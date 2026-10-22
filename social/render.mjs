@@ -217,10 +217,8 @@ ${foot(N - 1 - T.length + i + 1)}`, 1350)));
 
 // 마무리
 slides.push(page(`${top()}
-<h2>체대입시는<br><em>피스톤</em>으로.</h2>
-<p>${esc(d.short)} 실기 종목, 학원에서 배점표 기준으로<br>기록을 재고 점수로 바꿔 관리합니다.</p>
-<div class="url">${SITE}</div>
-<div class="br">안산시흥피스톤 · 안산 고잔 · 시흥 배곧 · 시흥 장현</div>
+<h2>체대입시는<br><em>피스톤</em></h2>
+<p style="font-size:64px;font-weight:800;color:#fff;margin-top:56px;letter-spacing:-2px">같은 성적,<br>다른 결과</p>
 <div class="foot"><span>세부 사항은 대학 모집요강으로 최종 확인하세요</span><b>${N} / ${N}</b></div>`, 1350, 'end'));
 
 // 스토리
