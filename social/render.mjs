@@ -230,7 +230,7 @@ ${x.tracks.map(t => `### ${t.when} ${t.name} — ${t.n}명
 ${d.depts.map(x => `**${x.name}**\n${x.changes.map(c => `- ${c}`).join('\n')}`).join('\n\n')}
 ${d.common?.length ? `\n**공통**\n${d.common.map(c => `- ${c}`).join('\n')}` : ''}
 
-[이미지: post-${N - 1 - T.length - CP.length}.jpg]
+${CP.map((_, k) => `[이미지: post-${N - 1 - T.length - CP.length + k}.jpg]`).join('\n')}
 
 ## 내신 9등급 vs 5등급
 ${d.year}학년도 수험생(2025년 고1 입학생)부터 내신이 5등급 상대평가로 바뀝니다.
@@ -253,6 +253,8 @@ ${(t.notes || []).map(n => `\n※ ${n}`).join('')}
 ## 안산시흥피스톤 안내
 안산시흥피스톤(안산 고잔·시흥 배곧·시흥 장현)은 ${d.short} 실기 종목을 배점표 기준으로 측정하고 점수로 관리합니다. 상담과 등록신청은 홈페이지에서 할 수 있어요.
 👉 https://${SITE}
+
+[이미지: post-${N}.jpg]
 
 > 출처: ${d.source} (${ymd} 확인). 세부 사항은 대학 모집요강 발표 후 다시 확인하세요.
 
