@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff"><meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>피스톤 앱 | 피스톤체대입시</title>
@@ -5766,7 +5766,7 @@ function ask(){var o=document.getElementById('dvm');if(o)o.remove();var cur=get(
 m.innerHTML='<div class="dvb"><h3>어떤 화면으로 볼까요?</h3><p>기기에 맞게 화면 비율을 맞춰드려요. 나중에 오른쪽 위 버튼으로 바꿀 수 있어요.</p><div class="dvl"><button data-m="phone" class="'+(cur==='phone'?'on':'')+'"><i>📱</i>폰<small>세로 한 줄</small></button><button data-m="desk" class="'+(cur==='desk'?'on':'')+'"><i>💻</i>노트북<small>넓게 · 2~3단</small></button></div></div>';
 m.onclick=function(e){var b=e.target.closest('button[data-m]');if(!b){if(e.target===m&&get())m.remove();return}try{localStorage.setItem(K,b.dataset.m)}catch(x){}apply(b.dataset.m);m.remove()};document.body.appendChild(m)}
 var btn=document.createElement('button');btn.id='dvq';btn.type='button';btn.setAttribute('aria-label','화면 선택');btn.textContent='⇄';btn.onclick=ask;document.body.appendChild(btn);
-var m0=get();if(m0){apply(m0)}else{setTimeout(ask,400)}
+var m0=get();if(!m0&&window.top!==window.self){try{localStorage.setItem(K,'phone')}catch(e){}m0='phone'}if(m0){apply(m0)}else{setTimeout(ask,400)}
 new MutationObserver(function(){var h=document.getElementById('v-ipsi');if(h&&get()==='desk'&&!h.classList.contains('dsk'))h.classList.add('dsk')}).observe(document.body,{childList:true,subtree:true});
 })();</script>
 <style id="syn">
