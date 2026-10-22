@@ -125,7 +125,14 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .end{background:var(--dk);color:#fff}
 .end .top{border-color:var(--lime)}.end .logo{background:#fff}.end .brand{display:flex;align-items:center;gap:18px}.brand span{font-size:30px;font-weight:900;color:var(--dk);letter-spacing:-.5px;padding-left:18px;border-left:2px solid var(--ln)}.end .brand span{color:#fff;border-color:rgba(255,255,255,.3)}
 .end .tag{color:var(--dk);background:var(--lime)}
-.end h2{color:#fff;font-size:118px;margin-top:150px;letter-spacing:-4px}
+.end h2{color:#fff;font-size:150px;margin-top:40px;letter-spacing:-6px;line-height:1.04;position:relative}
+.end .wm{position:absolute;left:-40px;right:-200px;bottom:90px;height:360px;background:rgba(255,255,255,.07);-webkit-mask:url(${logo}) right center/contain no-repeat;mask:url(${logo}) right center/contain no-repeat}
+.end .kk{margin-top:110px;font-size:28px;font-weight:900;letter-spacing:10px;color:var(--lime);display:flex;align-items:center;gap:18px}
+.end .kk:before{content:"";width:70px;height:6px;background:var(--lime)}
+.end .pb{display:inline-block;background:var(--lime);color:var(--dk);padding:0 26px 8px;margin-top:14px;letter-spacing:-5px}
+.end .sl{margin-top:64px;display:flex;flex-direction:column;gap:6px;font-size:84px;font-weight:900;letter-spacing:-3px;color:#fff;position:relative}
+.end .sl .lm{color:var(--lime)}
+.end .foot{position:relative}
 .end h2 em{font-style:normal;color:var(--lime)}
 .end p{font-size:36px;font-weight:600;color:rgba(255,255,255,.78);margin-top:36px;line-height:1.5}
 .end .url{margin-top:70px;font-size:44px;font-weight:900;color:var(--lime);letter-spacing:-.5px}
@@ -217,8 +224,10 @@ ${foot(N - 1 - T.length + i + 1)}`, 1350)));
 
 // 마무리
 slides.push(page(`${top()}
-<h2>체대입시는<br><em>피스톤</em></h2>
-<p style="font-size:64px;font-weight:800;color:#fff;margin-top:56px;letter-spacing:-2px">같은 성적,<br>다른 결과</p>
+<div class="wm"></div>
+<div class="kk">PISTON</div>
+<h2>체대입시는<br><span class="pb">피스톤</span></h2>
+<div class="sl"><span>같은 성적,</span><span class="lm">다른 결과</span></div>
 <div class="foot"><span>세부 사항은 대학 모집요강으로 최종 확인하세요</span><b>${N} / ${N}</b></div>`, 1350, 'end'));
 
 // 스토리
