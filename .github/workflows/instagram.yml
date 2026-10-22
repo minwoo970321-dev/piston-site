@@ -1,0 +1,36 @@
+name: 인스타 자동 게시
+on:
+  schedule:
+    - cron: '0 10 * * *'   # 매일 한국시간 19:00
+  workflow_dispatch:
+    inputs:
+      date:
+        description: '올릴 날짜 (YYYY-MM-DD, 비우면 오늘)'
+        required: false
+permissions:
+  contents: write
+concurrency: instagram
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 게시
+        env:
+          POST_DATE: ${{ inputs.date }}
+          IG_HOST: ${{ secrets.IG_HOST }}
+          IG_USER_ID_1: ${{ secrets.IG_USER_ID_1 }}
+          IG_TOKEN_1: ${{ secrets.IG_TOKEN_1 }}
+          IG_USER_ID_2: ${{ secrets.IG_USER_ID_2 }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+        run: node social/publish.mjs
+      - name: 게시 기록 저장
+        if: always()
+        run: |
+          git config user.name "piston-bot"
+          git config user.email "piston-bot@users.noreply.github.com"
+          git add social/posted.json 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "인스타 게시 기록 [skip ci]" && git push)
