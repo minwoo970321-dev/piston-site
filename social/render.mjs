@@ -1,6 +1,6 @@
 // 2028 전형계획 카드 렌더러: node social/render.mjs <slug>
 // 결과: social/out/<slug>/post-1.jpg … (1080x1350), story.jpg (1080x1920), blog.md
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
@@ -309,7 +309,9 @@ await shot(story, 1080, 1920, 'story.jpg');
 await browser.close();
 const { unlinkSync } = await import('node:fs'); unlinkSync(resolve(OUT, '_tmp.html'));
 writeFileSync(resolve(OUT, 'blog.md'), blog);
-writeFileSync(resolve(OUT, 'caption.txt'),
+const capOverride = resolve(ROOT, 'data', `caption-${slug}${mode ? '-' + mode : ''}.txt`);
+if (existsSync(capOverride)) writeFileSync(resolve(OUT, 'caption.txt'), readFileSync(capOverride, 'utf8').trim());
+else writeFileSync(resolve(OUT, 'caption.txt'),
 `${d.year} ${d.short} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형 한 번에 📌
 ${d.depts.map(x => `▪️ ${x.name} ${cnt(x)}`).join('\n')}
 
