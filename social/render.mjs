@@ -71,6 +71,14 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .ev b{font-size:33px;font-weight:900;color:var(--g)}
 .nt{font-size:22px;color:var(--mu);margin-top:12px;font-weight:500}
 .tight .tr{margin-top:30px}.tight .dn{margin-top:30px;font-size:88px}.tight .th .n{font-size:72px}.tight .bar{height:50px;margin-top:14px}.tight .ev{margin-top:8px}.tight .ev div{padding:9px 0;font-size:29px}.tight .ev b{font-size:30px}.tight .nt{margin-top:8px}
+/* grades */
+.gs{margin-top:40px}.gs .lb{display:flex;justify-content:space-between;font-size:28px;font-weight:800;margin:26px 0 10px}.gs .lb span{color:var(--mu);font-weight:600;font-size:23px}
+.sc{display:flex;height:64px;border:2px solid var(--dk)}.sc div{border-right:2px solid var(--dk);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:var(--dk)}.sc div:last-child{border-right:0}.sc .one{background:var(--lime)}
+.cmp{margin-top:34px;border-top:2px solid var(--dk)}.cmp div{display:grid;grid-template-columns:1fr 200px 60px 200px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--ln);font-size:30px;font-weight:700}
+.cmp em{font-style:normal;text-align:right;font-weight:900;font-size:34px;color:var(--mu)}.cmp em.n{color:var(--g)}.cmp i{font-style:normal;text-align:center;color:var(--mu)}
+.cmp .h{font-size:21px;color:var(--mu);font-weight:700;padding:10px 0}.cmp .h em{font-size:21px}
+.gbox{margin-top:30px;background:var(--bg);padding:24px 28px;font-size:25px;line-height:1.55;font-weight:600}.gbox b{color:var(--dk);font-weight:900}
+.gt{width:100%;border-collapse:collapse;margin-top:12px;font-size:24px;text-align:center}.gt th,.gt td{border:1px solid var(--ln);padding:8px 4px}.gt th{background:#fff;color:var(--mu);font-weight:700}.gt td{font-weight:800}
 /* changes */
 .cg{margin-top:44px}
 .cg h3{font-size:34px;font-weight:900;color:var(--g);letter-spacing:-.5px;padding-bottom:12px;border-bottom:2px solid var(--dk)}
@@ -101,8 +109,30 @@ const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta
 const top = () => `<div class="top"><div class="logo"></div><div class="tag">${d.year}학년도 전형계획</div></div>`;
 const total = (dep, k) => dep.tracks.filter(t => t.when.startsWith(k)).reduce((a, t) => a + t.n, 0);
 
+function gradeSlide() {
+  const nine = [4, 7, 12, 17, 20, 17, 12, 7, 4], five = [10, 24, 32, 24, 10];
+  const bar = a => `<div class="sc">${a.map((v, i) => `<div class="${i ? '' : 'one'}" style="flex:${v}">${i + 1}</div>`).join('')}</div>`;
+  const g = d.grades;
+  const box = g && g.five ? `<div class="gbox"><b>${esc(d.short)} ${d.year} 내신 등급별 점수</b>${g.note ? ` · ${esc(g.note)}` : ''}
+<table class="gt"><tr><th></th>${g.nine ? g.nine.map((_, i) => `<th>${i + 1}</th>`).join('') : g.five.map((_, i) => `<th>${i + 1}</th>`).join('')}</tr>
+<tr><th>5등급</th>${g.five.map(v => `<td>${esc(v)}</td>`).join('')}${g.nine ? '<td></td>'.repeat(g.nine.length - g.five.length) : ''}</tr>
+${g.nine ? `<tr><th>9등급</th>${g.nine.map(v => `<td>${esc(v)}</td>`).join('')}</tr>` : ''}</table></div>`
+    : `<div class="gbox"><b>${esc(d.short)} 5등급 환산점수표</b>는 아직 발표 전이에요. 모집요강이 나오면 바로 업데이트할게요.<br>졸업생(N수생)의 9등급 성적을 어떻게 반영하는지도 모집요강에서 확인이 필요해요.</div>`;
+  return `${top()}
+<h2 style="font-size:80px;margin-top:44px">내신 <span class="hl">9등급 vs 5등급</span></h2>
+<div style="font-size:28px;font-weight:600;color:var(--mu);margin-top:16px">2025년 고1 입학생(${d.year}학년도 수험생)부터 내신 5등급 상대평가</div>
+<div class="gs"><div class="lb">9등급제<span>기존 · 졸업생 성적</span></div>${bar(nine)}<div class="lb">5등급제<span>${d.year} 재학생</span></div>${bar(five)}</div>
+<div class="cmp"><div class="h"><span>누적 비율</span><em>9등급제</em><i></i><em>5등급제</em></div>
+<div><span>1등급</span><em>상위 4%</em><i>→</i><em class="n">상위 10%</em></div>
+<div><span>2등급까지</span><em>11%</em><i>→</i><em class="n">34%</em></div>
+<div><span>3등급까지</span><em>23%</em><i>→</i><em class="n">66%</em></div></div>
+<div style="font-size:20px;color:var(--mu);margin-top:10px">등급 비율 출처 · 교육부 2028 대입제도 개편안 (2023.12 확정)</div>
+${box}
+${foot(N - 1)}`;
+}
+
 const slides = [];
-const N = d.depts.length + 3;
+const N = d.depts.length + 4;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
 // 1 표지
@@ -132,7 +162,10 @@ slides.push(page(`${top()}
 <h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span></h2>
 ${d.depts.map(x => `<div class="cg"><h3>${esc(x.name)}</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>`).join('')}
 ${d.common?.length ? `<div class="cg"><h3>공통</h3><ul>${d.common.map(c => `<li>${esc(c)}</li>`).join('')}</ul></div>` : ''}
-${foot(N - 1)}`, 1350));
+${foot(N - 2)}`, 1350));
+
+// 내신 9등급 vs 5등급
+slides.push(page(gradeSlide(), 1350));
 
 // 마무리
 slides.push(page(`${top()}
@@ -172,6 +205,16 @@ ${x.tracks.map(t => `### ${t.when} ${t.name} — ${t.n}명
 ## 2027학년도와 달라진 점
 ${d.depts.map(x => `**${x.name}**\n${x.changes.map(c => `- ${c}`).join('\n')}`).join('\n\n')}
 ${d.common?.length ? `\n**공통**\n${d.common.map(c => `- ${c}`).join('\n')}` : ''}
+
+[이미지: post-${N - 2}.jpg]
+
+## 내신 9등급 vs 5등급
+${d.year}학년도 수험생(2025년 고1 입학생)부터 내신이 5등급 상대평가로 바뀝니다.
+- 1등급: 상위 4% → 상위 10%
+- 2등급까지: 누적 11% → 34%
+- 3등급까지: 누적 23% → 66%
+- 졸업생(N수생)은 9등급 성적이라, 대학마다 따로 환산합니다.
+${d.grades && d.grades.five ? `\n${d.short} ${d.year} 내신 등급별 점수(5등급): ${d.grades.five.join(' / ')}${d.grades.nine ? `\n9등급(졸업생): ${d.grades.nine.join(' / ')}` : ''}` : `\n${d.short}의 5등급 환산점수표는 모집요강 발표 후 업데이트하겠습니다.`}
 
 [이미지: post-${N - 1}.jpg]
 
