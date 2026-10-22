@@ -35,6 +35,7 @@ body{width:1080px;height:var(--h);background:#fff;color:var(--tx);font-family:P,
 .f{position:relative;width:1080px;height:var(--h);padding:72px 80px 64px;display:flex;flex-direction:column}
 .top{display:flex;align-items:center;justify-content:space-between;padding-bottom:26px;border-bottom:3px solid var(--dk)}
 .logo{width:150px;height:35px;background:var(--dk);-webkit-mask:url(${logo}) left center/contain no-repeat}
+.brand{display:flex;align-items:center;gap:18px}.brand span{font-size:30px;font-weight:900;color:var(--dk);letter-spacing:-.5px;padding-left:18px;border-left:2px solid var(--ln)}.end .brand span{color:#fff;border-color:rgba(255,255,255,.3)}
 .tag{font-size:26px;font-weight:700;color:var(--g);letter-spacing:-.2px}
 .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-size:21px;color:var(--mu);padding-top:22px;border-top:1px solid var(--ln)}
 .foot b{font-weight:800;color:var(--dk);font-size:24px}
@@ -87,7 +88,8 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .cg li.same{color:var(--mu)}.cg li.same:before{background:#fff}
 /* end */
 .end{background:var(--dk);color:#fff}
-.end .top{border-color:var(--lime)}.end .logo{background:#fff}.end .tag{color:var(--lime)}
+.end .top{border-color:var(--lime)}.end .logo{background:#fff}.end .brand{display:flex;align-items:center;gap:18px}.brand span{font-size:30px;font-weight:900;color:var(--dk);letter-spacing:-.5px;padding-left:18px;border-left:2px solid var(--ln)}.end .brand span{color:#fff;border-color:rgba(255,255,255,.3)}
+.end .tag{color:var(--lime)}
 .end h2{color:#fff;font-size:118px;margin-top:150px;letter-spacing:-4px}
 .end h2 em{font-style:normal;color:var(--lime)}
 .end p{font-size:36px;font-weight:600;color:rgba(255,255,255,.78);margin-top:36px;line-height:1.5}
@@ -106,7 +108,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 `;
 
 const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${CSS}</style></head><body style="--h:${h}px"><div class="f ${cls}">${inner}</div></body></html>`;
-const top = () => `<div class="top"><div class="logo"></div><div class="tag">${d.year}학년도 전형계획</div></div>`;
+const top = () => `<div class="top"><div class="brand"><div class="logo"></div><span>안산시흥피스톤</span></div><div class="tag">${d.year}학년도 전형계획</div></div>`;
 const total = (dep, k) => dep.tracks.filter(t => t.when.startsWith(k)).reduce((a, t) => a + t.n, 0);
 
 function gradeSlide() {
@@ -172,7 +174,7 @@ slides.push(page(`${top()}
 <h2>실기는<br><em>기록</em>이<br>점수입니다.</h2>
 <p>${esc(d.short)} 실기 종목, 학원에서 배점표 기준으로<br>기록을 재고 점수로 바꿔 관리합니다.</p>
 <div class="url">${SITE}</div>
-<div class="br">피스톤체대입시 · 안산 고잔 · 시흥 배곧 · 시흥 장현</div>
+<div class="br">안산시흥피스톤 · 안산 고잔 · 시흥 배곧 · 시흥 장현</div>
 <div class="foot"><span>세부 사항은 대학 모집요강으로 최종 확인하세요</span><b>${N} / ${N}</b></div>`, 1350, 'end'));
 
 // 스토리
@@ -218,13 +220,13 @@ ${d.grades && d.grades.five ? `\n${d.short} ${d.year} 내신 등급별 점수(5�
 
 [이미지: post-${N - 1}.jpg]
 
-## 피스톤체대입시 안내
-안산·시흥(배곧·장현) 피스톤체대입시는 ${d.short} 실기 종목을 배점표 기준으로 측정하고 점수로 관리합니다. 상담과 등록신청은 홈페이지에서 할 수 있어요.
+## 안산시흥피스톤 안내
+안산시흥피스톤(안산 고잔·시흥 배곧·시흥 장현)은 ${d.short} 실기 종목을 배점표 기준으로 측정하고 점수로 관리합니다. 상담과 등록신청은 홈페이지에서 할 수 있어요.
 👉 https://${SITE}
 
 > 출처: ${d.source} (${ymd} 확인). 세부 사항은 대학 모집요강 발표 후 다시 확인하세요.
 
-추천 태그: #${d.short}체대입시 #${d.short}${d.depts[0].name} #${d.year}체대입시 #체대입시 #체대실기 #안산체대입시 #시흥체대입시 #배곧체대입시 #피스톤체대입시 #${d.short}실기
+추천 태그: #${d.short}체대입시 #${d.short}${d.depts[0].name} #${d.year}체대입시 #체대입시 #체대실기 #안산체대입시 #시흥체대입시 #배곧체대입시 #안산시흥피스톤 #피스톤체대입시 #${d.short}실기
 `;
 
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
@@ -247,9 +249,9 @@ writeFileSync(resolve(OUT, 'caption.txt'),
 ${d.depts.map(x => `▪️ ${x.name} 수시 ${total(x, '수시')}명 · 정시 ${total(x, '정시')}명`).join('\n')}
 
 넘겨서 학과별 반영비율·실기종목·2027 대비 변경점 확인하세요.
-상담·등록신청은 프로필 링크(홈페이지)에서.
+안산시흥피스톤 · 상담·등록신청은 프로필 링크(홈페이지)에서.
 
 출처: ${d.source} (${ymd} 확인)
 
-#${d.short}체대입시 #${d.year}체대입시 #체대입시 #체대실기 #체대입시학원 #안산체대입시 #시흥체대입시 #배곧체대입시 #장현체대입시 #피스톤체대입시 #제자리멀리뛰기 #체육교육과 #스포츠과학 #고3 #고2`);
+#${d.short}체대입시 #${d.year}체대입시 #체대입시 #체대실기 #체대입시학원 #안산체대입시 #시흥체대입시 #배곧체대입시 #장현체대입시 #안산시흥피스톤 #피스톤체대입시 #제자리멀리뛰기 #체육교육과 #스포츠과학 #고3 #고2`);
 console.log('done', OUT, slides.length, 'slides');
