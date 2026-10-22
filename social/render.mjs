@@ -147,7 +147,9 @@ ${foot(N - 1 - T.length)}`;
 
 const slides = [];
 const T = d.tables || [];
-const N = d.depts.length + 4 + T.length;
+const SECS = [...d.depts.map(x => [x.name, x.changes]), ...(d.common?.length ? [['공통', d.common]] : [])];
+const CP = []; { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > 12) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
+const N = d.depts.length + 3 + CP.length + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
 // 1 표지
@@ -172,12 +174,11 @@ ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(
 ${foot(i + 2)}`, 1350, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
 });
 
-// 변경점
-slides.push(page(`${top()}
-<h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span></h2>
-${d.depts.map(x => `<div class="cg"><h3>${esc(x.name)}</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>`).join('')}
-${d.common?.length ? `<div class="cg"><h3>공통</h3><ul>${d.common.map(c => `<li>${esc(c)}</li>`).join('')}</ul></div>` : ''}
-${foot(N - 2 - T.length)}`, 1350, d.depts.reduce((a, x) => a + x.changes.length, 0) + (d.common || []).length > 9 ? 'ctight' : ''));
+// 변경점 (항목이 많으면 여러 장)
+CP.forEach((pg, k) => slides.push(page(`${top()}
+<h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span>${CP.length > 1 ? `<span style="font-size:40px;color:var(--mu)"> ${k + 1}/${CP.length}</span>` : ''}</h2>
+${pg.map(([nm, items]) => `<div class="cg"><h3>${esc(nm)}</h3><ul>${items.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>`).join('')}
+${foot(N - 1 - T.length - CP.length + k)}`, 1350, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
 
 // 내신 9등급 vs 5등급
 slides.push(page(gradeSlide(), 1350));
@@ -186,7 +187,7 @@ slides.push(page(gradeSlide(), 1350));
 T.forEach((t, i) => slides.push(page(`${top()}
 <h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}
 ${t.blocks.map(b => `${b.cap ? `<div class="tcap">${esc(b.cap)}</div>` : ''}<table class="tb${t.dense ? ' dense' : ''}"><tr>${b.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>
-${b.rows.map((r, ri) => `<tr class="${b.hlRow === ri ? 'hr' : ''}">${r.map((c, ci) => `<td class="${(b.hl || []).includes(ci) ? 'h' : ''}${ci === 0 ? ' c0' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`).join('')}
+${b.rows.map((r, ri) => `<tr class="${b.hlRow === ri ? 'hr' : ''}">${r.map((c, ci) => `<td class="${((b.hl || []).includes(ci) || /→/.test(c)) ? 'h' : ''}${ci === 0 ? ' c0' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`).join('')}
 ${t.notes?.length ? `<ul class="tn">${t.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
 ${foot(N - 1 - T.length + i + 1)}`, 1350)));
 
@@ -229,14 +230,14 @@ ${x.tracks.map(t => `### ${t.when} ${t.name} — ${t.n}명
 ${d.depts.map(x => `**${x.name}**\n${x.changes.map(c => `- ${c}`).join('\n')}`).join('\n\n')}
 ${d.common?.length ? `\n**공통**\n${d.common.map(c => `- ${c}`).join('\n')}` : ''}
 
-[이미지: post-${N - 2 - T.length}.jpg]
+[이미지: post-${N - 1 - T.length - CP.length}.jpg]
 
 ## 내신 9등급 vs 5등급
 ${d.year}학년도 수험생(2025년 고1 입학생)부터 내신이 5등급 상대평가로 바뀝니다.
 - 1등급: 상위 4% → 상위 10%
 - 2등급까지: 누적 11% → 34%
 - 3등급까지: 누적 23% → 66%
-- 졸업생(N수생)은 9등급 성적이라, 대학마다 따로 환산합니다.
+${d.gradeNote ? `- ${d.gradeNote}` : ''}
 ${d.grades && d.grades.five ? `\n${d.short} ${d.year} 내신 등급별 점수(5등급): ${d.grades.five.join(' / ')}${d.grades.nine ? `\n9등급(졸업생): ${d.grades.nine.join(' / ')}` : ''}` : ''}
 
 [이미지: post-${N - 1 - T.length}.jpg]
