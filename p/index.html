@@ -5926,4 +5926,17 @@ html:not(#_a):not(#_b) body .pkl button.on *{color:#fff!important}
 </style><script>(function(){var C=document.getElementById('tone').textContent;
 function sh(){var h=document.getElementById('v-ipsi');var r=h&&h.shadowRoot;if(r&&!r.getElementById('tone2')){var s=document.createElement('style');s.id='tone2';var x=C.replace(/html:not\(#_a\):not\(#_b\) body /g,'').replace(/html:not\(#_a\):not\(#_b\) /g,'').replace(/html:root,html\[data-theme\]/,':host');s.textContent=x+'.card,.cd,.it,.row,.pl,[class*="card"],[class*="item"]{border-radius:2px!important;border:0!important;background:#f2f6f1!important}.chip,.tab,.pill,[class*="chip"]{border-radius:2px!important}';r.appendChild(s)}}
 function dark(){try{document.querySelectorAll('span,small,b,div,button').forEach(function(e){var x=(e.firstChild&&e.firstChild.nodeType==3?e.firstChild.nodeValue:'').trim();if(x.indexOf('수능까지')===0||x.indexOf('정보 릴스')===0){var p=e.closest('button,a,div');if(p&&p.offsetHeight<130)p.classList.add('darkb')}});document.querySelectorAll('button,a,div,section').forEach(function(e){if(e.id==='sx'||e.closest('#sx')||e.closest('canvas'))return;var cs=getComputedStyle(e),m=cs.backgroundColor.match(/\d+/g);if(!m||(m[3]==='0'))return;var r=+m[0],g=+m[1],b=+m[2];if(r<45&&g<60&&b<75&&!(r<10&&g>40)&&e.offsetHeight<130&&e.offsetHeight>30){e.classList.add('darkb')}if(r<20&&g>90&&g<160&&b>30&&b<90&&e.offsetHeight>24){e.classList.add('darkg')}})}catch(x){}}
-new MutationObserver(function(){sh()}).observe(document.documentElement,{childList:true,subtree:true});setInterval(function(){sh();dark()},900);sh()})()</script></body></html>
+new MutationObserver(function(){sh()}).observe(document.documentElement,{childList:true,subtree:true});setInterval(function(){sh();dark()},900);sh()})()</script><style id="pc">@media(min-width:1000px){
+html:not(#_a):not(#_b) body.dsk{max-width:1240px!important;padding-left:32px!important;padding-right:32px!important}
+html:not(#_a):not(#_b) body.dsk .sx-top{display:none!important}
+html:not(#_a):not(#_b) body.dsk #v-home:not([hidden]){display:grid!important;grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:28px;row-gap:16px;align-items:start}
+html:not(#_a):not(#_b) body.dsk #v-home>*{grid-column:2}
+html:not(#_a):not(#_b) body.dsk #v-home>.hmt{grid-column:1/-1}
+html:not(#_a):not(#_b) body.dsk #v-home>#todayc{grid-column:1;grid-row:2/span 6}
+html:not(#_a):not(#_b) body.dsk #v-cal:not([hidden]){display:grid!important;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:28px;row-gap:12px;align-items:start}
+html:not(#_a):not(#_b) body.dsk #v-cal>*{grid-column:1}
+html:not(#_a):not(#_b) body.dsk #v-cal>.sx-h1,html:not(#_a):not(#_b) body.dsk #v-cal>.sx-sub,html:not(#_a):not(#_b) body.dsk #v-cal>.pk-row{grid-column:1/-1}
+html:not(#_a):not(#_b) body.dsk #v-cal>#clbox{grid-column:2;grid-row:4/span 4}
+html:not(#_a):not(#_b) body.dsk #tiles{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+html:not(#_a):not(#_b) body.dsk .sx-search{max-width:520px}
+}</style></body></html>
