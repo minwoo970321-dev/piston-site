@@ -1,4 +1,7 @@
-/today /class/index.html 200
-/schedule /class/index.html 200
-/ipsi /class/index.html 200
-/lib /class/index.html 200
+/class /today 301!
+/class/ /today 301!
+/class/index.html /today 301!
+/today /p/index.html 200
+/schedule /p/index.html 200
+/ipsi /p/index.html 200
+/lib /p/index.html 200
