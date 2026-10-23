@@ -1,37 +1,37 @@
 [
- {
-  "date": "2026-10-23",
-  "slug": "inu-susi",
-  "school": "인천대학교 수시",
-  "approved": false,
-  "note": "2026-10-22 21:30 Metricool로 게시 예약됨(중복 방지로 자동게시 보류)"
- },
- {
-  "date": "2026-10-23",
-  "slug": "inu-jeongsi",
-  "school": "인천대학교 정시",
-  "approved": false,
-  "note": "2026-10-23 16:00 Metricool로 게시 예약됨(중복 방지로 자동게시 보류)"
- },
- {
-  "date": "2026-10-24",
-  "slug": "gachon-susi",
-  "school": "가천대학교 수시",
-  "approved": false,
-  "note": "검수 통과 · 2026-10-24 01:58 Metricool로 게시(중복 방지로 자동게시 보류)"
- },
- {
-  "date": "2026-10-24",
-  "slug": "kgu-susi",
-  "school": "경기대학교 수시",
-  "approved": false,
-  "note": "검수 통과 · 2026-10-24 12:00 Metricool로 게시 예약(중복 방지로 자동게시 보류)"
- },
- {
-  "date": "2026-10-25",
-  "slug": "dankook-cheonan-susi",
-  "school": "단국대학교(천안) 수시",
-  "approved": false,
-  "note": "카드 9장+스토리 완성 · 공식 로고 반영 · 원문 대조 수정 완료 · 독립 검수 진행 중 · 미예약 · 충남(천안)이라 수도권 예약 순서와 별도"
- }
+  {
+    "date": "2026-10-23",
+    "slug": "inu-susi",
+    "school": "인천대학교 수시",
+    "approved": false,
+    "note": "2026-10-22 21:30 Metricool로 게시 예약됨(중복 방지로 자동게시 보류)"
+  },
+  {
+    "date": "2026-10-23",
+    "slug": "inu-jeongsi",
+    "school": "인천대학교 정시",
+    "approved": false,
+    "note": "2026-10-23 16:00 Metricool로 게시 예약됨(중복 방지로 자동게시 보류)"
+  },
+  {
+    "date": "2026-10-24",
+    "slug": "gachon-susi",
+    "school": "가천대학교 수시",
+    "approved": false,
+    "note": "검수 통과 · 2026-10-24 01:58 Metricool로 게시(중복 방지로 자동게시 보류)"
+  },
+  {
+    "date": "2026-10-24",
+    "slug": "kgu-susi",
+    "school": "경기대학교 수시",
+    "approved": false,
+    "note": "검수 통과 · 2026-10-24 12:00 Metricool로 게시 예약(중복 방지로 자동게시 보류)"
+  },
+  {
+    "date": "2026-10-25",
+    "slug": "dankook-cheonan-susi",
+    "school": "단국대학교(천안) 수시",
+    "approved": false,
+    "note": "카드 9장+스토리 완성 · 공식 로고 · 원문 대조 · 독립 검수 지적 수정 완료 · 미예약(충남이라 수도권 순서와 별도)"
+  }
 ]

@@ -38,7 +38,8 @@ if (MODE) {
 }
 const LBL = MODE ? MODE[0] : '수시·정시';
 const G = (d.noGrade || d.hideGrade) ? 0 : 1;
-const cnt = x => MODE ? `${LBL} ${total(x, LBL)}명` : `수시 ${total(x, '수시')}명 · 정시 ${total(x, '정시')}명`;
+const TAG = d.cntTag || '';
+const cnt = x => MODE ? `${LBL}${TAG} ${total(x, LBL)}명` : `수시 ${total(x, '수시')}명 · 정시 ${total(x, '정시')}명`;
 mkdirSync(OUT, { recursive: true });
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -188,7 +189,7 @@ slides.push(page(`${top()}
 <div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형</div>
 <h1 class="big">${esc(d.short)}</h1>
 <div class="sub"><span class="hl">${d.depts.length}개 학과</span> ${LBL} 한 번에</div>
-<div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}</em>`).join('')}</div>
+<div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
 ${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
 <div class="swipe">넘기면 학과별 반영비율·실기종목 →</div>
 ${foot(1)}`, 1350, 'cover'));
