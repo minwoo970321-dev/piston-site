@@ -14,10 +14,17 @@
   "note": "2026-10-23 16:00 Metricool로 게시 예약됨(중복 방지로 자동게시 보류)"
  },
  {
-  "date": "2026-10-23",
+  "date": "2026-10-24",
   "slug": "gachon-susi",
   "school": "가천대학교 수시",
   "approved": false,
-  "note": "검수 통과 · 2026-10-23 Metricool로 즉시 게시(중복 방지로 자동게시 보류)"
+  "note": "검수 통과 · 2026-10-24 01:58 Metricool로 게시(중복 방지로 자동게시 보류)"
+ },
+ {
+  "date": "2026-10-24",
+  "slug": "kgu-susi",
+  "school": "경기대학교 수시",
+  "approved": false,
+  "note": "검수 통과 · 2026-10-24 12:00 Metricool로 게시 예약(중복 방지로 자동게시 보류)"
  }
 ]
