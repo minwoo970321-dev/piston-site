@@ -26,5 +26,12 @@
   "school": "경기대학교 수시",
   "approved": false,
   "note": "검수 통과 · 2026-10-24 12:00 Metricool로 게시 예약(중복 방지로 자동게시 보류)"
+ },
+ {
+  "date": "2026-10-25",
+  "slug": "dankook-cheonan-susi",
+  "school": "단국대학교(천안) 수시",
+  "approved": false,
+  "note": "카드 초안 완료 · 로고 대기 · 팩트체크 전 · 미예약 (다음 작업자는 이 학교를 새로 만들지 말고 이어서 진행)"
  }
 ]
