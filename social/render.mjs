@@ -37,7 +37,7 @@ if (MODE) {
   d.noGrade = LB === '정시'; // 내신 9등급 vs 5등급·내신 환산표는 수시 실기우수자 환산에 쓰이므로 수시에만 둠
 }
 const LBL = MODE ? MODE[0] : '수시·정시';
-const G = d.noGrade ? 0 : 1;
+const G = (d.noGrade || d.hideGrade) ? 0 : 1;
 const cnt = x => MODE ? `${LBL} ${total(x, LBL)}명` : `수시 ${total(x, '수시')}명 · 정시 ${total(x, '정시')}명`;
 mkdirSync(OUT, { recursive: true });
 
@@ -288,7 +288,7 @@ ${(t.notes || []).map(n => `\n※ ${n}`).join('')}
 
 [이미지: post-${N}.jpg]
 
-> 출처: ${d.source} (${ymd} 확인). 세부 사항은 대학 모집요강 발표 후 다시 확인하세요.
+> 출처: ${d.source} (${ymd} 확인). 세부 사항은 대학 모집요강으로 최종 확인하세요.
 
 추천 태그: #${d.short}체대입시 #${d.short}${d.depts[0].name} #${d.year}체대입시 #체대입시 #체대실기 #안산체대입시 #시흥체대입시 #배곧체대입시 #안산시흥피스톤 #피스톤체대입시 #${d.short}실기
 `;
