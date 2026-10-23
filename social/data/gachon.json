@@ -567,5 +567,6 @@
    ]
   }
  ],
- "hideGrade": true
+ "hideGrade": true,
+ "logo": "schools/gachon.png"
 }
