@@ -3,7 +3,8 @@
  "school": "경기대학교",
  "short": "경기대",
  "region": "경기",
- "year": 2028, "logo": "schools/kgu.png",
+ "year": 2028,
+ "logo": "schools/kgu.png",
  "source": "경기대학교 2028학년도 대학입학전형 시행계획 · 2027학년도 정시모집요강",
  "checked": "2026-10-24",
  "hideGrade": true,
@@ -94,7 +95,7 @@
  "common": [],
  "tables": [
   {
-   "title": "경호보안학과 실기 채점표",
+   "title": "경호보안학과 배점표",
    "sub": "2027학년도 정시모집요강 기준 · 종목별 100점",
    "only": "정시",
    "dense": true,
@@ -244,7 +245,7 @@
    ]
   },
   {
-   "title": "스포츠과학부 실기 채점표",
+   "title": "스포츠과학부 배점표",
    "sub": "2027학년도 정시모집요강 기준 · 종목별 100점",
    "only": "정시",
    "dense": true,
