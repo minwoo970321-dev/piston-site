@@ -1,7 +1,7 @@
 {
  "slug": "dankook-cheonan",
  "school": "단국대학교(천안캠퍼스)",
- "short": "단국대(천안)",
+ "short": "단국대",
  "region": "충남",
  "year": 2028,
  "cntTag": " 실기우수자",
@@ -516,5 +516,6 @@
   }
  ],
  "hideGrade": true,
- "logo": "schools/dankook-cheonan.png"
+ "logo": "schools/dankook-cheonan.png",
+ "campus": "천안캠퍼스"
 }

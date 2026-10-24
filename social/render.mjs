@@ -186,7 +186,7 @@ const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} �
 
 // 1 표지
 slides.push(page(`${top()}
-<div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형</div>
+<div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형${d.campus ? ' · ' + esc(d.campus) : ''}</div>
 <h1 class="big">${esc(d.short)}</h1>
 <div class="sub"><span class="hl">${d.depts.length}개 학과</span> ${LBL} 한 번에</div>
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
@@ -234,7 +234,7 @@ slides.push(page(`${top()}
 
 // 스토리
 const story = page(`${top()}
-<div class="kick">${d.year} 실기전형 요약</div>
+<div class="kick">${d.year} 실기전형 요약${d.campus ? ' · ' + esc(d.campus) : ''}</div>
 <h1 class="big">${esc(d.short)}</h1>
 <div class="sd">${d.depts.map(x => `<div><h4>${esc(x.name)}<span>${cnt(x)}</span></h4>
 <p>${x.tracks.map(t => `${esc(t.when.split(' ')[0])}: ${t.events.map(e => esc(e[0])).join(' · ')}`).join('<br>')}</p></div>`).join('')}</div>
