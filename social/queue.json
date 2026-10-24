@@ -47,5 +47,12 @@
   "school": "용인대학교 수시",
   "approved": false,
   "note": "검수 통과(지적 2건 수정) · 2026-10-25 12:00 Metricool 게시 예약(스토리 12:02) · 중복 방지로 자동게시 보류"
+ },
+ {
+  "date": "2026-10-25",
+  "slug": "yongin-jeongsi-jeongsi",
+  "school": "용인대학교 정시",
+  "approved": false,
+  "note": "검수 통과(인원 변동 문구 보완) · 2026-10-25 21:00 Metricool 게시 예약(스토리 21:02) · 중복 방지로 자동게시 보류"
  }
 ]
