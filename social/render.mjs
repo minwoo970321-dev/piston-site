@@ -191,7 +191,7 @@ slides.push(page(`${top()}
 <div class="sub"><span class="hl">${d.depts.length}개 ${d.unitLabel || "학과"}</span> ${LBL} 한 번에</div>
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
 ${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
-<div class="swipe">넘기면 학과별 반영비율·실기종목 →</div>
+<div class="swipe">넘기면 학과별 반영비율·변경점 →</div>
 ${foot(1)}`, 1350, 'cover'));
 
 // 학과별
@@ -317,7 +317,7 @@ else writeFileSync(resolve(OUT, 'caption.txt'),
 `${d.year} ${d.short} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형 한 번에 📌
 ${d.depts.map(x => `▪️ ${x.name} ${cnt(x)}`).join('\n')}
 
-넘겨서 학과별 반영비율·실기종목·2027 대비 변경점 확인하세요.
+넘겨서 학과별 반영비율·2027 대비 변경점 확인하세요.
 안산시흥피스톤 · 상담·등록신청은 프로필 링크(홈페이지)에서.
 
 출처: ${d.source} (${ymd} 확인)
