@@ -188,7 +188,7 @@ const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} �
 slides.push(page(`${top()}
 <div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형${d.campus ? ' · ' + esc(d.campus) : ''}</div>
 <h1 class="big">${esc(d.short)}</h1>
-<div class="sub"><span class="hl">${d.depts.length}개 학과</span> ${LBL} 한 번에</div>
+<div class="sub"><span class="hl">${d.depts.length}개 ${d.unitLabel || "학과"}</span> ${LBL} 한 번에</div>
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
 ${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
 <div class="swipe">넘기면 학과별 반영비율·실기종목 →</div>
@@ -284,7 +284,7 @@ ${(t.notes || []).map(n => `\n※ ${n}`).join('')}
 [이미지: post-${N - T.length + i}.jpg]`).join('\n\n')}
 
 ## 안산시흥피스톤 안내
-안산시흥피스톤(안산 고잔·시흥 배곧·시흥 장현)은 ${d.short} 실기 종목을 배점표 기준으로 측정하고 점수로 관리합니다. 상담과 등록신청은 홈페이지에서 할 수 있어요.
+안산시흥피스톤(안산 고잔·시흥 배곧·시흥 장현)은 ${d.short} 실기 종목을 측정하고 기록으로 관리합니다. 상담과 등록신청은 홈페이지에서 할 수 있어요.
 👉 https://${SITE}
 
 [이미지: post-${N}.jpg]
