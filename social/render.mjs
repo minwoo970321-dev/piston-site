@@ -106,7 +106,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .gt{width:100%;border-collapse:collapse;margin-top:12px;font-size:24px;text-align:center}.gt th,.gt td{border:1px solid var(--ln);padding:8px 4px}.gt th{background:#fff;color:var(--mu);font-weight:700}.gt td{font-weight:800}
 .ctight h2{font-size:72px!important;margin-top:32px!important}.ctight .cg{margin-top:26px}.ctight .cg h3{font-size:30px;padding-bottom:8px}.ctight .cg li{font-size:27px;padding:9px 0 9px 36px}.ctight .cg li:before{top:19px;width:16px;height:16px}
 /* tables */
-.ttl{font-size:72px;margin-top:34px}.tsub{font-size:26px;font-weight:700;color:var(--g);margin-top:12px}
+.ttl{font-size:72px;margin-top:34px;max-width:780px}.tsub{font-size:26px;font-weight:700;color:var(--g);margin-top:12px}
 .tcap{font-size:28px;font-weight:900;color:var(--dk);margin:30px 0 10px}
 .tb{width:100%;border-collapse:collapse;margin-top:22px;font-size:27px}.tcap+.tb{margin-top:0}
 .tb th{background:var(--dk);color:#fff;font-weight:800;padding:12px 8px;font-size:23px}
