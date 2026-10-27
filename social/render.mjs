@@ -124,7 +124,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .tb td{padding:8px 8px;text-align:center;border-bottom:1px solid var(--ln);font-weight:600}
 .tb td.c0{font-weight:800;text-align:center}.tb td.h{font-weight:900;color:var(--g)}
 .tb tr.hr td{background:var(--bg);font-weight:900;color:var(--dk)}
-.tb.xdense{font-size:20px}.tb.xdense td{padding:1px 6px;line-height:1.25}.tb.xdense th{padding:5px 6px;font-size:19px;line-height:1.2}.tb.dense{font-size:23px}.tb.dense td{padding:4px 8px}.tb.dense th{padding:9px 8px}
+.tb.xdense{font-size:20px}.tb.xdense td{padding:1px 6px;line-height:1.25}.tb.xdense th{padding:5px 6px;font-size:19px;line-height:1.2}.tb.xxdense{font-size:19px}.tb.xxdense td{padding:0 6px;line-height:1.2}.tb.xxdense th{padding:4px 6px;font-size:18px;line-height:1.2}.tb.dense{font-size:23px}.tb.dense td{padding:4px 8px}.tb.dense th{padding:9px 8px}
 .tb tr:nth-child(odd) td{background:#fafcfa}
 .tn{margin-top:20px;list-style:none}.tn li{font-size:22px;color:var(--mu);font-weight:600;padding:3px 0 3px 22px;position:relative;line-height:1.45}.tn li:before{content:"※";position:absolute;left:0}
 /* changes */
@@ -230,7 +230,7 @@ if (G) slides.push(page(gradeSlide(), 1350));
 // 표 장 (시행계획 세부 규정)
 T.forEach((t, i) => slides.push(page(`${top()}
 <h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}
-${t.blocks.map(b => `${b.cap ? `<div class="tcap">${esc(b.cap)}</div>` : ''}<table class="tb${t.dense === 'x' ? ' xdense' : t.dense ? ' dense' : ''}"><tr>${b.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>
+${t.blocks.map(b => `${b.cap ? `<div class="tcap">${esc(b.cap)}</div>` : ''}<table class="tb${t.dense === 'xx' ? ' xxdense' : t.dense === 'x' ? ' xdense' : t.dense ? ' dense' : ''}"><tr>${b.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>
 ${b.rows.map((r, ri) => `<tr class="${b.hlRow === ri ? 'hr' : ''}">${r.map((c, ci) => `<td class="${((b.hl || []).includes(ci) || /→/.test(c)) ? 'h' : ''}${ci === 0 ? ' c0' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`).join('')}
 ${t.notes?.length ? `<ul class="tn">${t.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
 ${foot(N - 1 - T.length + i + 1)}`, 1350)));
@@ -248,7 +248,7 @@ const story = page(`${top()}
 <div class="kick">${d.year} 실기전형 요약${d.campus ? ' · ' + esc(d.campus) : ''}</div>
 <h1 class="big"${d.short.length>3?' style="font-size:165px"':''}>${esc(d.short)}</h1>
 <div class="sd">${d.depts.map(x => `<div><h4>${esc(x.name)}<span>${cnt(x)}</span></h4>
-<p>${x.tracks.map(t => `${esc(t.when.split(' ')[0])}: ${t.events.map(e => esc(e[0])).join(' · ')}`).join('<br>')}</p></div>`).join('')}</div>
+<p>${x.tracks.map(t => `${esc(t.when.split(' ')[0])}: ${t.events.length ? t.events.map(e => esc(e[0])).join(' · ') : t.parts.map(([k, v]) => `${esc(k)} ${v}%`).join(' + ')}`).join('<br>')}</p></div>`).join('')}</div>
 ${d.evNote ? `<p style="font-size:26px;color:#6b7a70;margin:10px 0 0">${esc(d.evNote)}</p>` : ''}
 <div class="cta"><span>반영비율·변경점은 게시물에서</span><b>↓</b></div>
 <div class="foot" style="border:0;padding-top:18px"><span>출처 · ${esc(d.source)}</span><b>${ymd}</b></div>`, 1920, 'st');
@@ -259,15 +259,14 @@ const blog = `# ${d.year}학년도 ${d.school} 체육계열 ${MODE ? LBL + ' ' :
 ${d.short.startsWith(d.region) ? "" : d.region + " "}${d.short} 체대입시를 준비한다면, ${d.year}학년도 전형계획에서 꼭 볼 것만 정리했습니다.
 
 ## 결론 먼저
-${d.depts.map(x => `- **${x.name}**: ${cnt(x)} (${x.tracks.map(t => `${t.when.split(' ')[0]} ${t.events.map(e => e[0]).join('·')}`).join(' / ')})`).join('\n')}
+${d.depts.map(x => `- **${x.name}**: ${cnt(x)} (${x.tracks.map(t => `${t.when.split(' ')[0]} ${t.events.length ? t.events.map(e => e[0]).join('·') : t.parts.map(([k, v]) => `${k} ${v}%`).join(' + ')}`).join(' / ')})`).join('\n')}
 
 [이미지: post-1.jpg]
 
 ${d.depts.map((x, i) => `## ${x.name}
 ${x.tracks.map(t => `### ${t.when} ${t.name} — ${t.n}명
 - 반영비율: ${t.parts.map(([k, v]) => `${k} ${v}%`).join(' + ')} (${t.stage})
-- 실기종목: ${t.events.map(([e, p]) => `${e} ${p}`).join(', ')}
-- ${t.note}`).join('\n\n')}
+${t.events.length ? `- 실기종목: ${t.events.map(([e, p]) => `${e} ${p}`).join(', ')}\n` : ''}- ${t.note}`).join('\n\n')}
 
 [이미지: post-${i + 2}.jpg]`).join('\n\n')}
 
