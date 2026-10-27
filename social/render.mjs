@@ -91,6 +91,13 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .bar .on{background:var(--dk);color:#fff}.bar .on b{color:var(--lime)}
 .bar b{font-size:28px;font-weight:900}
 .stg{font-size:21px;color:var(--mu);margin-top:10px;font-weight:600}
+.rf{width:100%;border-collapse:collapse;margin-top:18px;border:2px solid var(--dk)}
+.rf th{background:var(--dk);color:var(--lime);font-size:26px;font-weight:800;padding:12px 18px;text-align:left}
+.rf th:last-child{text-align:right}
+.rf td{padding:15px 18px;border-top:1px solid var(--ln);font-size:30px;font-weight:700;color:var(--dk)}
+.rf td:first-child{background:#eef5ef;width:36%;font-weight:800}
+.rf td:last-child{text-align:right;font-weight:900;color:var(--g)}
+.tight .rf td{padding:11px 16px;font-size:28px}
 .ev{margin-top:14px}
 .ev div{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--ln);font-size:31px;font-weight:700}
 .ev b{font-size:33px;font-weight:900;color:var(--g)}
@@ -201,7 +208,7 @@ d.depts.forEach((x, i) => {
 ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(t.when)}</span><span class="nm">${esc(t.name)}</span></div><div class="n">${t.n}<small>명</small></div></div>
 <div class="bar">${t.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
 <div class="stg">${esc(t.stage)}</div>
-<div class="ev">${(t.altEv || t.events).map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>
+${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
 ${MODE && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>` : ''}
 ${foot(i + 2)}`, 1350, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
