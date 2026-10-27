@@ -22,3 +22,12 @@
 - 캡션: data/caption-<slug>[-<mode>].txt 로 직접 쓴다 (out 폴더 이름 규칙은 render.mjs가 읽는 파일명 참고: caption-dankook-cheonan-susi.txt / caption-dankook-cheonan-jeongsi-jeongsi.txt). 형식: 첫 줄 "2028학년도 <대학> <수시|정시>, 이렇게 달라집니다 📌"(‘올해’ 금지) → 변경 3~4줄(전 → 후) → ✔️ 변동 없는 항목 → (정시) ※ 모집인원은 수시모집 등록결과에 따라 정시에서 변동될 수 있어요 → 한 줄 안내 + 🔖 저장 유도 + '안산시흥피스톤 · 상담·등록신청은 프로필 링크에서' → 출처 줄 → 해시태그 13개 내외. 원문에 없는 평가·추측 표현 금지. 작성 후 out/<dir>/caption.txt 에 복사(다시 렌더하면 자동 반영됨).
 - 완료 후: git add/commit/push (커밋 끝에 `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` 와 `Claude-Session: https://claude.ai/code/session_01EGTn7G8nWP1yv5M2jqmoFb`). push 후 Metricool 미디어 URL: https://raw.githubusercontent.com/minwoo970321-dev/piston-site/main/social/out/<dir>/post-N.jpg
 - 팩트체크는 만든 쪽이 아닌 별도 에이전트가 한다 (만든 쪽은 하지 않는다). 대신 보고에 '원문 쪽수 근거 목록'을 포함.
+
+## 토큰 절약 규칙 (필수, 정확도는 낮추지 않음)
+- 이미지 열람: 표지·수정한 장만 Read. 나머지는 render.mjs 넘침 경고로 판단. 팩트체크 에이전트만 전 장 열람.
+- 팩트체크: 학교·모드당 1회. 불합격이면 고친 항목만 재검수(서브에이전트 재사용 SendMessage). 전체 재검수는 변경 범위가 클 때만.
+- 서브에이전트: 카드 제작·검수 외 목적으로 띄우지 않는다. 같은 학교 작업을 중복 실행하지 않는다.
+- PDF: 필요한 페이지만 getTextContent. window.TXT 에 올라온 텍스트 재사용, 같은 PDF를 두 번 로드하지 않는다.
+- 로고: 사용자가 준 교표 이미지 우선(원형 인장은 링 포함 전체). 없으면 만들기 전에 사용자에게 요청(반복 시도 금지).
+- 캡션·Metricool: 캡션 파일을 한 번만 읽어 그대로 사용. 예약 응답 전문을 다시 출력하지 않는다.
+- 보고: 중간 보고 최소화, 최종에 예약 목록·미완료 목록만.
