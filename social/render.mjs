@@ -238,7 +238,7 @@ const story = page(`${top()}
 <h1 class="big">${esc(d.short)}</h1>
 <div class="sd">${d.depts.map(x => `<div><h4>${esc(x.name)}<span>${cnt(x)}</span></h4>
 <p>${x.tracks.map(t => `${esc(t.when.split(' ')[0])}: ${t.events.map(e => esc(e[0])).join(' · ')}`).join('<br>')}</p></div>`).join('')}</div>
-<div class="cta"><span>반영비율·배점은 게시물에서</span><b>↓</b></div>
+<div class="cta"><span>반영비율·변경점은 게시물에서</span><b>↓</b></div>
 <div class="foot" style="border:0;padding-top:18px"><span>출처 · ${esc(d.source)}</span><b>${ymd}</b></div>`, 1920, 'st');
 
 // 블로그 글
