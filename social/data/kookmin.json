@@ -7,6 +7,7 @@
  "source": "국민대학교 2028학년도 대학입학전형 시행계획",
  "checked": "2026-10-24",
  "hideGrade": true,
+ "logo": "schools/kookmin.png",
  "depts": [
   {
    "name": "스포츠교육학과",
