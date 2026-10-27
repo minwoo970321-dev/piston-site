@@ -67,7 +67,7 @@
  "tables": [
   {
    "title": "스포츠과학부 배점표",
-   "sub": "값은 시작 기록",
+   "sub": "",
    "only": "정시",
    "dense": "x",
    "blocks": [
