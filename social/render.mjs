@@ -187,7 +187,7 @@ const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} �
 // 1 표지
 slides.push(page(`${top()}
 <div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형${d.campus ? ' · ' + esc(d.campus) : ''}</div>
-<h1 class="big">${esc(d.short)}</h1>
+<h1 class="big"${d.short.length>3?' style="font-size:170px"':''}>${esc(d.short)}</h1>
 <div class="sub"><span class="hl">${d.depts.length}개 ${d.unitLabel || "학과"}</span> ${LBL} 한 번에</div>
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
 ${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
@@ -235,16 +235,17 @@ slides.push(page(`${top()}
 // 스토리
 const story = page(`${top()}
 <div class="kick">${d.year} 실기전형 요약${d.campus ? ' · ' + esc(d.campus) : ''}</div>
-<h1 class="big">${esc(d.short)}</h1>
+<h1 class="big"${d.short.length>3?' style="font-size:165px"':''}>${esc(d.short)}</h1>
 <div class="sd">${d.depts.map(x => `<div><h4>${esc(x.name)}<span>${cnt(x)}</span></h4>
 <p>${x.tracks.map(t => `${esc(t.when.split(' ')[0])}: ${t.events.map(e => esc(e[0])).join(' · ')}`).join('<br>')}</p></div>`).join('')}</div>
+${d.evNote ? `<p style="font-size:26px;color:#6b7a70;margin:10px 0 0">${esc(d.evNote)}</p>` : ''}
 <div class="cta"><span>반영비율·변경점은 게시물에서</span><b>↓</b></div>
 <div class="foot" style="border:0;padding-top:18px"><span>출처 · ${esc(d.source)}</span><b>${ymd}</b></div>`, 1920, 'st');
 
 // 블로그 글
 const blog = `# ${d.year}학년도 ${d.school} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형 정리 (${d.depts.map(x => x.name).join('·')})
 
-${d.region} ${d.short} 체대입시를 준비한다면, ${d.year}학년도 전형계획에서 꼭 볼 것만 정리했습니다.
+${d.short.startsWith(d.region) ? "" : d.region + " "}${d.short} 체대입시를 준비한다면, ${d.year}학년도 전형계획에서 꼭 볼 것만 정리했습니다.
 
 ## 결론 먼저
 ${d.depts.map(x => `- **${x.name}**: ${cnt(x)} (${x.tracks.map(t => `${t.when.split(' ')[0]} ${t.events.map(e => e[0]).join('·')}`).join(' / ')})`).join('\n')}
