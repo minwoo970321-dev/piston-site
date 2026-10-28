@@ -76,6 +76,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .dl em{font-style:normal;text-align:right;font-size:26px;color:var(--mu);font-weight:600}
 .dl em b{font-size:52px;font-weight:900;color:var(--dk);letter-spacing:-1px;margin-left:8px}
 .dl.one div{grid-template-columns:1fr 200px}.dl .h{padding:0 0 12px;border:0}.dl .h em{font-size:22px;font-weight:700;color:var(--g)}
+.cover .bd{align-self:flex-start;display:inline-block;margin-top:30px;font-size:34px;font-weight:900;color:var(--dk);background:var(--lime);padding:10px 22px;border-radius:10px}.cover .dl{margin-top:44px}.cover .dl div{padding:30px 0}.cover .dl span{font-size:54px}.cover .dl em b{font-size:74px}.cover .swipe{margin-top:34px;font-size:32px}
 .swipe{margin-top:34px;font-size:26px;font-weight:700;color:var(--g)}
 /* dept */
 .dn{font-size:96px;margin-top:44px}
@@ -108,6 +109,17 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .rm .ch p{margin:0;font-size:36px;font-weight:800;line-height:1.35;text-align:center;width:100%}
 .rm.r3{gap:14px;margin-top:22px}.rm.r3 .cd{padding:18px 30px}.rm.r3 .hd b{font-size:44px}.rm.r3 .ch{margin-top:12px;padding-top:12px}.rm.r3 .ch strong{font-size:52px}.rm.r3 .ch p{font-size:32px}
 .rm .tg{font-style:normal;font-size:34px;font-weight:900;letter-spacing:-1px;color:var(--dk);background:var(--lime);padding:4px 16px;border-radius:8px;margin-left:18px;position:relative;top:-6px}
+.sm{margin-top:26px;display:flex;flex-direction:column;gap:20px}
+.sm .cd{border:2px solid var(--dk);border-radius:14px;padding:24px 30px}
+.sm .hd{display:flex;align-items:baseline;justify-content:space-between}
+.sm .hd b{font-size:50px;font-weight:900;letter-spacing:-2px}.sm .hd span{font-size:28px;font-weight:800;color:var(--g)}
+.sm .bar{margin-top:14px;height:50px}
+.sm .rw{display:flex;gap:16px;align-items:center;margin-top:14px}
+.sm .rw em{flex:0 0 74px;font-style:normal;font-size:26px;font-weight:900;color:#fff;background:var(--dk);text-align:center;padding:6px 0;border-radius:6px}
+.sm .rw p{margin:0;font-size:32px;font-weight:800;letter-spacing:-1px}
+.sm .rw p i{font-style:normal;font-size:22px;font-weight:700;color:var(--mu);margin-left:6px}
+.sm .cg{margin-top:16px;padding-top:14px;border-top:2px solid var(--ln);display:flex;flex-wrap:wrap;gap:10px}
+.sm .cg span{font-size:26px;font-weight:800;background:var(--lime);color:var(--dk);padding:6px 14px;border-radius:8px}
 .rm .nt{font-size:25px;color:var(--mu);font-weight:600;line-height:1.5;margin:6px 4px 0}
 .sn td small{display:block;font-size:24px;font-weight:700;color:var(--tx);margin-top:8px;letter-spacing:-.5px;line-height:1.3}
 .sn td.no{font-size:30px;color:var(--mu);font-weight:700}
@@ -208,18 +220,23 @@ const slides = [];
 const T = d.tables || [];
 const SECS = [...d.depts.map(x => [x.name, x.changes]), ...(d.common?.length ? [['공통', d.common]] : [])];
 const CP = []; if (!MODE) { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > (MODE ? 15 : 12)) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
-const N = d.depts.length + 2 + G + CP.length + T.length;
+const S = d.summary ? 1 : 0;
+const N = S + d.depts.length + 2 + G + CP.length + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
+const smSlide = () => `<h2 class="ttl">한눈에 보기</h2><div class="tsub">${esc(d.short)} ${LBL} · ${d.year}학년도 시행계획</div><div class="sm">${d.summary.map(x => `<div class="cd"><div class="hd"><b>${esc(x.name)}</b><span>${esc(x.meta)}</span></div><div class="bar">${x.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div><div class="rw"><em>수능</em><p>${esc(x.su)}</p></div><div class="rw"><em>실기</em><p>${esc(x.sg)}${x.sgn ? `<i>${esc(x.sgn)}</i>` : ''}</p></div><div class="cg">${x.ch.map(c => `<span>${esc(c)}</span>`).join('')}</div></div>`).join('')}</div>`;
 // 1 표지
 slides.push(page(`${top()}
 <div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형${d.campus ? ' · ' + esc(d.campus) : ''}</div>
 <h1 class="big"${d.short.length>3?' style="font-size:170px"':''}>${esc(d.short)}</h1>
-<div class="sub"><span class="hl">${d.depts.length}개 ${d.unitLabel || "학과"}</span> ${LBL} 한 번에</div>
+<div class="sub"><span class="hl">${d.depts.length}개 ${d.unitLabel || "학과"}</span> ${LBL} 한 번에</div><div class="bd">${d.year}학년도 변경사항 총정리</div>
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
 ${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
 <div class="swipe">넘기면 학과별 반영비율·변경점 →</div>
 ${foot(1)}`, 1350, 'cover'));
+if (S) slides.push(page(`${top()}
+${smSlide()}
+${foot(2)}`, 1350));
 
 // 학과별
 d.depts.forEach((x, i) => {
@@ -231,14 +248,14 @@ ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(
 ${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
 ${MODE && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>` : ''}
-${foot(i + 2)}`, 1350, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
+${foot(i + 2 + S)}`, 1350, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
 });
 
 // 변경점 (항목이 많으면 여러 장)
 CP.forEach((pg, k) => slides.push(page(`${top()}
 <h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span>${CP.length > 1 ? `<span style="font-size:40px;color:var(--mu)"> ${k + 1}/${CP.length}</span>` : ''}</h2>
 ${pg.map(([nm, items]) => `<div class="cg"><h3>${esc(nm)}</h3><ul>${items.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>`).join('')}
-${foot(d.depts.length + 2 + k)}`, 1350, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
+${foot(d.depts.length + 2 + S + k)}`, 1350, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
 
 // 내신 9등급 vs 5등급
 if (G) slides.push(page(gradeSlide(), 1350));
@@ -286,13 +303,13 @@ ${x.tracks.map(t => `### ${t.when} ${t.name} — ${t.n}명
 - 반영비율: ${t.parts.map(([k, v]) => `${k} ${v}%`).join(' + ')} (${t.stage})
 ${t.events.length ? `- 실기종목: ${t.events.map(([e, p]) => `${e} ${p}`).join(', ')}\n` : ''}- ${t.note}`).join('\n\n')}
 
-[이미지: post-${i + 2}.jpg]`).join('\n\n')}
+[이미지: post-${i + 2 + S}.jpg]`).join('\n\n')}
 
 ## 2027학년도와 달라진 점
 ${d.depts.map(x => `**${x.name}**\n${x.changes.map(c => `- ${c}`).join('\n')}`).join('\n\n')}
 ${d.common?.length ? `\n**공통**\n${d.common.map(c => `- ${c}`).join('\n')}` : ''}
 
-${CP.map((_, k) => `[이미지: post-${d.depts.length + 2 + k}.jpg]`).join('\n')}
+${CP.map((_, k) => `[이미지: post-${d.depts.length + 2 + S + k}.jpg]`).join('\n')}
 
 ${G ? `## 내신 9등급 vs 5등급
 ${d.year}학년도 수험생(2025년 고1 입학생)부터 내신이 5등급 상대평가로 바뀝니다.
