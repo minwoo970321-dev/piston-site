@@ -1,5 +1,5 @@
 // 2028 전형계획 카드 렌더러: node social/render.mjs <slug>
-// 결과: social/out/<slug>/post-1.jpg … (1080x1350), story.jpg (1080x1920), blog.md
+// 결과: social/out/<slug>/post-1.jpg … (1080x1440), story.jpg (1080x1920), blog.md
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -233,10 +233,10 @@ slides.push(page(`${top()}
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
 ${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
 <div class="swipe">넘기면 학과별 반영비율·변경점 →</div>
-${foot(1)}`, 1350, 'cover'));
+${foot(1)}`, 1440, 'cover'));
 if (S) slides.push(page(`${top()}
 ${smSlide()}
-${foot(2)}`, 1350));
+${foot(2)}`, 1440));
 
 // 학과별
 d.depts.forEach((x, i) => {
@@ -248,17 +248,17 @@ ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(
 ${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
 ${MODE && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>` : ''}
-${foot(i + 2 + S)}`, 1350, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
+${foot(i + 2 + S)}`, 1440, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
 });
 
 // 변경점 (항목이 많으면 여러 장)
 CP.forEach((pg, k) => slides.push(page(`${top()}
 <h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span>${CP.length > 1 ? `<span style="font-size:40px;color:var(--mu)"> ${k + 1}/${CP.length}</span>` : ''}</h2>
 ${pg.map(([nm, items]) => `<div class="cg"><h3>${esc(nm)}</h3><ul>${items.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>`).join('')}
-${foot(d.depts.length + 2 + S + k)}`, 1350, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
+${foot(d.depts.length + 2 + S + k)}`, 1440, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
 
 // 내신 9등급 vs 5등급
-if (G) slides.push(page(gradeSlide(), 1350));
+if (G) slides.push(page(gradeSlide(), 1440));
 
 const rmChips = c => c.split(' · ').map(x => { if (x.includes('::')) { const [a, b] = x.split('::'); return `<div><em>${esc(a)}</em><strong style="font-size:44px;line-height:1.55">${esc(b)}</strong></div>`; } const m = x.match(/^(.*?)\s*([\d.,]+\s*(?:%|점)?)\s*(\([^)]*\))?$/); return m && m[1] && !/[×→−]/.test(x.replace(/\([^)]*\)/g, "")) ? `<div><em>${esc(m[1] + (m[3] ? ' ' + m[3] : ''))}</em><strong>${esc(m[2])}</strong></div>` : `<div><p>${esc(x)}</p></div>`; }).join('');
 const rmSlide = t => { const rows = t.blocks[0].rows; return `<h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}<div class="rm${rows.length > 2 ? ' r3' : ''}">${rows.map((r, i) => { const [pc, pt] = r[1].split(' · '); return `<div class="cd${i === 0 ? ' dk' : ''}"><div class="hd"><b>${esc(r[0])} ${esc(pc)}${t.tag2 && i === 1 ? `<i class="tg">${esc(t.tag2)}</i>` : ''}</b><span>${esc(pt || '')}</span></div><div class="ch">${rmChips(r[2])}</div></div>`; }).join('')}${t.notes?.length ? `<div class="nt">${t.notes.map(n => '※ ' + esc(n)).join('<br>')}</div>` : ''}</div>`; };
@@ -268,7 +268,7 @@ ${t.title === '정시 반영 방법' ? rmSlide(t) : `<h2 class="ttl">${esc(t.tit
 ${t.blocks.map(b => `${b.cap ? `<div class="tcap">${esc(b.cap)}</div>` : ''}<table class="tb${t.title==='정시 반영 방법'?' rfbig':''}${t.dense === 'xx' ? ' xxdense' : t.dense === 'x' ? ' xdense' : t.dense ? ' dense' : ''}"><tr>${b.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>
 ${b.rows.map((r, ri) => `<tr class="${b.hlRow === ri ? 'hr' : ''}">${r.map((c, ci) => `<td class="${((b.hl || []).includes(ci) || (t.title !== '정시 반영 방법' && /→/.test(c))) ? 'h' : ''}${ci === 0 ? ' c0' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`).join('')}
 ${t.notes?.length ? `<ul class="tn">${t.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}`}
-${foot(N - 1 - T.length + i + 1)}`, 1350)));
+${foot(N - 1 - T.length + i + 1)}`, 1440)));
 
 // 마무리
 slides.push(page(`${top()}
@@ -276,7 +276,7 @@ slides.push(page(`${top()}
 <div class="kk">PISTON</div>
 <h2>체대입시는<br><span class="pb">피스톤</span></h2>
 <div class="sl"><span>같은 성적,</span><span class="lm">다른 결과</span></div>
-<div class="foot"><span>세부 사항은 대학 모집요강으로 최종 확인하세요</span><b>${N} / ${N}</b></div>`, 1350, 'end'));
+<div class="foot"><span>세부 사항은 대학 모집요강으로 최종 확인하세요</span><b>${N} / ${N}</b></div>`, 1440, 'end'));
 
 // 스토리
 const story = page(`${top()}
@@ -352,7 +352,7 @@ async function shot(html, w, h, file) {
   if (over > 0) console.warn('넘침 경고', file, over + 'px');
   await p.screenshot({ path: resolve(OUT, file), type: 'jpeg', quality: 92, clip: { x: 0, y: 0, width: w, height: h } });
 }
-for (let i = 0; i < slides.length; i++) await shot(slides[i], 1080, 1350, `post-${i + 1}.jpg`);
+for (let i = 0; i < slides.length; i++) await shot(slides[i], 1080, 1440, `post-${i + 1}.jpg`);
 await shot(story, 1080, 1920, 'story.jpg');
 await browser.close();
 const { unlinkSync } = await import('node:fs'); unlinkSync(resolve(OUT, '_tmp.html'));
