@@ -19,7 +19,7 @@
 - 배점표: 학과별 한 장에 한 표(종목이 여러 개여도 한 표, dense:'x'로 행 압축), 제목 'OO학과 배점표', 구간 칸은 시작 기록만(예 295·293·291), 첫 행 '이하/이상', 마지막 행 '미만/이하' 원문 그대로. 부제에 '값은 시작 기록'. 배점표가 원문에 없으면 만들지 않고 '원문 미기재'.
 - 로고: 글자 없는 심볼만. 공식 로고 이미지는 해당 대학 PDF 표지/첫 쪽 이미지 또는 입학처 공식 페이지에서. 흰 배경 508x508, 여백 제거 후 가로형은 폭 480(또는 심볼만 높이 440), 엠블럼은 높이 400~440으로 맞춘다 (schools/*.png 참고). 파일은 schools/<school>.png.
 - 제목·부제는 로고에 가리지 않게(렌더에서 max-width 처리됨). 렌더 후 '넘침 경고'가 없어야 하고, post-*.jpg와 story.jpg를 모두 Read로 열어 잘림·겹침·글자 깨짐을 직접 확인한다.
-- 캡션: data/caption-<slug>[-<mode>].txt 로 직접 쓴다 (out 폴더 이름 규칙은 render.mjs가 읽는 파일명 참고: caption-dankook-cheonan-susi.txt / caption-dankook-cheonan-jeongsi-jeongsi.txt). 형식: 첫 줄 "2028학년도 <대학> <수시|정시>, 이렇게 달라집니다 📌"(‘올해’ 금지) → 변경 3~4줄(전 → 후) → ✔️ 변동 없는 항목 → (정시) ※ 모집인원은 수시모집 등록결과에 따라 정시에서 변동될 수 있어요 → 한 줄 안내 + 🔖 저장 유도 + '안산시흥피스톤 · 상담·등록신청은 프로필 링크에서' → 출처 줄 → 해시태그 13개 내외. 원문에 없는 평가·추측 표현 금지. 작성 후 out/<dir>/caption.txt 에 복사(다시 렌더하면 자동 반영됨).
+- 캡션: data/caption-<slug>[-<mode>].txt 로 직접 쓴다 (out 폴더 이름 규칙은 render.mjs가 읽는 파일명 참고: caption-dankook-cheonan-susi.txt / caption-dankook-cheonan-jeongsi-jeongsi.txt). 형식: 첫 줄 "2028학년도 <대학> <수시|정시>, 이렇게 달라집니다 📌"(‘올해’ 금지) → 변경 3~4줄(전 → 후) → ✔️ 변동 없는 항목 → (정시) ※ 모집인원은 수시모집 등록결과에 따라 정시에서 변동될 수 있어요 → 한 줄 안내 + 🔖 저장 유도 + '📢 안산시흥피스톤 예비반 모집중! + 📩 상담·등록은 DM 또는 ☎️ 010-3162-9399' → 출처 줄 → 해시태그 13개 내외. 원문에 없는 평가·추측 표현 금지. 작성 후 out/<dir>/caption.txt 에 복사(다시 렌더하면 자동 반영됨).
 - 완료 후: git add/commit/push (커밋 끝에 `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` 와 `Claude-Session: https://claude.ai/code/session_01EGTn7G8nWP1yv5M2jqmoFb`). push 후 Metricool 미디어 URL: https://raw.githubusercontent.com/minwoo970321-dev/piston-site/main/social/out/<dir>/post-N.jpg
 - 팩트체크는 만든 쪽이 아닌 별도 에이전트가 한다 (만든 쪽은 하지 않는다). 대신 보고에 '원문 쪽수 근거 목록'을 포함.
 
