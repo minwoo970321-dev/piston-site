@@ -242,7 +242,7 @@ ${foot(d.depts.length + 2 + k)}`, 1350, pg.reduce((a, x) => a + x[1].length, 0) 
 // 내신 9등급 vs 5등급
 if (G) slides.push(page(gradeSlide(), 1350));
 
-const rmChips = c => c.split(' · ').map(x => { const m = x.match(/^(.*?)\s*([\d.,]+\s*(?:%|점)?)\s*(\([^)]*\))?$/); return m && m[1] && !/[×→−]/.test(x) ? `<div><em>${esc(m[1] + (m[3] ? ' ' + m[3] : ''))}</em><strong>${esc(m[2])}</strong></div>` : `<div><p>${esc(x)}</p></div>`; }).join('');
+const rmChips = c => c.split(' · ').map(x => { if (x.includes('::')) { const [a, b] = x.split('::'); return `<div><em>${esc(a)}</em><strong style="font-size:44px;line-height:1.55">${esc(b)}</strong></div>`; } const m = x.match(/^(.*?)\s*([\d.,]+\s*(?:%|점)?)\s*(\([^)]*\))?$/); return m && m[1] && !/[×→−]/.test(x) ? `<div><em>${esc(m[1] + (m[3] ? ' ' + m[3] : ''))}</em><strong>${esc(m[2])}</strong></div>` : `<div><p>${esc(x)}</p></div>`; }).join('');
 const rmSlide = t => { const rows = t.blocks[0].rows; return `<h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}<div class="rm${rows.length > 2 ? ' r3' : ''}">${rows.map((r, i) => { const [pc, pt] = r[1].split(' · '); return `<div class="cd${i === 0 ? ' dk' : ''}"><div class="hd"><b>${esc(r[0])} ${esc(pc)}</b><span>${esc(pt || '')}</span></div><div class="ch">${rmChips(r[2])}</div></div>`; }).join('')}${t.notes?.length ? `<div class="nt">${t.notes.map(n => '※ ' + esc(n)).join('<br>')}</div>` : ''}</div>`; };
 // 표 장 (시행계획 세부 규정)
 T.forEach((t, i) => slides.push(page(`${top()}
