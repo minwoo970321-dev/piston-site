@@ -94,7 +94,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .sn{width:100%;border-collapse:collapse;margin-top:18px;border:2px solid var(--dk);table-layout:fixed}
 .sn th{background:var(--dk);color:var(--lime);font-size:30px;font-weight:800;padding:14px 8px;text-align:center;border-left:1px solid rgba(255,255,255,.25)}
 .sn td{padding:22px 8px;font-size:46px;font-weight:900;color:var(--g);text-align:center;border-left:1px solid var(--ln)}
-.rfbig td{font-size:38px;padding:40px 12px;font-weight:900}.rfbig td.c0{font-size:44px}.rfbig th{font-size:30px;padding:18px 12px}
+.rfbig td{font-size:38px;padding:40px 12px;font-weight:900}.rfbig td.c0{font-size:44px;white-space:nowrap}.rfbig td:nth-child(2){white-space:nowrap;font-size:34px}.rfbig th{font-size:30px;padding:18px 12px}
 .sn td small{display:block;font-size:24px;font-weight:700;color:var(--tx);margin-top:8px;letter-spacing:-.5px;line-height:1.3}
 .sn td.no{font-size:30px;color:var(--mu);font-weight:700}
 .rf{width:100%;border-collapse:collapse;margin-top:18px;border:2px solid var(--dk)}
