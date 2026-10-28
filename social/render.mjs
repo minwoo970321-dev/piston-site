@@ -94,6 +94,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .sn{width:100%;border-collapse:collapse;margin-top:18px;border:2px solid var(--dk);table-layout:fixed}
 .sn th{background:var(--dk);color:var(--lime);font-size:30px;font-weight:800;padding:14px 8px;text-align:center;border-left:1px solid rgba(255,255,255,.25)}
 .sn td{padding:22px 8px;font-size:46px;font-weight:900;color:var(--g);text-align:center;border-left:1px solid var(--ln)}
+.sn td small{display:block;font-size:24px;font-weight:700;color:var(--tx);margin-top:8px;letter-spacing:-.5px;line-height:1.3}
 .sn td.no{font-size:30px;color:var(--mu);font-weight:700}
 .rf{width:100%;border-collapse:collapse;margin-top:18px;border:2px solid var(--dk)}
 .rf th{background:var(--dk);color:var(--lime);font-size:26px;font-weight:800;padding:12px 18px;text-align:left}
@@ -117,7 +118,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .gt{width:100%;border-collapse:collapse;margin-top:12px;font-size:24px;text-align:center}.gt th,.gt td{border:1px solid var(--ln);padding:8px 4px}.gt th{background:#fff;color:var(--mu);font-weight:700}.gt td{font-weight:800}
 .ctight h2{font-size:72px!important;margin-top:32px!important}.ctight .cg{margin-top:26px}.ctight .cg h3{font-size:30px;padding-bottom:8px}.ctight .cg li{font-size:27px;padding:9px 0 9px 36px}.ctight .cg li:before{top:19px;width:16px;height:16px}
 /* tables */
-.ttl{font-size:72px;margin-top:34px;max-width:780px}.tsub{max-width:790px;font-size:26px;font-weight:700;color:var(--g);margin-top:12px}
+.ttl{font-size:68px;margin-top:26px;max-width:780px}.tsub{max-width:800px;font-size:34px;font-weight:900;letter-spacing:-1px;color:var(--g);margin-top:8px;line-height:1.2}
 .tcap{font-size:28px;font-weight:900;color:var(--dk);margin:30px 0 10px}
 .tb{width:100%;border-collapse:collapse;margin-top:22px;font-size:27px}.tcap+.tb{margin-top:0}
 .tb th{background:var(--dk);color:#fff;font-weight:800;padding:12px 8px;font-size:23px}
@@ -212,7 +213,7 @@ d.depts.forEach((x, i) => {
 ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(t.when)}</span><span class="nm">${esc(t.name)}</span></div><div class="n">${t.n}<small>명</small></div></div>
 <div class="bar">${t.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
 <div class="stg">${esc(t.stage)}</div>
-${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
+${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
 ${MODE && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>` : ''}
 ${foot(i + 2)}`, 1350, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
