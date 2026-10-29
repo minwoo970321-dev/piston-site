@@ -157,10 +157,18 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .tb th.gh{background:var(--g);font-size:25px;padding:8px 4px;border-left:3px solid #fff}.tb th.gh:first-child{border-left:0}.tb td.scr{background:#e9f6ee!important;color:var(--dk);font-weight:900}.tb td.gs{border-left:3px solid var(--dk)}.tb.sgt tr:nth-child(even) td:not(.scr){background:#f6faf7}
 .tn{margin-top:20px;list-style:none}.tn li{font-size:22px;color:var(--mu);font-weight:600;padding:3px 0 3px 22px;position:relative;line-height:1.45}.tn li:before{content:"※";position:absolute;left:0}
 /* changes */
-.cg{margin-top:44px}.dc{margin-top:48px}
+.cg{margin-top:44px}.dc{margin-top:30px}
 .cg h3{font-size:34px;font-weight:900;color:var(--g);letter-spacing:-.5px;padding-bottom:12px;border-bottom:2px solid var(--dk)}
 .cg li{list-style:none;font-size:31px;font-weight:700;padding:15px 0 15px 40px;border-bottom:1px solid var(--ln);position:relative;letter-spacing:-.5px}
 .cg li:before{content:"";position:absolute;left:4px;top:27px;width:18px;height:18px;background:var(--lime);border:2px solid var(--dk)}
+.cc{margin-top:16px}.cc .cl{font-size:28px;font-weight:900;color:var(--g);margin-bottom:6px}
+.cc .cv{display:flex;align-items:stretch;gap:12px}.cc .cv>div{border-radius:14px;padding:11px 18px}
+.cc .b{flex:1;background:#f1f3f2;color:var(--mu)}.cc .a{flex:1;background:var(--lime);color:var(--dk);border:2px solid var(--dk)}
+.cc em{font-style:normal;font-size:22px;font-weight:900;letter-spacing:0;display:block;margin-bottom:2px;opacity:.75}
+.cc p{font-size:26px;font-weight:800;line-height:1.35;letter-spacing:-.5px;margin:0}
+.cc .ar{display:flex;align-items:center;font-size:36px;font-weight:900;color:var(--g);padding:0!important}
+.cs{margin-top:18px;padding:12px 20px;border:2px dashed var(--ln);border-radius:14px;font-size:25px;font-weight:700;color:var(--mu);line-height:1.5}
+.cs b{display:inline-block;background:var(--dk);color:#fff;font-size:22px;padding:2px 12px;border-radius:6px;margin-right:12px}
 .cg li.same{color:var(--mu)}.cg li.same:before{background:#fff}
 /* end */
 .end{background:var(--dk);color:#fff}
@@ -248,14 +256,23 @@ ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(
 <div class="stg">${esc(t.stage)}</div>
 ${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
-${MODE && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3><ul>${x.changes.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>` : ''}
+${MODE && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3>${chgHtml(x.changes)}</div>` : ''}
 ${foot(i + 2 + S)}`, 1440, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
 });
+
+function chgHtml(items) {
+  const rows = [], same = [];
+  items.forEach(c => {
+    if (c.includes('→')) { const i = c.indexOf(':'); const lab = i > 0 && i < 14 ? c.slice(0, i) : ''; const [a, b] = (lab ? c.slice(i + 1) : c).split('→').map(z => z.trim()); rows.push([lab, a, b]); }
+    else same.push(c.replace(/\s*2027과 동일\s*$/, '').trim());
+  });
+  return rows.map(([l, a, b]) => `<div class="cc"><div class="cl">${esc(l)}</div><div class="cv"><div class="b"><em>2027</em><p>${esc(a)}</p></div><div class="ar">→</div><div class="a"><em>2028</em><p>${esc(b)}</p></div></div></div>`).join('') + (same.length ? `<div class="cs"><b>변동 없음</b>${same.map(esc).join(' · ')}</div>` : '');
+}
 
 // 변경점 (항목이 많으면 여러 장)
 CP.forEach((pg, k) => slides.push(page(`${top()}
 <h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span>${CP.length > 1 ? `<span style="font-size:40px;color:var(--mu)"> ${k + 1}/${CP.length}</span>` : ''}</h2>
-${pg.map(([nm, items]) => `<div class="cg"><h3>${esc(nm)}</h3><ul>${items.map(c => `<li class="${/동일/.test(c) ? 'same' : ''}">${esc(c)}</li>`).join('')}</ul></div>`).join('')}
+${pg.map(([nm, items]) => `<div class="cg"><h3>${esc(nm)}</h3>${chgHtml(items)}</div>`).join('')}
 ${foot(d.depts.length + 2 + S + k)}`, 1440, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
 
 // 내신 9등급 vs 5등급
