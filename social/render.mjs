@@ -94,7 +94,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .stg{font-size:21px;color:var(--mu);margin-top:10px;font-weight:600}
 .sn{width:100%;border-collapse:collapse;margin-top:18px;border:2px solid var(--dk);table-layout:fixed}
 .sn th{background:var(--dk);color:var(--lime);font-size:30px;font-weight:800;padding:14px 8px;text-align:center;border-left:1px solid rgba(255,255,255,.25)}
-.sn td{padding:22px 8px;font-size:46px;font-weight:900;color:var(--g);text-align:center;border-left:1px solid var(--ln)}
+.sn td{vertical-align:top;padding:22px 8px;font-size:46px;font-weight:900;color:var(--g);text-align:center;border-left:1px solid var(--ln)}
 .rfbig td{font-size:38px;padding:40px 12px;font-weight:900}.rfbig td.c0{font-size:44px;white-space:nowrap}.rfbig td:nth-child(2){white-space:nowrap;font-size:34px}.rfbig th{font-size:30px;padding:18px 12px}
 .rm{margin-top:34px;display:flex;flex-direction:column;gap:22px}
 .rm .cd{border:2px solid var(--dk);border-radius:14px;padding:30px 34px}
@@ -103,10 +103,10 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .rm .hd b{font-size:54px;font-weight:900;letter-spacing:-2px}
 .rm .hd span{font-size:30px;font-weight:800;color:var(--g)}.rm .dk .hd span{color:var(--lime)}
 .rm .ch{display:flex;margin-top:22px;border-top:2px solid var(--ln);padding-top:22px}.rm .dk .ch{border-color:rgba(255,255,255,.25)}
-.rm .ch div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;text-align:center;border-left:2px solid var(--ln)}.rm .dk .ch div{border-color:rgba(255,255,255,.25)}.rm .ch div:first-child{border-left:0}
+.rm .ch div{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding:0 10px;text-align:center;border-left:2px solid var(--ln)}.rm .dk .ch div{border-color:rgba(255,255,255,.25)}.rm .ch div:first-child{border-left:0}
 .rm .ch em{display:block;font-style:normal;font-size:28px;font-weight:700;color:var(--mu)}.rm .dk .ch em{color:rgba(255,255,255,.8)}
 .rm .ch strong{display:block;font-size:66px;font-weight:900;color:var(--g);letter-spacing:-2px;line-height:1.15}.rm .dk .ch strong{color:var(--lime)}
-.rm .ch div:has(>p){justify-content:center}.rm .ch p{margin:0;font-size:36px;font-weight:800;line-height:1.35;text-align:center;width:100%}
+.rm .ch small{display:block;font-size:25px;font-weight:700;color:var(--mu);margin-top:8px;line-height:1.35}.rm .dk .ch small{color:rgba(255,255,255,.85)}.rm .ch div:has(>p){justify-content:center}.rm .ch p{margin:0;font-size:36px;font-weight:800;line-height:1.35;text-align:center;width:100%}
 .rm.r3{gap:14px;margin-top:22px}.rm.r3 .cd{padding:18px 30px}.rm.r3 .hd b{font-size:44px}.rm.r3 .ch{margin-top:12px;padding-top:12px}.rm.r3 .ch strong{font-size:52px}.rm.r3 .ch p{font-size:32px}
 .rm .tg{font-style:normal;font-size:34px;font-weight:900;letter-spacing:-1px;color:var(--dk);background:var(--lime);padding:4px 16px;border-radius:8px;margin-left:18px;position:relative;top:-6px}
 .sm{margin-top:26px;display:flex;flex-direction:column;gap:20px}
@@ -298,7 +298,7 @@ ${foot(d.depts.length + 2 + S + k)}`, 1440, pg.reduce((a, x) => a + x[1].length,
 // 내신 9등급 vs 5등급
 if (G) slides.push(page(gradeSlide(), 1440));
 
-const rmChips = c => c.split(' · ').map(x => { if (x.includes('::')) { const [a, b] = x.split('::'); return `<div><em>${esc(a)}</em><strong style="font-size:44px;line-height:1.55">${esc(b)}</strong></div>`; } const m = x.match(/^(.*?)\s*([\d.,]+\s*(?:%|점)?)\s*(\([^)]*\))?$/); return m && m[1] && !/[×→−]/.test(x.replace(/\([^)]*\)/g, "")) ? `<div><em>${esc(m[1] + (m[3] ? ' ' + m[3] : ''))}</em><strong>${esc(m[2])}</strong></div>` : `<div><p>${esc(x)}</p></div>`; }).join('');
+const rmChips = c => c.split(' · ').map(x => { if (x.includes('::')) { const [a, b] = x.split('::'); return `<div><em>${esc(a)}</em><strong style="font-size:44px;line-height:1.55">${esc(b)}</strong></div>`; } const m = x.match(/^(.*?)\s*([\d.,]+\s*(?:%|점)?)\s*(\([^)]*\))?$/); return m && m[1] && !/[×→−]/.test(x.replace(/\([^)]*\)/g, "")) ? `<div><em>${esc(m[1])}</em><strong>${esc(m[2])}</strong>${m[3] ? `<small>${esc(m[3].slice(1, -1))}</small>` : ''}</div>` : `<div><p>${esc(x)}</p></div>`; }).join('');
 const rmSlide = t => { const rows = t.blocks[0].rows; return `<h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}<div class="rm${rows.length > 2 ? ' r3' : ''}">${rows.map((r, i) => { const [pc, pt] = r[1].split(' · '); return `<div class="cd${i === 0 ? ' dk' : ''}"><div class="hd"><b>${esc(r[0])} ${esc(pc)}${t.tag2 && i === 1 ? `<i class="tg">${esc(t.tag2)}</i>` : ''}</b><span>${esc(pt || '')}</span></div><div class="ch">${rmChips(r[2])}</div></div>`; }).join('')}${t.notes?.length ? `<div class="nt">${t.notes.map(n => '※ ' + esc(n)).join('<br>')}</div>` : ''}</div>`; };
 // 표 장 (시행계획 세부 규정)
 T.forEach((t, i) => slides.push(page(`${top()}
