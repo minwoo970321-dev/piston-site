@@ -228,12 +228,13 @@ ${foot(N - 1 - T.length)}`;
 const slides = [];
 const T = d.tables || [];
 const SECS = [...d.depts.map(x => [x.name, x.changes]), ...(d.common?.length ? [['공통', d.common]] : [])];
-const CP = []; if (!MODE) { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > (MODE ? 15 : 12)) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
+const BIGCH = !!MODE && d.depts.some(x => x.changes.filter(c => c.includes('→')).length > 2);
+const CP = []; if (!MODE || BIGCH) { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > (MODE ? 15 : 12)) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
 const S = d.summary ? 1 : 0;
 const N = S + d.depts.length + 2 + G + CP.length + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
-const smSlide = () => `<h2 class="ttl">한눈에 보기</h2><div class="tsub">${esc(d.short)} ${LBL} · ${d.year}학년도 시행계획</div><div class="sm">${d.summary.map(x => `<div class="cd"><div class="hd"><b>${esc(x.name)}</b><span>${esc(x.meta)}</span></div><div class="bar">${x.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div><div class="rw"><em>수능</em><p>${esc(x.su)}</p></div><div class="rw"><em>실기</em><p>${esc(x.sg)}${x.sgn ? `<i>${esc(x.sgn)}</i>` : ''}</p></div><div class="cg">${x.ch.map(c => `<span>${esc(c)}</span>`).join('')}</div></div>`).join('')}</div>`;
+const smSlide = () => `<h2 class="ttl">한눈에 보기</h2><div class="tsub">${esc(d.short)} ${LBL} · ${d.year}학년도 시행계획</div><div class="sm">${d.summary.map(x => `<div class="cd"><div class="hd"><b>${esc(x.name)}</b><span>${esc(x.meta)}</span></div><div class="bar">${x.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div><div class="rw"><em>${esc(x.sul || "수능")}</em><p>${esc(x.su)}</p></div><div class="rw"><em>실기</em><p>${esc(x.sg)}${x.sgn ? `<i>${esc(x.sgn)}</i>` : ''}</p></div><div class="cg">${x.ch.map(c => `<span>${esc(c)}</span>`).join('')}</div></div>`).join('')}</div>`;
 // 1 표지
 slides.push(page(`${top()}
 <div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형${d.campus ? ' · ' + esc(d.campus) : ''}</div>
@@ -256,7 +257,7 @@ ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(
 <div class="stg">${esc(t.stage)}</div>
 ${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
-${MODE && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3>${chgHtml(x.changes)}</div>` : ''}
+${MODE && !BIGCH && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3>${chgHtml(x.changes)}</div>` : ''}
 ${foot(i + 2 + S)}`, 1440, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
 });
 
