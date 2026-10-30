@@ -134,6 +134,10 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .rf td{border:none!important;padding:16px 20px!important;font-size:28px!important;font-weight:800!important}
 .rf td:first-child{background:var(--dk)!important;color:var(--lime)!important;width:30%;font-size:26px!important;border-radius:12px 0 0 12px}
 .rf td:last-child{background:#eef5ef!important;color:var(--dk)!important;text-align:left!important;border-radius:0 12px 12px 0;line-height:1.35}
+.sx{margin-top:34px;padding-top:26px;border-top:2px solid var(--ln)}
+.rw2{display:flex;gap:18px;align-items:flex-start}.rw2 em{font-style:normal;background:var(--dk);color:var(--lime);font-size:26px;font-weight:900;padding:6px 16px;border-radius:9px;white-space:nowrap}.rw2 p{font-size:30px;font-weight:800;line-height:1.4;margin:2px 0 0;letter-spacing:-.5px}.rw2 i{font-style:normal;font-size:22px;color:var(--mu);margin-left:10px;font-weight:700}
+.chs{display:flex;flex-wrap:wrap;gap:12px;margin-top:-2px}.evc{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.evc span{background:#eef5ef;font-size:28px;font-weight:800;padding:8px 16px;border-radius:10px}.evc i{font-style:normal;background:var(--dk);color:#fff;font-size:21px;font-weight:800;padding:5px 12px;border-radius:8px}.mn small{display:block;font-size:24px;font-weight:700;margin-top:4px;color:var(--g)}.chs span{background:var(--lime);color:var(--dk);font-size:27px;font-weight:800;padding:8px 18px;border-radius:10px}
+.mn span{text-wrap:balance}
 .mn{display:flex;gap:16px;align-items:center;margin-top:18px;background:var(--lime);border:3px solid var(--dk);border-radius:14px;padding:14px 20px}
 .mn b{background:var(--dk);color:var(--lime);font-size:26px;padding:5px 14px;border-radius:8px;white-space:nowrap;font-weight:900}
 .mn span{font-size:30px;font-weight:900;color:var(--dk);line-height:1.3;letter-spacing:-.5px}
@@ -242,7 +246,8 @@ const T = d.tables || [];
 const SECS = [...d.depts.map(x => [x.name, x.changes]), ...(d.common?.length ? [['공통', d.common]] : [])];
 const BIGCH = !!MODE && d.depts.some(x => x.changes.filter(c => c.includes('→')).length > 2);
 const CP = []; if (!MODE || BIGCH) { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > (MODE ? 15 : 12)) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
-const S = d.summary ? 1 : 0;
+const SINGLE = !!d.summary && d.depts.length === 1;
+const S = d.summary && !SINGLE ? 1 : 0;
 const N = S + d.depts.length + 2 + G + CP.length + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
@@ -266,9 +271,10 @@ d.depts.forEach((x, i) => {
 <h2 class="dn">${esc(x.name)}</h2>
 ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(t.when)}</span><span class="nm">${esc(t.name)}</span></div><div class="n">${t.n}<small>명</small></div></div>
 <div class="bar">${t.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
-<div class="stg">${esc(t.stage)}</div>${t.min ? `<div class="mn"><b>수능최저</b><span>${esc(t.min)}</span></div>` : ''}
+<div class="stg">${esc(t.stage)}</div>${t.min ? `<div class="mn"><b>수능최저</b><span>${esc(t.min.split("|")[0])}${t.min.includes("|") ? `<small>${esc(t.min.split("|")[1])}</small>` : ""}</span></div>` : ''}
 ${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
+${SINGLE ? `<div class="sx"><div class="rw2"><em>실기</em><div class="evc">${d.summary[0].sg.split(" · ").map(c => `<span>${esc(c)}</span>`).join("")}${d.summary[0].sgn ? `<i>${esc(d.summary[0].sgn)}</i>` : ""}</div></div><div class="rw2" style="margin-top:26px"><em>변경</em><div class="chs">${d.summary[0].ch.map(c => `<span>${esc(c)}</span>`).join("")}</div></div></div>` : ''}
 ${MODE && !BIGCH && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3>${chgHtml(x.changes)}</div>` : ''}
 ${foot(i + 2 + S)}`, 1440, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
 });
