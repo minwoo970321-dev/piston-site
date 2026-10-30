@@ -215,7 +215,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 `;
 
 const schoolLogo = d.logo ? 'data:image/png;base64,' + readFileSync(resolve(ROOT, d.logo)).toString('base64') : '';
-const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${CSS}.sch{position:absolute;right:80px;top:182px;width:132px;height:132px}.cover .sch{top:215px;width:310px;height:310px}.st .sch{top:250px;width:150px;height:150px}</style></head><body style="--h:${h}px"><div class="f ${cls}">${inner}${schoolLogo && !/\bend\b/.test(cls) ? `<img class="sch" src="${schoolLogo}" alt="">` : ''}</div></body></html>`;
+const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${CSS}.sch{position:absolute;right:80px;top:176px;width:210px;height:150px;object-fit:contain;object-position:right center}.cover .sch{top:215px;width:310px;height:310px}.st .sch{top:250px;width:150px;height:150px}</style></head><body style="--h:${h}px"><div class="f ${cls}">${inner}${schoolLogo && !/\bend\b/.test(cls) ? `<img class="sch" src="${schoolLogo}" alt="">` : ''}</div></body></html>`;
 const top = () => `<div class="top"><div class="brand"><div class="logo"></div><span>안산시흥피스톤</span></div><div class="tag">${d.year} ${MODE ? LBL + ' 실기전형' : '전형계획'}</div></div>`;
 const total = (dep, k) => dep.tracks.filter(t => t.when.startsWith(k)).reduce((a, t) => a + t.n, 0);
 
