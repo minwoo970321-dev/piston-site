@@ -122,7 +122,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .sm .cg span{font-size:26px;font-weight:800;background:var(--lime);color:var(--dk);padding:6px 14px;border-radius:8px}
 .rm .nt{font-size:25px;color:var(--mu);font-weight:600;line-height:1.5;margin:6px 4px 0}
 .sn td small{display:block;font-size:24px;font-weight:700;color:var(--tx);margin-top:8px;letter-spacing:-.5px;line-height:1.3}
-.sn td.no{font-size:30px;color:var(--mu);font-weight:700}
+.sn td.no{padding-top:34px;font-size:30px;color:var(--mu);font-weight:700}
 .rf{width:100%;border-collapse:collapse;margin-top:18px;border:2px solid var(--dk)}
 .rf th{background:var(--dk);color:var(--lime);font-size:26px;font-weight:800;padding:12px 18px;text-align:left}
 .rf th:last-child{text-align:right}
@@ -244,9 +244,9 @@ ${foot(N - 1 - T.length)}`;
 const slides = [];
 const T = d.tables || [];
 const SECS = [...d.depts.map(x => [x.name, x.changes]), ...(d.common?.length ? [['공통', d.common]] : [])];
-const BIGCH = !!MODE && d.depts.some(x => x.changes.filter(c => c.includes('→')).length > 2);
+const BIGCH = !!MODE && d.depts.some(x => x.changes.filter(c => c.includes('→')).length > 1);
 const CP = []; if (!MODE || BIGCH) { let cur = [], n = 0; for (const sec of SECS) { const w = sec[1].length + 1; if (cur.length && n + w > (MODE ? 15 : 12)) { CP.push(cur); cur = []; n = 0; } cur.push(sec); n += w; } if (cur.length) CP.push(cur); }
-const SINGLE = !!d.summary && d.depts.length === 1;
+const SINGLE = !!d.summary && d.depts.length === 1 && !!d.merge;
 const S = d.summary && !SINGLE ? 1 : 0;
 const N = S + d.depts.length + 2 + G + CP.length + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
@@ -281,12 +281,12 @@ ${foot(i + 2 + S)}`, 1440, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4
 
 function chgHtml(items) {
   const rows = [], same = [];
-  const pts = v => { const a = v.split(/\s*·\s*(?![^(]*\))/).filter(Boolean); return a.length > 1 ? a.map(p => { const m = p.match(/^(\d등급)\s+(\d+)$/); return `<span class="pt">${m ? `${esc(m[1])} <b>${esc(m[2])}</b>` : esc(p)}</span>`; }).join('') : esc(v); };
+  const pts = (v, force) => { const a = v.split(/\s*·\s*(?![^(]*\))/).filter(Boolean); return a.length > 1 || force ? a.map(p => { const m = p.match(/^(\d등급)\s+(\d+)$/); return `<span class="pt">${m ? `${esc(m[1])} <b>${esc(m[2])}</b>` : esc(p)}</span>`; }).join('') : esc(v); };
   items.forEach(c => {
     if (c.includes('→')) { const i = c.indexOf(':'); const lab = i > 0 && i < 14 ? c.slice(0, i) : ''; const [a, b] = (lab ? c.slice(i + 1) : c).split('→').map(z => z.trim()); rows.push([lab, a, b]); }
     else same.push(c.replace(/\s*2027과 동일\s*$/, '').trim());
   });
-  return rows.map(([l, a, b]) => `<div class="cc"><div class="cl">${esc(l)}</div><div class="cv"><div class="b"><em>2027</em><p>${pts(a)}</p></div><div class="ar">→</div><div class="a"><em>2028</em><p>${pts(b)}</p></div></div></div>`).join('') + (same.length ? `<div class="cs"><b>변동 없음</b>${same.map(z => pts(z)).join(' · ').replace(/<\/span> · <span/g, '</span><span')}</div>` : '');
+  return rows.map(([l, a, b]) => `<div class="cc"><div class="cl">${esc(l)}</div><div class="cv"><div class="b"><em>2027</em><p>${pts(a)}</p></div><div class="ar">→</div><div class="a"><em>2028</em><p>${pts(b)}</p></div></div></div>`).join('') + (same.length ? `<div class="cs"><b>변동 없음</b>${same.map(z => pts(z, true)).join(' · ').replace(/<\/span> · <span/g, '</span><span')}</div>` : '');
 }
 
 // 변경점 (항목이 많으면 여러 장)
