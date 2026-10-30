@@ -53,7 +53,7 @@ const CSS = `
 @font-face{font-family:P;font-weight:700;src:url(${font('Bold')})}
 @font-face{font-family:P;font-weight:800;src:url(${font('ExtraBold')})}
 @font-face{font-family:P;font-weight:900;src:url(${font('Black')})}
-:root{--dk:#06301f;--g:#07803f;--lime:#cfe8d4;--bg:#f2f6f1;--tx:#0b1a12;--mu:#55665c;--ln:#cfdcd3}
+:root{--dk:#06301f;--g:#07803f;--lime:#d4f53c;--bg:#f2f6f1;--tx:#0b1a12;--mu:#55665c;--ln:#cfdcd3}
 *{box-sizing:border-box;margin:0;padding:0}
 body{width:1080px;height:var(--h);background:#fff;color:var(--tx);font-family:P,sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum"}
 .f{position:relative;width:1080px;height:var(--h);padding:72px 80px 64px;display:flex;flex-direction:column}
@@ -215,7 +215,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 `;
 
 const schoolLogo = d.logo ? 'data:image/png;base64,' + readFileSync(resolve(ROOT, d.logo)).toString('base64') : '';
-const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${CSS}*{border-radius:0!important}.sch{position:absolute;right:80px;top:176px;width:210px;height:150px;object-fit:contain;object-position:right center}.cover .sch{top:215px;width:310px;height:310px}.st .sch{top:250px;width:150px;height:150px}</style></head><body style="--h:${h}px"><div class="f ${cls}">${inner}${schoolLogo && !/\bend\b/.test(cls) ? `<img class="sch" src="${schoolLogo}" alt="">` : ''}</div></body></html>`;
+const page = (inner, h, cls = '') => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${CSS}.sch{position:absolute;right:80px;top:176px;width:210px;height:150px;object-fit:contain;object-position:right center}.cover .sch{top:215px;width:310px;height:310px}.st .sch{top:250px;width:150px;height:150px}</style></head><body style="--h:${h}px"><div class="f ${cls}">${inner}${schoolLogo && !/\bend\b/.test(cls) ? `<img class="sch" src="${schoolLogo}" alt="">` : ''}</div></body></html>`;
 const top = () => `<div class="top"><div class="brand"><div class="logo"></div><span>안산시흥피스톤</span></div><div class="tag">${d.year} ${MODE ? LBL + ' 실기전형' : '전형계획'}</div></div>`;
 const total = (dep, k) => dep.tracks.filter(t => t.when.startsWith(k)).reduce((a, t) => a + t.n, 0);
 
