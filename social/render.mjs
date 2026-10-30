@@ -129,6 +129,15 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .rf td{padding:15px 18px;border-top:1px solid var(--ln);font-size:30px;font-weight:700;color:var(--dk)}
 .rf td:first-child{background:#eef5ef;width:36%;font-weight:800}
 .rf td:last-child{text-align:right;font-weight:900;color:var(--g)}
+.rf{border:none!important;border-collapse:separate!important;border-spacing:0 10px;margin-top:8px!important}
+.rf tr:first-child{display:none}
+.rf td{border:none!important;padding:16px 20px!important;font-size:28px!important;font-weight:800!important}
+.rf td:first-child{background:var(--dk)!important;color:var(--lime)!important;width:30%;font-size:26px!important;border-radius:12px 0 0 12px}
+.rf td:last-child{background:#eef5ef!important;color:var(--dk)!important;text-align:left!important;border-radius:0 12px 12px 0;line-height:1.35}
+.mn{display:flex;gap:16px;align-items:center;margin-top:18px;background:var(--lime);border:3px solid var(--dk);border-radius:14px;padding:14px 20px}
+.mn b{background:var(--dk);color:var(--lime);font-size:26px;padding:5px 14px;border-radius:8px;white-space:nowrap;font-weight:900}
+.mn span{font-size:30px;font-weight:900;color:var(--dk);line-height:1.3;letter-spacing:-.5px}
+.sm .mn{margin-top:12px;padding:10px 16px}.sm .mn span{font-size:25px}.sm .mn b{font-size:22px}
 .tight .rf td{padding:11px 16px;font-size:28px}
 .ev{margin-top:14px}
 .ev div{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--ln);font-size:31px;font-weight:700}
@@ -234,7 +243,7 @@ const S = d.summary ? 1 : 0;
 const N = S + d.depts.length + 2 + G + CP.length + T.length;
 const foot = i => `<div class="foot"><span>출처 · ${esc(d.source)} (${ymd} 확인)</span><b>${String(i).padStart(2, '0')} / ${String(N).padStart(2, '0')}</b></div>`;
 
-const smSlide = () => `<h2 class="ttl">한눈에 보기</h2><div class="tsub">${esc(d.short)} ${LBL} · ${d.year}학년도 시행계획</div><div class="sm">${d.summary.map(x => `<div class="cd"><div class="hd"><b>${esc(x.name)}</b><span>${esc(x.meta)}</span></div><div class="bar">${x.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div><div class="rw"><em>${esc(x.sul || "수능")}</em><p>${esc(x.su)}</p></div><div class="rw"><em>실기</em><p>${esc(x.sg)}${x.sgn ? `<i>${esc(x.sgn)}</i>` : ''}</p></div><div class="cg">${x.ch.map(c => `<span>${esc(c)}</span>`).join('')}</div></div>`).join('')}</div>`;
+const smSlide = () => `<h2 class="ttl">한눈에 보기</h2><div class="tsub">${esc(d.short)} ${LBL} · ${d.year}학년도 시행계획</div><div class="sm">${d.summary.map(x => `<div class="cd"><div class="hd"><b>${esc(x.name)}</b><span>${esc(x.meta)}</span></div><div class="bar">${x.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>${x.min ? `<div class="mn"><b>수능최저</b><span>${esc(x.min)}</span></div>` : ''}<div class="rw"><em>${esc(x.sul || "수능")}</em><p>${esc(x.su)}</p></div><div class="rw"><em>실기</em><p>${esc(x.sg)}${x.sgn ? `<i>${esc(x.sgn)}</i>` : ''}</p></div><div class="cg">${x.ch.map(c => `<span>${esc(c)}</span>`).join('')}</div></div>`).join('')}</div>`;
 // 1 표지
 slides.push(page(`${top()}
 <div class="kick">${d.year} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형${d.campus ? ' · ' + esc(d.campus) : ''}</div>
@@ -254,7 +263,7 @@ d.depts.forEach((x, i) => {
 <h2 class="dn">${esc(x.name)}</h2>
 ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(t.when)}</span><span class="nm">${esc(t.name)}</span></div><div class="n">${t.n}<small>명</small></div></div>
 <div class="bar">${t.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
-<div class="stg">${esc(t.stage)}</div>
+<div class="stg">${esc(t.stage)}</div>${t.min ? `<div class="mn"><b>수능최저</b><span>${esc(t.min)}</span></div>` : ''}
 ${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
 ${MODE && !BIGCH && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3>${chgHtml(x.changes)}</div>` : ''}
