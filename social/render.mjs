@@ -161,10 +161,11 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .tb td{padding:8px 8px;text-align:center;border-bottom:1px solid var(--ln);font-weight:600}
 .tb td.c0{font-weight:800;text-align:center}.tb td.h{font-weight:900;color:var(--g)}
 .tb tr.hr td{background:var(--bg);font-weight:900;color:var(--dk)}
+.tb.mdense{font-size:23px}.tb.mdense td{padding:11px 4px;line-height:1.2}.tb.mdense th{padding:10px 4px;font-size:21px;line-height:1.25}.tb.mdense td.c0{white-space:nowrap;font-size:22px}
 .tb.xdense{font-size:20px}.tb.xdense td{padding:1px 6px;line-height:1.25}.tb.xdense th{padding:5px 6px;font-size:19px;line-height:1.2}.tb.xxdense{font-size:19px}.tb.xxdense td{padding:0 6px;line-height:1.2}.tb.xxdense th{padding:4px 6px;font-size:18px;line-height:1.2}.tb.dense{font-size:23px}.tb.dense td{padding:4px 8px}.tb.dense th{padding:9px 8px}
 .tb tr:nth-child(odd) td{background:#fafcfa}
 .tb th.gh{background:var(--g);font-size:25px;padding:8px 4px;border-left:3px solid #fff}.tb th.gh:first-child{border-left:0}.tb td.scr{background:#e9f6ee!important;color:var(--dk);font-weight:900}.tb td.gs{border-left:3px solid var(--dk)}.tb.sgt tr:nth-child(even) td:not(.scr){background:#f6faf7}
-.tn{margin-top:20px;list-style:none}.tn li{font-size:22px;color:var(--mu);font-weight:600;padding:3px 0 3px 22px;position:relative;line-height:1.45}.tn li:before{content:"※";position:absolute;left:0}
+.tn{margin-top:20px;list-style:none}.tn li{font-size:25px;color:var(--dk);font-weight:700;padding:6px 0 6px 28px;position:relative;line-height:1.45}.tn li:before{content:"※";position:absolute;left:0}
 /* changes */
 .cg{margin-top:44px}.dc{margin-top:30px}
 .cg h3{font-size:34px;font-weight:900;color:var(--g);letter-spacing:-.5px;padding-bottom:12px;border-bottom:2px solid var(--dk)}
@@ -295,9 +296,9 @@ const rmSlide = t => { const rows = t.blocks[0].rows; return `<h2 class="ttl">${
 // 표 장 (시행계획 세부 규정)
 T.forEach((t, i) => slides.push(page(`${top()}
 ${t.title === '정시 반영 방법' ? rmSlide(t) : `<h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}
-${t.blocks.map(b => `${b.cap ? `<div class="tcap">${esc(b.cap)}</div>` : ''}<table class="tb${t.grp?' sgt':''}${t.title==='정시 반영 방법'?' rfbig':''}${t.dense === 'xx' ? ' xxdense' : t.dense === 'x' ? ' xdense' : t.dense ? ' dense' : ''}">${t.grp ? `<tr>${t.grp.map(([g, n]) => `<th class="gh" colspan="${n}">${esc(g)}</th>`).join('')}</tr>` : ''}<tr>${b.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>
+${t.blocks.map(b => `${b.cap ? `<div class="tcap">${esc(b.cap)}</div>` : ''}<table class="tb${t.grp?' sgt':''}${t.title==='정시 반영 방법'?' rfbig':''}${t.dense === 'm' ? ' mdense' : t.dense === 'xx' ? ' xxdense' : t.dense === 'x' ? ' xdense' : t.dense ? ' dense' : ''}">${t.grp ? `<tr>${t.grp.map(([g, n]) => `<th class="gh" colspan="${n}">${esc(g)}</th>`).join('')}</tr>` : ''}<tr>${b.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>
 ${b.rows.map((r, ri) => `<tr class="${b.hlRow === ri ? 'hr' : ''}">${r.map((c, ci) => `<td class="${((b.hl || []).includes(ci) || (!t.grp && t.title !== '정시 반영 방법' && /→/.test(c))) ? 'h' : ''}${ci === 0 ? ' c0' : ''}${t.grp && ci % 3 === 0 ? ' scr' : ''}${t.grp && ci % 3 === 0 && ci > 0 ? ' gs' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`).join('')}
-${t.notes?.length ? `<ul class="tn">${t.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}`}
+${t.notes?.length ? `<ul class="tn">${t.notes.flatMap(n => n.split(/\s·\s(?![^(]*\))/)).map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}`}
 ${foot(N - 1 - T.length + i + 1)}`, 1440)));
 
 // 마무리
