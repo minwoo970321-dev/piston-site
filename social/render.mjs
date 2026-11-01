@@ -122,6 +122,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .sm .cg span{font-size:26px;font-weight:800;background:var(--lime);color:var(--dk);padding:6px 14px;border-radius:8px}
 .rm .nt{font-size:25px;color:var(--mu);font-weight:600;line-height:1.5;margin:6px 4px 0}
 .sn td small{display:block;font-size:24px;font-weight:700;color:var(--tx);margin-top:8px;letter-spacing:-.5px;line-height:1.3}
+.sn td.wd{font-size:34px;letter-spacing:-1px}
 .sn td.no{padding-top:34px;font-size:30px;color:var(--mu);font-weight:700}
 .rf{width:100%;border-collapse:collapse;margin-top:18px;border:2px solid var(--dk)}
 .rf th{background:var(--dk);color:var(--lime);font-size:26px;font-weight:800;padding:12px 18px;text-align:left}
@@ -273,7 +274,7 @@ d.depts.forEach((x, i) => {
 ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(t.when)}</span><span class="nm">${esc(t.name)}</span></div><div class="n">${t.nTxt ? `<small style="font-size:44px;margin:0">${esc(t.nTxt)}</small>` : `${t.n}<small>명</small>`}</div></div>
 <div class="bar">${t.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
 <div class="stg">${esc(t.stage)}</div>${t.min ? `<div class="mn"><b>수능최저</b><span>${esc(t.min.split("|")[0])}${t.min.includes("|") ? `<small>${esc(t.min.split("|")[1])}</small>` : ""}</span></div>` : ''}
-${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
+${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : (b.length > 5 ? ' class="wd"' : '')}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
 ${SINGLE ? `<div class="sx"><div class="rw2"><em>실기</em><div class="evc">${d.summary[0].sg.split(" · ").map(c => `<span>${esc(c)}</span>`).join("")}${d.summary[0].sgn ? `<i>${esc(d.summary[0].sgn)}</i>` : ""}</div></div><div class="rw2" style="margin-top:26px"><em>변경</em><div class="chs">${d.summary[0].ch.map(c => `<span>${esc(c)}</span>`).join("")}</div></div></div>` : ''}
 ${MODE && !BIGCH && x.changes.length ? `<div class="cg dc"><h3>${d.year-1}과 달라진 점</h3>${chgHtml(x.changes)}</div>` : ''}
