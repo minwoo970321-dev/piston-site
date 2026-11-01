@@ -258,7 +258,7 @@ slides.push(page(`${top()}
 <h1 class="big"${d.short.length>3?' style="font-size:170px"':''}>${esc(d.short)}</h1>
 <div class="sub"><span class="hl">${d.depts.length}개 ${d.unitLabel || "학과"}</span> ${LBL} 한 번에</div><div class="bd">${d.year}학년도 변경사항 총정리</div>
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
-${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em><b>${total(x, k) || '-'}</b>명</em>`).join('')}</div>`).join('')}</div>
+${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${total(x, k) || !x.tracks[0].nTxt ? `<b>${total(x, k) || '-'}</b>명` : `<b style="font-size:36px">${esc(x.tracks[0].nTxt)}</b>`}</em>`).join('')}</div>`).join('')}</div>
 <div class="swipe">넘기면 학과별 반영비율·변경점 →</div>
 ${foot(1)}`, 1440, 'cover'));
 if (S) slides.push(page(`${top()}
@@ -269,7 +269,7 @@ ${foot(2)}`, 1440));
 d.depts.forEach((x, i) => {
   slides.push(page(`${top()}
 <h2 class="dn">${esc(x.name)}</h2>
-${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(t.when)}</span><span class="nm">${esc(t.name)}</span></div><div class="n">${t.n}<small>명</small></div></div>
+${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(t.when)}</span><span class="nm">${esc(t.name)}</span></div><div class="n">${t.nTxt ? `<small style="font-size:44px;margin:0">${esc(t.nTxt)}</small>` : `${t.n}<small>명</small>`}</div></div>
 <div class="bar">${t.parts.map(([k, v]) => `<div class="${k === '실기' ? 'on' : ''}" style="flex:${v}"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
 <div class="stg">${esc(t.stage)}</div>${t.min ? `<div class="mn"><b>수능최저</b><span>${esc(t.min.split("|")[0])}${t.min.includes("|") ? `<small>${esc(t.min.split("|")[1])}</small>` : ""}</span></div>` : ''}
 ${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
