@@ -259,7 +259,7 @@ slides.push(page(`${top()}
 <div class="sub"><span class="hl">${d.depts.length}개 ${d.unitLabel || "학과"}</span> ${LBL} 한 번에</div><div class="bd">${d.year}학년도 변경사항 총정리</div>
 <div class="dl ${MODE ? 'one' : ''}"><div class="h"><span></span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${k}${TAG}</em>`).join('')}</div>
 ${d.depts.map(x => `<div><span>${esc(x.name)}</span>${(MODE ? [LBL] : ['수시', '정시']).map(k => `<em>${total(x, k) || !x.tracks[0].nTxt ? `<b>${total(x, k) || '-'}</b>명` : `<b style="font-size:36px">${esc(x.tracks[0].nTxt)}</b>`}</em>`).join('')}</div>`).join('')}</div>
-${d.depts[0].tracks[0].byEv ? `<div style="display:flex;gap:12px;margin:26px 0 0">${d.depts[0].tracks[0].byEv.map(([k,v])=>`<div style="flex:1;background:#d4f53c;border:3px solid #062b1a;border-radius:18px;padding:12px 0;text-align:center;font-weight:800;color:#062b1a"><div style="font-size:30px">${esc(k)}</div><div style="font-size:60px;line-height:1.05;font-weight:900">${v}<span style="font-size:28px">명</span></div></div>`).join("")}</div>` : ""}
+${d.depts[0].tracks[0].byEv ? `<div style="display:flex;justify-content:flex-end;gap:10px;margin:14px 0 0">${d.depts[0].tracks[0].byEv.map(([k,v])=>`<span style="background:#d4f53c;border-radius:14px;padding:8px 20px;font-size:34px;font-weight:800;color:#062b1a">${esc(k)} <b style="font-weight:900">${v}</b>명</span>`).join("")}</div>` : ""}
 <div class="swipe">넘기면 학과별 반영비율·변경점 →</div>
 ${foot(1)}`, 1440, 'cover'));
 if (S) slides.push(page(`${top()}
