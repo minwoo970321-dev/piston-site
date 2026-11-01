@@ -275,7 +275,7 @@ ${x.tracks.map(t => `<div class="tr"><div class="th"><div><span class="w">${esc(
 ${t.sn ? `<table class="sn"><tr>${t.sn.map(([a]) => `<th>${esc(a)}</th>`).join('')}</tr><tr>${t.sn.map(([, b, n]) => `<td${/^(미반영|-)$/.test(b) ? ' class="no"' : ''}>${esc(b)}${n ? `<small>${esc(n)}</small>` : ''}</td>`).join('')}</tr></table>` : ''}${t.altEv ? `<table class="rf"><tr><th>구분</th><th>반영 방법</th></tr>${t.altEv.map(([e, p]) => `<tr><td>${esc(e)}</td><td>${esc(p)}</td></tr>`).join('')}</table>` : `<div class="ev">${t.events.map(([e, p]) => `<div><span>${esc(e)}</span><b>${esc(p)}</b></div>`).join('')}</div>`}
 <div class="nt">${esc(t.note)}</div></div>`).join('')}
 ${SINGLE ? `<div class="sx"><div class="rw2"><em>실기</em><div class="evc">${d.summary[0].sg.split(" · ").map(c => `<span>${esc(c)}</span>`).join("")}${d.summary[0].sgn ? `<i>${esc(d.summary[0].sgn)}</i>` : ""}</div></div><div class="rw2" style="margin-top:26px"><em>변경</em><div class="chs">${d.summary[0].ch.map(c => `<span>${esc(c)}</span>`).join("")}</div></div></div>` : ''}
-${MODE && !BIGCH && x.changes.length ? `<div class="cg dc"><h3>2027과 달라진 점</h3>${chgHtml(x.changes)}</div>` : ''}
+${MODE && !BIGCH && x.changes.length ? `<div class="cg dc"><h3>${d.year-1}과 달라진 점</h3>${chgHtml(x.changes)}</div>` : ''}
 ${foot(i + 2 + S)}`, 1440, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4 ? 'tight' : ''));
 });
 
@@ -286,12 +286,12 @@ function chgHtml(items) {
     if (c.includes('→')) { const i = c.indexOf(':'); const lab = i > 0 && i < 14 ? c.slice(0, i) : ''; const [a, b] = (lab ? c.slice(i + 1) : c).split('→').map(z => z.trim()); rows.push([lab, a, b]); }
     else same.push(c.replace(/\s*2027과 동일\s*$/, '').trim());
   });
-  return rows.map(([l, a, b]) => `<div class="cc"><div class="cl">${esc(l)}</div><div class="cv"><div class="b"><em>2027</em><p>${pts(a)}</p></div><div class="ar">→</div><div class="a"><em>2028</em><p>${pts(b)}</p></div></div></div>`).join('') + (same.length ? `<div class="cs"><b>변동 없음</b>${same.map(z => pts(z, true)).join(' · ').replace(/<\/span> · <span/g, '</span><span')}</div>` : '');
+  return rows.map(([l, a, b]) => `<div class="cc"><div class="cl">${esc(l)}</div><div class="cv"><div class="b"><em>${d.year-1}</em><p>${pts(a)}</p></div><div class="ar">→</div><div class="a"><em>${d.year}</em><p>${pts(b)}</p></div></div></div>`).join('') + (same.length ? `<div class="cs"><b>변동 없음</b>${same.map(z => pts(z, true)).join(' · ').replace(/<\/span> · <span/g, '</span><span')}</div>` : '');
 }
 
 // 변경점 (항목이 많으면 여러 장)
 CP.forEach((pg, k) => slides.push(page(`${top()}
-<h2 style="font-size:84px;margin-top:44px">2027과 <span class="hl">달라진 점</span>${CP.length > 1 ? `<span style="font-size:40px;color:var(--mu)"> ${k + 1}/${CP.length}</span>` : ''}</h2>
+<h2 style="font-size:84px;margin-top:44px">${d.year-1}과 <span class="hl">달라진 점</span>${CP.length > 1 ? `<span style="font-size:40px;color:var(--mu)"> ${k + 1}/${CP.length}</span>` : ''}</h2>
 ${pg.map(([nm, items]) => `<div class="cg"><h3>${esc(nm)}</h3>${chgHtml(items)}</div>`).join('')}
 ${foot(d.depts.length + 2 + S + k)}`, 1440, pg.reduce((a, x) => a + x[1].length, 0) > 8 ? 'ctight' : '')));
 
@@ -343,7 +343,7 @@ ${t.events.length ? `- 실기종목: ${t.events.map(([e, p]) => `${e} ${p}`).joi
 
 [이미지: post-${i + 2 + S}.jpg]`).join('\n\n')}
 
-## 2027학년도와 달라진 점
+## ${d.year-1}학년도와 달라진 점
 ${d.depts.map(x => `**${x.name}**\n${x.changes.map(c => `- ${c}`).join('\n')}`).join('\n\n')}
 ${d.common?.length ? `\n**공통**\n${d.common.map(c => `- ${c}`).join('\n')}` : ''}
 
@@ -401,7 +401,7 @@ else writeFileSync(resolve(OUT, 'caption.txt'),
 `${d.year} ${d.short} 체육계열 ${MODE ? LBL + ' ' : ''}실기전형 한 번에 📌
 ${d.depts.map(x => `▪️ ${x.name} ${cnt(x)}`).join('\n')}
 
-넘겨서 학과별 반영비율·2027 대비 변경점 확인하세요.
+넘겨서 학과별 반영비율·${d.year-1} 대비 변경점 확인하세요.
 📢 안산시흥피스톤 예비반 모집중!
 📩 상담·등록은 DM 또는 ☎️ 010-3162-9399 로 연락주세요
 
