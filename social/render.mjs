@@ -177,10 +177,10 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .cg h3{font-size:34px;font-weight:900;color:var(--g);letter-spacing:-.5px;padding-bottom:12px;border-bottom:2px solid var(--dk)}
 .cg li{list-style:none;font-size:31px;font-weight:700;padding:15px 0 15px 40px;border-bottom:1px solid var(--ln);position:relative;letter-spacing:-.5px}
 .cg li:before{content:"";position:absolute;left:4px;top:27px;width:18px;height:18px;background:var(--lime);border:2px solid var(--dk)}
-.cc{margin-top:16px}.cc .cl{font-size:28px;font-weight:900;color:var(--g);margin-bottom:6px}
+.cc{margin-top:${d.depts[0].changes.length>6?10:16}px}.cc .cl{font-size:28px;font-weight:900;color:var(--g);margin-bottom:6px}
 .cc .cv{display:flex;align-items:stretch;gap:12px}.cc .cv>div{border-radius:14px;padding:11px 18px}
 .cc .b{flex:1;background:#f1f3f2;color:var(--mu)}.cc .a{flex:1;background:var(--lime);color:var(--dk);border:2px solid var(--dk)}
-.cc .pt{display:inline-block;margin:3px 6px 3px 0;padding:3px 12px;border-radius:9px;background:rgba(255,255,255,.7);font-size:25px;line-height:1.3}.cc .b .pt{background:#fff}.cc .pt b{font-size:29px;font-weight:900;color:var(--g)}.cc .b .pt b{color:var(--dk)}.cs .pt{display:inline-block;margin:3px 6px 3px 0;padding:2px 12px;border-radius:9px;background:#f1f3f2;color:var(--dk);font-size:24px;font-weight:800}
+.cc .pt{display:inline-block;margin:3px 6px 3px 0;padding:3px 12px;border-radius:9px;background:rgba(255,255,255,.7);font-size:25px;line-height:1.3}.cc .b .pt{background:#fff}.cc .pt b{font-size:29px;font-weight:900;color:var(--g)}.cc .b .pt b{color:var(--dk)}.cc .pt.sm{font-size:21px;padding:1px 7px;margin:1px 4px 1px 0}.cc .pt.sm b{font-size:25px}.cs .pt{display:inline-block;margin:3px 6px 3px 0;padding:2px 12px;border-radius:9px;background:#f1f3f2;color:var(--dk);font-size:24px;font-weight:800}
 .cc em{font-style:normal;font-size:22px;font-weight:900;letter-spacing:0;display:block;margin-bottom:2px;opacity:.75}
 .cc p{font-size:26px;font-weight:800;line-height:1.35;letter-spacing:-.5px;margin:0}
 .cc .ar{display:flex;align-items:center;font-size:36px;font-weight:900;color:var(--g);padding:0!important}
@@ -283,7 +283,7 @@ ${foot(i + 2 + S)}`, 1440, x.tracks.reduce((a, t) => a + t.events.length, 0) > 4
 
 function chgHtml(items) {
   const rows = [], same = [];
-  const pts = (v, force) => { const a = v.split(/\s*·\s*(?![^(]*\))/).filter(Boolean); return a.length > 1 || force ? a.map(p => { const m = p.match(/^(\d등급)\s+(\d+)$/); return `<span class="pt">${m ? `${esc(m[1])} <b>${esc(m[2])}</b>` : esc(p)}</span>`; }).join('') : esc(v); };
+  const pts = (v, force) => { const a = v.split(/\s*·\s*(?![^(]*\))/).filter(Boolean); const sm = a.length > 4 ? ' sm' : ''; return a.length > 1 || force ? a.map(p => { const m = p.match(/^(\d등급)\s+(\d+)$/); return `<span class="pt${sm}">${m ? `${esc(m[1])} <b>${esc(m[2])}</b>` : esc(p)}</span>`; }).join('') : esc(v); };
   items.forEach(c => {
     if (c.includes('→')) { const i = c.indexOf(':'); const lab = i > 0 && i < 14 ? c.slice(0, i) : ''; const [a, b] = (lab ? c.slice(i + 1) : c).split('→').map(z => z.trim()); rows.push([lab, a, b]); }
     else same.push(c.replace(/\s*2027과 동일\s*$/, '').trim());
