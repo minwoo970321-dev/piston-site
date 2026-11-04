@@ -120,7 +120,7 @@ h2{font-weight:900;letter-spacing:-2.5px;color:var(--dk);line-height:1.08}
 .sm .rw p i{font-style:normal;font-size:22px;font-weight:700;color:var(--mu);margin-left:6px}
 .sm .cg{margin-top:16px;padding-top:14px;border-top:2px solid var(--ln);display:flex;flex-wrap:wrap;gap:10px}
 .sm .cg span{font-size:26px;font-weight:800;background:var(--lime);color:var(--dk);padding:6px 14px;border-radius:8px}
-.rm .nt{font-size:25px;color:var(--mu);font-weight:600;line-height:1.5;margin:6px 4px 0}
+.rm .nt{font-size:25px;color:var(--mu);font-weight:600;line-height:1.5;margin:6px 4px 0}.rm .nt{display:flex;flex-direction:column;gap:12px;margin-top:18px;padding-top:20px;border-top:2px solid var(--ln)}.rm .nt>span{display:block;padding-left:1.1em;text-indent:-1.1em}
 .sn td small{display:block;font-size:24px;font-weight:700;color:var(--tx);margin-top:8px;letter-spacing:-.5px;line-height:1.3}
 .sn td.wd{font-size:34px;letter-spacing:-1px}
 .sn td.no{padding-top:34px;font-size:30px;color:var(--mu);font-weight:700}
@@ -301,7 +301,7 @@ ${foot(d.depts.length + 2 + S + k)}`, 1440, pg.reduce((a, x) => a + x[1].length,
 if (G) slides.push(page(gradeSlide(), 1440));
 
 const rmChips = c => c.split(' · ').map(x => { if (x.includes('::')) { const [a, b] = x.split('::'); return `<div><em>${esc(a)}</em><strong style="font-size:44px;line-height:1.55">${esc(b)}</strong></div>`; } const m = x.match(/^(.*?)\s*([\d.,]+\s*(?:%|점)?)\s*(\([^)]*\))?$/); return m && m[1] && !/[×→−]/.test(x.replace(/\([^)]*\)/g, "")) ? `<div><em>${esc(m[1])}</em><strong>${esc(m[2])}</strong>${m[3] ? `<small>${esc(m[3].slice(1, -1))}</small>` : ''}</div>` : `<div><p>${esc(x)}</p></div>`; }).join('');
-const rmSlide = t => { const rows = t.blocks[0].rows; return `<h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}<div class="rm${rows.length > 2 ? ' r3' : ''}">${rows.map((r, i) => { const [pc, pt] = r[1].split(' · '); return `<div class="cd${i === 0 ? ' dk' : ''}"><div class="hd"><b>${esc(r[0])} ${esc(pc)}${t.tag2 && i === 1 ? `<i class="tg">${esc(t.tag2)}</i>` : ''}</b><span>${esc(pt || '')}</span></div><div class="ch">${rmChips(r[2])}</div></div>`; }).join('')}${t.notes?.length ? `<div class="nt">${t.notes.map(n => '※ ' + esc(n)).join('<br>')}</div>` : ''}</div>`; };
+const rmSlide = t => { const rows = t.blocks[0].rows; return `<h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}<div class="rm${rows.length > 2 ? ' r3' : ''}">${rows.map((r, i) => { const [pc, pt] = r[1].split(' · '); return `<div class="cd${i === 0 ? ' dk' : ''}"><div class="hd"><b>${esc(r[0])} ${esc(pc)}${t.tag2 && i === 1 ? `<i class="tg">${esc(t.tag2)}</i>` : ''}</b><span>${esc(pt || '')}</span></div><div class="ch">${rmChips(r[2])}</div></div>`; }).join('')}${t.notes?.length ? `<div class="nt">${t.notes.map(n => '<span>※ ' + esc(n) + '</span>').join('')}</div>` : ''}</div>`; };
 // 표 장 (시행계획 세부 규정)
 T.forEach((t, i) => slides.push(page(`${top()}
 ${t.title === '정시 반영 방법' ? rmSlide(t) : `<h2 class="ttl">${esc(t.title)}</h2>${t.sub ? `<div class="tsub">${esc(t.sub)}</div>` : ''}
