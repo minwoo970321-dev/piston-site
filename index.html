@@ -337,13 +337,24 @@ body{padding-bottom:64px}
 .bar .cta{display:none}
 }
 .pf i{font-style:normal;font-weight:900;font-size:clamp(16px,1.4vw,20px);color:#1739ff;align-self:flex-end}
+
+/* v12 branch select */
+.bsel{display:flex;align-items:center;gap:6px;margin-top:clamp(12px,2vh,22px);flex-wrap:wrap}
+.bsel span{font-size:13px;font-weight:800;color:var(--soft);margin-right:6px}
+.bsel button{height:38px;padding:0 18px;border:2px solid #000;background:#fff;color:#000;font:inherit;font-weight:900;font-size:14px;cursor:pointer;transition:background-color .18s,color .18s,transform .15s}
+.bsel button:hover{background:#eef0ff}.bsel button:active{transform:scale(.96)}
+.bsel button.on{background:#1739ff;border-color:#1739ff;color:#fff}
+.br.sel{background:#f1f3fb;box-shadow:inset 4px 0 0 #1739ff}
+.br.sel h3::after{content:"내 지점";font-size:11px;font-weight:900;background:#1739ff;color:#fff;padding:2px 8px;margin-left:10px;vertical-align:middle;letter-spacing:0}
+@media(max-width:900px){.bsel span{flex-basis:100%;margin:0 0 2px}.bsel button{flex:1;height:42px}}
+.bsel{position:relative;z-index:6}.tl2{position:relative;z-index:6}
 </style></head>
 <body>
 <div class="bar"><a class="logo" href="#" aria-label="PISTON 처음으로"></a><a class="cta" href="#join">수강 등록신청</a></div>
 
 <main class="home" id="top">
 <section class="top"><div class="wm" aria-label="PISTON"><span>P</span>ISTON</div>
-<div class="side"><p class="eyebrow">안산 · 시흥 배곧 · 시흥 장현</p><p class="name">안산시흥피스톤체대입시</p><div class="dd"><small>수능까지</small><b id="dday">D-</b></div></div></section><div class="tl2"><p class="tg">안산·시흥 <b>체대입시 실기</b> 전문 학원</p>
+<div class="side"><p class="eyebrow">안산 · 시흥 배곧 · 시흥 장현</p><p class="name">안산시흥피스톤체대입시</p><div class="dd"><small>수능까지</small><b id="dday">D-</b></div></div></section><div class="bsel" role="group" aria-label="지점 선택"><span>지점 선택</span><button data-b="ansan">안산</button><button data-b="baegot">배곧</button><button data-b="janghyeon">장현</button></div><div class="tl2"><p class="tg">안산·시흥 <b>체대입시 실기</b> 전문 학원</p>
 <div class="pf"><div><b data-n="106">106</b><i>장</i><span>2년간 인서울·수도권 합격</span></div><div><b data-n="33">33</b><i>장</i><span>체육교육과 합격</span></div><div><b data-n="6">6</b><i>명</i><span>동국대 수시 역대 합격</span></div></div></div>
 <nav class="menu" aria-label="메뉴">
 <a href="#class"><i>01</i><div><b>Class</b><em>수업 소개<u>→</u></em></div></a>
@@ -464,4 +475,15 @@ if(k){var r=p.querySelector('.kb').getBoundingClientRect();k.style.transform='tr
 tick();
 function enter(){var p=cur();if(!p)return;p.classList.remove('go');void p.offsetWidth;setTimeout(function(){p.classList.add('go')},80)}
 addEventListener('hashchange',enter);enter();
-})();</script><div class="dock"><a class="d1" href="tel:01031629399">전화 상담</a><a class="d2" href="#join">수강 등록신청</a></div><script>(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;document.querySelectorAll('.pf b').forEach(function(e){var t=+e.dataset.n,s=performance.now()+500;e.textContent=0;(function f(n){var p=Math.max(0,Math.min(1,(n-s)/1500));e.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(s)})})();</script></body></html>
+})();</script><div class="dock"><a class="d1" href="tel:01031629399">전화 상담</a><a class="d2" href="#join">수강 등록신청</a></div><script>(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;document.querySelectorAll('.pf b').forEach(function(e){var t=+e.dataset.n,s=performance.now()+500;e.textContent=0;(function f(n){var p=Math.max(0,Math.min(1,(n-s)/1500));e.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(s)})})();</script><script>(function(){
+var B={ansan:{n:'안산점',tel:'0314181628',key:'안산점'},baegot:{n:'배곧점',tel:'01031629399',key:'시흥 배곧점'},janghyeon:{n:'장현점',tel:'01031629399',key:'시흥 장현점'}};
+var cur='';try{cur=localStorage.getItem('pc_branch')||''}catch(e){}
+function apply(k,save){if(!B[k])return;cur=k;if(save){try{localStorage.setItem('pc_branch',k)}catch(e){}}
+document.querySelectorAll('.bsel button').forEach(function(b){b.classList.toggle('on',b.dataset.b===k)});
+var d1=document.querySelector('.dock .d1');if(d1){d1.href='tel:'+B[k].tel;d1.textContent=B[k].n+' 전화 상담'}
+document.querySelectorAll('.br').forEach(function(r){var h=r.querySelector('h3');r.classList.toggle('sel',!!h&&h.textContent.trim()===B[k].key)});
+var s=document.getElementById('br');if(s){for(var i=0;i<s.options.length;i++){if(s.options[i].text.indexOf(B[k].key)===0){s.selectedIndex=i;break}}}
+var m=document.querySelector('.menu a[href="#contact"] em');if(m){m.firstChild.textContent=B[k].n+' · 전화'}}
+document.querySelectorAll('.bsel button').forEach(function(b){b.addEventListener('click',function(){apply(b.dataset.b,true)})});
+if(cur)apply(cur,false);
+})();</script></body></html>
