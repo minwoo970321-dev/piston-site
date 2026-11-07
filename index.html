@@ -5,266 +5,172 @@
 <title>안산시흥피스톤체대입시 | 안산·시흥 체대입시 실기</title>
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-
 <style>
-:root{--ground:#06301f;--deep:#041f14;--green:#07803f;--lime:#d4f53c;--paper:#f2f6f1;--white:#fff;--ink:#0b1a12;--soft:#4a5a51;
---s-sm:14px;--s-body:17px;--s-lead:clamp(19px,1.5vw,23px);--s-head:clamp(36px,4.8vw,68px);--s-disp:clamp(44px,7.4vw,112px);
---m:24px;--f:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo',sans-serif}
+:root{--g:#07803f;--gd:#06301f;--ink:#0b1a12;--soft:#4f5f56;--line:#d5e0d7;--tint:#eef5ef;--lime:#d4f53c;--m:clamp(18px,3vw,44px);
+--f:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;--ez:cubic-bezier(.23,1,.32,1)}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
-body{font-family:var(--f);font-size:var(--s-body);line-height:1.6;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;word-break:keep-all}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--f);font-size:17px;line-height:1.6;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;word-break:keep-all}
 a{color:inherit;text-decoration:none}
-.w{max-width:1320px;margin:0 auto;padding:0 var(--m)}
-h1,h2,h3{font-weight:800;letter-spacing:-.035em;line-height:1.08}
-h1{font-size:var(--s-disp);font-weight:900}
-h2{font-size:var(--s-head)}
-.lead{font-size:var(--s-lead);line-height:1.5;max-width:30em;margin-top:28px}
-.nl{display:block;width:132px;height:31px;background:var(--lime);-webkit-mask:url(/img/logo-xl.png) left center/contain no-repeat;mask:url(/img/logo-xl.png) left center/contain no-repeat}
-.nl.gr{background:var(--green)}
-.bt{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 30px;border:0;border-radius:0;font:inherit;font-size:18px;font-weight:800;cursor:pointer;background:var(--lime);color:var(--deep);transition:background-color .18s ease-out,color .18s ease-out,transform .16s ease-out}
-.bt:hover{background:#fff}.bt:active{transform:scale(.97)}
-.bt.dk{background:var(--ink);color:#fff}.bt.dk:hover{background:var(--green)}
-.bt.sm{height:42px;padding:0 18px;font-size:15px}
-a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
-.pp a:focus-visible,.pp button:focus-visible,.pp input:focus-visible,.pp select:focus-visible,.pp summary:focus-visible,.paper a:focus-visible{outline-color:var(--green)}
-/* nav */
-#nv{position:sticky;top:0;z-index:60;background:var(--ground);color:#fff}
-#nv .w{display:flex;align-items:center;height:64px;gap:30px}
-#nv .sp{flex:1}
-#nv .l{font-size:16px;font-weight:600;color:rgba(255,255,255,.78)}
-#nv .l:hover{color:#fff}
-/* hero */
-.hero{background:var(--ground);color:#fff;padding:72px 0 120px}
-.hg{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:center}
-.hero .lead{color:rgba(255,255,255,.82)}
-.hero .btns{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
-.card{background:var(--paper);color:var(--ink);width:min(100%,430px);justify-self:end;padding:30px 30px 0;transform:rotate(1.2deg)}
-.card .top{display:flex;justify-content:space-between;align-items:center}
-.card .top span{font-size:var(--s-sm);font-weight:700;color:var(--soft)}
-.ct2{font-size:26px;font-weight:800;margin:26px 0 6px;letter-spacing:-.03em}
-.nm{display:flex;gap:12px;align-items:flex-end;font-weight:700;margin:4px 0 14px}
-.nm i{flex:1;border-bottom:4px dotted #9aaba1;height:18px}
-.row{display:flex;align-items:flex-end;gap:10px;padding:10px 0;font-size:17px}
-.row i{flex:1;border-bottom:4px dotted #9aaba1;height:16px;min-width:20px}
-.row b{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.row small{font-size:var(--s-sm);color:var(--soft);margin-left:2px}
-.tot{display:flex;justify-content:space-between;align-items:baseline;background:var(--ink);color:#fff;margin:16px -30px 0;padding:16px 30px;font-weight:700}
-.tot b{font-size:34px;font-weight:900;color:var(--lime);font-variant-numeric:tabular-nums}
-.stub{margin:0 -30px;padding:16px 30px 18px;border-top:4px dotted #9aaba1;font-size:var(--s-sm);color:var(--soft);display:flex;justify-content:space-between;gap:12px;background:#e6ede6}
-/* classes */
-.cls{padding:120px 0 0}.n99{justify-self:start}
-.stack{margin-top:56px}
-.sheet{position:sticky;min-height:64vh;padding:26px 0 56px;display:flex}
-.sheet .w{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-content:start}
-.sheet h3{font-size:clamp(28px,3vw,44px);grid-column:1/3;height:44px;line-height:1}
-.sheet p{font-size:var(--s-lead);line-height:1.5;max-width:26em;align-self:start;margin-top:44px}
-.sheet .lb{font-size:clamp(64px,10vw,150px);font-weight:900;letter-spacing:-.05em;line-height:.9;margin-top:34px;text-align:right}
-.sheet .lb span{display:block}
-.sh1{background:var(--green);color:#fff;top:64px}
-.sh2{background:var(--lime);color:var(--deep);top:124px}
-.sh3{background:var(--ground);color:#fff;top:184px}
-.ch{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end}.n99{display:flex;gap:28px;align-items:flex-end;justify-self:end}.n99 .big{font-size:clamp(120px,15vw,220px);font-weight:900;line-height:.8;letter-spacing:-.06em;color:var(--green)}.t99{max-width:15em;padding-bottom:6px}.t99 h3{font-size:22px}.t99 p{margin-top:8px;font-size:var(--s-body)}
-.d3 .w{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end}
-.d3 .big{font-size:clamp(140px,20vw,300px);font-weight:900;line-height:.8;letter-spacing:-.06em;color:var(--green)}
-.d3 h3{font-size:clamp(28px,3vw,44px)}
-.d3 p{margin-top:16px;max-width:26em}
+:focus-visible{outline:3px solid var(--g);outline-offset:3px}
+/* top bar */
+.bar{position:fixed;inset:0 0 auto 0;z-index:20;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--m);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.logo{display:block;width:132px;height:31px;background:var(--g);-webkit-mask:url(/img/logo-xl.png) left center/contain no-repeat;mask:url(/img/logo-xl.png) left center/contain no-repeat}
+.cta{height:42px;padding:0 20px;display:inline-flex;align-items:center;background:var(--g);color:#fff;font-weight:800;font-size:15px;transition:background-color .18s ease-out,transform .16s ease-out}
+.cta:hover{background:var(--ink)}.cta:active{transform:scale(.97)}
+/* home */
+.home{min-height:100svh;padding-top:68px;display:grid;grid-template-columns:5fr 7fr}
+.intro{padding:clamp(28px,5vh,64px) var(--m);display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.eyebrow{font-size:15px;font-weight:700;color:var(--g);letter-spacing:.02em}
+h1{font-size:clamp(52px,7.2vw,124px);font-weight:900;letter-spacing:-.05em;line-height:.98;color:var(--gd);margin-top:14px}
+.sub{font-size:clamp(17px,1.4vw,21px);color:var(--soft);max-width:22em;margin-top:22px}
+.dd{display:flex;align-items:baseline;gap:14px;font-weight:800;color:var(--gd)}
+.dd small{font-size:15px;color:var(--soft);font-weight:600}
+.dd b{font-size:clamp(44px,4.6vw,72px);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.menu{display:flex;flex-direction:column;border-left:1px solid var(--line)}
+.menu a{flex:1;min-height:76px;display:grid;grid-template-columns:56px 1fr auto 36px;align-items:center;gap:8px;padding:0 var(--m);border-top:1px solid var(--line);position:relative;overflow:hidden;color:var(--gd);transition:color .22s ease-out}
+.menu a:first-child{border-top:0}
+.menu a::before{content:"";position:absolute;inset:0;background:var(--g);transform:translateY(101%);transition:transform .32s var(--ez);z-index:0}
+.menu a>*{position:relative;z-index:1}
+.menu i{font-style:normal;font-size:14px;font-weight:700;color:var(--g);font-variant-numeric:tabular-nums;transition:color .22s}
+.menu b{font-size:clamp(30px,3.7vw,58px);font-weight:900;letter-spacing:-.04em;line-height:1.05}
+.menu em{font-style:normal;font-size:15px;color:var(--soft);text-align:right;transition:color .22s}
+.menu u{text-decoration:none;font-size:26px;font-weight:700;text-align:right;transform:translateX(-6px);opacity:.35;transition:transform .3s var(--ez),opacity .2s}
+.menu a.hot b{color:var(--g)}
+@media(hover:hover) and (pointer:fine){
+.menu a:hover{color:#fff}.menu a:hover::before{transform:none}
+.menu a:hover i,.menu a:hover em,.menu a:hover b{color:#fff}
+.menu a:hover u{transform:none;opacity:1}}
+.menu a:active::before{transform:none}.menu a:active{color:#fff}.menu a:active i,.menu a:active em,.menu a:active b{color:#fff}
+/* marquee */
+.mq{background:var(--gd);color:#fff;overflow:hidden;white-space:nowrap;padding:16px 0}
+.mq div{display:inline-flex;gap:56px;padding-right:56px;animation:mq 38s linear infinite;font-weight:800;font-size:clamp(17px,1.5vw,22px);letter-spacing:-.02em}
+.mq b{color:var(--lime);font-weight:900}
+.mq:hover div{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* panes */
+.pane{display:none;padding:68px 0 0}
+body[data-v] .home,body[data-v] .mq{display:none}
+body[data-v=class] #class,body[data-v=time] #time,body[data-v=join] #join,body[data-v=news] #news,body[data-v=contact] #contact{display:block;animation:in .45s var(--ez)}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.in{max-width:1320px;margin:0 auto;padding:0 var(--m)}
+.back{display:inline-flex;align-items:center;gap:8px;height:44px;margin:28px 0 8px;font-weight:800;color:var(--g)}
+.back:hover{color:var(--ink)}
+h2{font-size:clamp(46px,7.4vw,124px);font-weight:900;letter-spacing:-.05em;line-height:1;color:var(--gd)}
+.lead{font-size:clamp(18px,1.5vw,23px);line-height:1.55;color:var(--soft);max-width:30em;margin-top:26px}
+.sp{padding-bottom:120px}
+/* class */
+.cls-list{margin-top:64px;border-top:2px solid var(--gd)}
+.cr{display:grid;grid-template-columns:minmax(160px,1fr) 2fr auto;gap:24px 40px;align-items:baseline;padding:34px 0;border-bottom:1px solid var(--line)}
+.cr h3{font-size:clamp(34px,4.4vw,68px);font-weight:900;letter-spacing:-.045em;line-height:1;color:var(--gd)}
+.cr p{font-size:clamp(18px,1.5vw,22px);max-width:26em}
+.cr span{font-weight:800;color:var(--g)}
+.n99{display:flex;align-items:flex-end;gap:28px;margin-top:72px}
+.n99 .big{font-size:clamp(120px,16vw,240px);font-weight:900;line-height:.78;letter-spacing:-.07em;color:var(--g)}
+.n99 h3{font-size:clamp(20px,1.8vw,26px);font-weight:800}.n99 p{color:var(--soft);margin-top:8px;max-width:20em}
 /* time */
-.time{background:var(--ground);color:#fff;padding:120px 0}
-.time .w{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.time .lead{color:rgba(255,255,255,.8)}
-.slip{background:var(--paper);color:var(--ink);padding:34px 32px 0;width:min(100%,460px);justify-self:end}
-.slip .row b{font-size:22px}
-.slip .tot{margin:20px -32px 0;padding:18px 32px}
-.slip .zz{height:18px;margin:0 -32px;background:var(--paper);clip-path:polygon(0 0,100% 0,100% 100%,97.5% 40%,95% 100%,92.5% 40%,90% 100%,87.5% 40%,85% 100%,82.5% 40%,80% 100%,77.5% 40%,75% 100%,72.5% 40%,70% 100%,67.5% 40%,65% 100%,62.5% 40%,60% 100%,57.5% 40%,55% 100%,52.5% 40%,50% 100%,47.5% 40%,45% 100%,42.5% 40%,40% 100%,37.5% 40%,35% 100%,32.5% 40%,30% 100%,27.5% 40%,25% 100%,22.5% 40%,20% 100%,17.5% 40%,15% 100%,12.5% 40%,10% 100%,7.5% 40%,5% 100%,2.5% 40%,0 100%)}
-.slip .note{font-size:var(--s-sm);color:var(--soft);padding:14px 0 6px}
-/* app */
-.app{background:var(--green);color:#fff;padding:120px 0}
-.app .w{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.feat{list-style:none;margin:32px 0 36px;display:grid;gap:12px}
-.feat li{background:rgba(6,48,31,.28);padding:16px 20px;font-size:18px;font-weight:600}
-.phs{display:flex;gap:18px;justify-content:center;align-items:flex-start;margin-top:30px}
-.phs img{display:block;width:min(46%,300px);height:auto}
-.phs img:nth-child(1){transform:rotate(-1.5deg);margin-top:30px}
-.phs img:nth-child(2){transform:rotate(1.5deg)}
-.app .col2{justify-self:center;width:min(100%,470px)}.cls-frame{display:block;width:100%;height:min(86vh,860px);border:0;background:var(--paper)}
+.tl{margin-top:64px;border-top:2px solid var(--gd)}
+.tr{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:30px 0;border-bottom:1px solid var(--line)}
+.tr span{font-size:clamp(20px,2vw,30px);font-weight:700;color:var(--gd)}
+.tr b{font-size:clamp(34px,5vw,80px);font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--g)}
+.tr.off b{color:var(--soft)}
+.note{margin-top:20px;font-size:15px;color:var(--soft)}
 /* join */
-.join{background:var(--paper);padding:120px 0}
-.join .w{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start}
-.sticky{position:sticky;top:100px}
-#jw{background:#fff;padding:40px}
-.jf{display:grid;gap:22px}
-.r2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.jf label{display:block;font-size:15px;font-weight:700;margin-bottom:6px}
-.jf input:not([type=checkbox]),.jf select{width:100%;height:54px;border:0;border-bottom:2px solid var(--ink);border-radius:0;background:var(--paper);padding:0 14px;font:inherit;font-size:17px;color:var(--ink)}
-.jf input:not([type=checkbox]):focus,.jf select:focus{outline:none;background:#e6f3d0;border-color:var(--green)}
-.pv{background:var(--paper);padding:14px 16px;font-size:15px}
+.jg{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,96px);align-items:start;margin-top:8px}
+.jg .stk{position:sticky;top:104px}
+#jw{padding-top:12px}
+.jf{display:grid;gap:26px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.jf label{display:block;font-size:15px;font-weight:800;margin-bottom:6px;color:var(--gd)}
+.jf input:not([type=checkbox]),.jf select{width:100%;height:56px;border:0;border-bottom:2px solid var(--gd);border-radius:0;background:var(--tint);padding:0 14px;font:inherit;font-size:17px;color:var(--ink)}
+.jf input:not([type=checkbox]):focus,.jf select:focus{outline:none;background:#e4f2d2;border-color:var(--g)}
+.pv{background:var(--tint);padding:14px 16px;font-size:15px}
 .pv summary{cursor:pointer;font-weight:700}
 .pv table{width:100%;border-collapse:collapse;margin-top:12px}
 .pv th{text-align:left;width:108px;padding:9px 12px 9px 0;vertical-align:top;color:var(--soft);font-weight:600}
-.pv td{padding:9px 0;border-top:1px solid #cfd9d1}
-.pv tr:first-child td,.pv tr:first-child th{border-top:0}
-.jf label.ag{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;font-weight:500;margin:0;cursor:pointer}
-.ag input{width:22px;height:22px;margin-top:2px;accent-color:var(--green);flex:none}
-#sb{height:60px;border:0;border-radius:0;background:var(--ink);color:#fff;font:inherit;font-size:18px;font-weight:800;cursor:pointer;transition:background-color .18s ease-out,transform .16s ease-out}
-#sb:hover{background:var(--green)}#sb:active{transform:scale(.98)}#sb:disabled{opacity:.6;cursor:default}
+.pv td{padding:9px 0;border-top:1px solid var(--line)}
+.pv tr:first-child th,.pv tr:first-child td{border-top:0}
+.jf label.ag{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;font-weight:500;margin:0;cursor:pointer;color:var(--ink)}
+.ag input{width:22px;height:22px;margin-top:2px;accent-color:var(--g);flex:none}
+#sb{height:62px;border:0;background:var(--g);color:#fff;font:inherit;font-size:19px;font-weight:900;cursor:pointer;transition:background-color .18s ease-out,transform .16s ease-out}
+#sb:hover{background:var(--ink)}#sb:active{transform:scale(.98)}#sb:disabled{opacity:.6;cursor:default}
 .jm{font-size:15px;font-weight:700}.jm.e{color:#b3261e}
-.done h3{font-size:34px}.done p{color:var(--soft);margin:10px 0 24px}
-.btn.p{display:inline-flex;height:52px;align-items:center;padding:0 26px;background:var(--ink);color:#fff;font-weight:800}
+.done h3{font-size:36px;font-weight:900;letter-spacing:-.04em;color:var(--gd)}.done p{color:var(--soft);margin:10px 0 24px}
+.btn{display:inline-flex;height:52px;align-items:center;padding:0 26px;background:var(--g);color:#fff;font-weight:800}
+.btn:hover{background:var(--ink)}
+/* news */
+.set{margin-top:56px;padding-top:24px;border-top:2px solid var(--gd)}
+.set h3{font-size:clamp(24px,2.8vw,38px);font-weight:900;letter-spacing:-.04em;color:var(--gd)}
+.set .m{font-size:15px;color:var(--soft);margin:8px 0 20px}
+.strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x proximity}
+.strip a{flex:none;scroll-snap-align:start;display:block}
+.strip img{display:block;height:min(560px,66vw);width:auto;aspect-ratio:4/5}
+.acts{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+.acts .dk{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}.acts .dk:hover{background:var(--ink);color:#fff}
+.src{font-size:14px;color:var(--soft);margin-top:28px}
 /* contact */
-.ct{background:var(--lime);color:var(--deep);padding:120px 0 0}
-.ct .brs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;align-items:end}
-.ct .brs>div{background:var(--paper);padding:34px 30px;display:flex;flex-direction:column;gap:8px}
-.ct .brs>div:nth-child(1){min-height:300px}.ct .brs>div:nth-child(2){min-height:360px}.ct .brs>div:nth-child(3){min-height:420px}
-.ct b{font-size:30px;font-weight:800;letter-spacing:-.03em}
-.ct .brs a{margin-top:auto;font-weight:800;text-decoration:underline;text-underline-offset:4px}
-.ct .lead{color:var(--deep)}
-footer{background:var(--deep);color:rgba(255,255,255,.7);padding:72px 0 28px;font-size:var(--s-sm)}
-footer .big{display:block;width:100%;aspect-ratio:1576/368;background:var(--lime);-webkit-mask:url(/img/logo-xl.png) center/contain no-repeat;mask:url(/img/logo-xl.png) center/contain no-repeat}
-footer .w>div{display:flex;justify-content:space-between;margin-top:28px;gap:16px;flex-wrap:wrap}
-/* motion */
-.js .rv{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.23,1,.32,1),transform .6s cubic-bezier(.23,1,.32,1);transition-delay:var(--d,0ms)}
-.js .rv.in{opacity:1;transform:none}
-.js .card.rv{transform:translateY(22px) rotate(1.2deg)}.js .card.rv.in{transform:rotate(1.2deg)}
-.js .phs img.rv{transform:translateY(40px)}
-.js .phs img.rv.in:nth-child(1){transform:rotate(-1.5deg)}.js .phs img.rv.in:nth-child(2){transform:rotate(1.5deg)}
+.bl{margin-top:64px;border-top:2px solid var(--gd)}
+.br{display:grid;grid-template-columns:minmax(180px,1fr) 1.2fr auto;gap:12px 40px;align-items:baseline;padding:34px 0;border-bottom:1px solid var(--line)}
+.br h3{font-size:clamp(30px,3.6vw,54px);font-weight:900;letter-spacing:-.045em;line-height:1;color:var(--gd)}
+.br p{color:var(--soft)}
+.br a.t{font-size:clamp(24px,2.6vw,38px);font-weight:900;letter-spacing:-.03em;color:var(--g);font-variant-numeric:tabular-nums}
+.br a.t:hover{color:var(--ink)}
+.br a.i{display:block;font-size:15px;font-weight:700;margin-top:6px;color:var(--soft);text-align:right}
+footer{margin-top:0;padding:40px var(--m) 28px;background:var(--gd);color:rgba(255,255,255,.72);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 @media(max-width:900px){
-.hg,.sheet .w,.ch,.time .w,.app .w,.join .w{grid-template-columns:1fr;gap:36px}
-.card{justify-self:start}.slip{justify-self:start}
-.sheet h3{grid-column:auto}.sheet .lb{text-align:left;margin-top:0}.sheet p{margin-top:20px}
-.sheet{min-height:0}
-.sticky{position:static}
-.ct .brs{grid-template-columns:1fr}.ct .brs>div{min-height:0!important}
-
+.home{grid-template-columns:1fr;min-height:0}
+.intro{padding:32px var(--m) 20px;gap:22px}
+h1{font-size:clamp(52px,15vw,96px)}
+.menu{border-left:0;border-top:2px solid var(--gd)}
+.menu a{min-height:68px;grid-template-columns:40px 1fr 28px}.menu em{display:none}
+.menu b{font-size:clamp(28px,8vw,40px)}
+.cr{grid-template-columns:1fr;gap:10px}
+.jg{grid-template-columns:1fr}.jg .stk{position:static}
+.br{grid-template-columns:1fr}.br a.i{text-align:left}
+.n99{flex-direction:column;align-items:flex-start;gap:16px}
 }
-@media(max-width:640px){
-:root{--m:16px}
-#nv .l{display:none}#nv .w{gap:0}
-.hero{padding:44px 0 80px}.cls{padding-top:80px}.time,.join{padding:80px 0}.cls{padding-bottom:0}.app{padding:80px 0}.ct{padding-top:80px}
-.r2{grid-template-columns:1fr}#jw{padding:24px 18px}
-.sh1{top:56px}.sh2{top:108px}.sh3{top:160px}
-.sheet h3{height:34px}
-.card{padding:22px 22px 0}.tot,.stub{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}
-.slip{padding:26px 22px 0}.slip .tot,.slip .zz{margin-left:-22px;margin-right:-22px}.slip .tot{padding-left:22px;padding-right:22px}
-.phs{gap:10px}
-}
-@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}.js .card.rv{transform:rotate(1.2deg)}html{scroll-behavior:auto}.bt,#sb{transition:none}}
-
-/* v10 clean override */
-#nv{background:#fff;color:var(--ink)}
-#nv .nl{background:var(--green)}
-#nv .l{color:var(--soft)}#nv .l:hover{color:var(--ink)}
-#nv .bt.sm{background:var(--green);color:#fff}#nv .bt.sm:hover{background:var(--ink)}
-.hero{background:#fff;color:var(--ink);padding:88px 0 112px}
-.hero h1{color:var(--ground)}
-.hero .lead{color:var(--soft)}
-.hero .bt{background:var(--green);color:#fff}.hero .bt:hover{background:var(--ink)}
-.hero .bt[style]{background:#fff!important;color:var(--ink)!important;box-shadow:inset 0 0 0 2px var(--ink)}
-.hero .bt[style]:hover{background:var(--ink)!important;color:#fff!important}
-.hp{background:var(--ground);color:#fff;padding:44px 40px;justify-self:end;width:min(100%,440px)}
-.hp small{font-size:17px;color:rgba(255,255,255,.75);display:block}
-.hp b{display:block;font-size:clamp(96px,11vw,150px);font-weight:900;line-height:1;letter-spacing:-.05em;color:var(--lime);margin:6px 0 26px}
-.hp ul{list-style:none;display:grid;gap:10px;font-size:17px;color:rgba(255,255,255,.82)}
-.hp strong{color:#fff;font-weight:800;margin-right:8px}
-.cls{padding:120px 0}
-.cl3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
-.cc{background:var(--paper);padding:36px 32px 32px;display:flex;flex-direction:column;gap:14px;min-height:300px}
-.cc h3{font-size:clamp(30px,3vw,40px);color:var(--ground)}
-.cc p{color:var(--ink);font-size:18px;flex:1}
-.cc span{font-weight:800;color:var(--green)}
-.ch{grid-template-columns:1fr auto}
-.time .tl{width:min(100%,520px);justify-self:end}
-.tr3{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:22px 0;font-size:20px;}
-.tr3+.tr3{border-top:0}
-.tr3 span{color:rgba(255,255,255,.8)}
-.tr3 b{font-size:clamp(24px,2.4vw,32px);font-weight:800;color:var(--lime);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.tr3.off b{color:#fff}
-.tl .note{font-size:var(--s-sm);color:rgba(255,255,255,.6);margin-top:12px}
-.ct .brs>div:nth-child(n){min-height:260px!important}
-.ct .brs{align-items:stretch}
-.ct{padding-bottom:120px}
-@media(max-width:900px){.cl3{grid-template-columns:1fr}.cc{min-height:0}.ch{grid-template-columns:1fr}.hp{justify-self:start}.time .tl{justify-self:start}}
-@media(max-width:640px){.hero{padding:44px 0 72px}.cls{padding:80px 0}.hp{padding:30px 26px}}
-.ct{background:var(--paper);color:var(--ink)}
-.ct .brs>div{background:#fff}
-.ct .brs a{color:var(--green)}
-.ct .lead{color:var(--soft)}
-footer .big{width:260px;aspect-ratio:1576/368;background:#fff;margin:0}
-footer{padding:56px 0 28px}
-.hp b{color:var(--lime)}
-
-.hero{padding:56px 0 48px}
-.hero h1{font-size:clamp(44px,6.6vw,96px)}
-.hp{padding:30px 32px;width:min(100%,380px)}.hp b{font-size:clamp(72px,8vw,112px);margin-bottom:16px}
-.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:56px}
-.tile{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:150px;padding:24px 22px;background:var(--paper);color:var(--ground);transition:background-color .18s ease-out,color .18s ease-out,transform .16s ease-out}
-.tile b{font-size:clamp(22px,1.9vw,28px);font-weight:800;letter-spacing:-.03em;line-height:1.15}
-.tile span{font-size:15px;color:var(--soft)}
-.tile:hover{background:var(--green);color:#fff}.tile:hover span{color:rgba(255,255,255,.85)}
-.tile:active{transform:scale(.98)}
-.back{display:inline-flex;align-items:center;height:44px;font-weight:800;color:inherit;margin:0 0 28px;opacity:.85}
-.back:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
-.cls,.time,.app,.join,.ct,.nw{padding-top:48px!important}
-body:not([data-v="class"]) #class,body:not([data-v="time"]) #time,body:not([data-v="join"]) #join,body:not([data-v="contact"]) #contact,body:not([data-v="news"]) #news{display:none}
-body[data-v="class"] #top,body[data-v="time"] #top,body[data-v="join"] #top,body[data-v="contact"] #top,body[data-v="news"] #top{display:none}
-@media(max-width:900px){.tiles{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.tiles{grid-template-columns:1fr 1fr;margin-top:36px}.tile{min-height:120px;padding:18px 16px}.tile span{font-size:14px}.hero h1{font-size:44px}}
-@media(max-width:640px){.hero .btns .bt[style]{display:none}.hp{display:none}.hero .btns .bt{height:50px;flex:1}.hero{padding:36px 0 56px}}
-
-.app{background:var(--paper);color:var(--ink);padding:40px 0 64px!important}
-.atabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.atabs a{height:46px;padding:0 22px;display:inline-flex;align-items:center;font-weight:800;background:#fff;color:var(--ground);transition:background-color .18s ease-out,color .18s ease-out}
-.atabs a:hover{background:#dfeadf}
-.atabs a.on{background:var(--green);color:#fff}
-#appf{display:block;width:100%;height:max(640px,calc(100vh - 210px));border:0;background:#fff}
-body:not([data-v="today"]):not([data-v="sched"]):not([data-v="ipsi"]):not([data-v="lib"]) #app{display:none}
-body[data-v="today"] #top,body[data-v="sched"] #top,body[data-v="ipsi"] #top,body[data-v="lib"] #top{display:none}
-.tiles{grid-template-columns:repeat(4,1fr)}
-@media(max-width:900px){.tiles{grid-template-columns:1fr 1fr}#appf{height:max(560px,calc(100svh - 190px))}}
-@media(max-width:1100px){#nv .l{display:none}}
-
-.nw{padding:48px 0 96px;background:var(--paper)}
-.nw .src{font-size:var(--s-sm);color:var(--soft);margin-top:14px}
-.nw .set{margin-top:48px;padding-top:24px;border-top:3px solid var(--ground)}
-.nw .set h3{font-size:clamp(24px,2.6vw,34px)}
-.nw .set .m{font-size:var(--s-sm);color:var(--soft);margin:8px 0 18px}
-.nw .strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x proximity}
-.nw .strip a{flex:none;scroll-snap-align:start;display:block;background:#fff}
-.nw .strip img{display:block;height:min(560px,64vw);width:auto;aspect-ratio:4/5}
-.nw .acts{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:560px){.r2{grid-template-columns:1fr}.logo{width:112px}}
+@media(prefers-reduced-motion:reduce){.mq div{animation:none}body[data-v] .pane{animation:none!important}.menu a::before,.menu u{transition:none}}
 </style></head>
 <body>
-<nav id="nv"><div class="w"><a class="nl" href="#top" aria-label="PISTON 처음으로"></a><span class="sp"></span><a class="l" href="#class">수업</a><a class="l" href="#time">시간</a><a class="l" href="/today">오늘 수업</a><a class="l" href="/ipsi">입시</a><a class="l" href="/lib">훈련 자료</a><a class="l" href="#news">입시 소식</a><a class="l" href="#contact">지점</a><a class="bt sm" href="#join">수강 등록신청</a></div></nav>
+<div class="bar"><a class="logo" href="#" aria-label="PISTON 처음으로"></a><a class="cta" href="#join">수강 등록신청</a></div>
 
-<header class="hero" id="top"><div class="w hg">
-<div><h1 class="rv">기록이 합격을<br>만듭니다.</h1>
-<p class="lead rv" style="--d:80ms">안산시흥피스톤체대입시. 종목별 실기 훈련부터 대학별 배점 계산, 입시 전략까지 한 명 한 명 끝까지 관리합니다.</p>
-<div class="btns rv" style="--d:160ms"><a class="bt" href="#join">수강 등록신청</a><a class="bt" style="background:#fff" href="/ipsi">입시·훈련 자료 보기</a></div></div>
-<div class="hp rv" style="--d:200ms"><small>수능까지</small><b id="dday">D-</b><ul><li><strong>안산점</strong> 고잔동</li><li><strong>시흥 배곧점</strong> 배곧동</li><li><strong>시흥 장현점</strong> 능곡동</li></ul></div>
-</div><div class="w tiles" aria-label="메뉴">
-<a class="tile" href="#class"><b>수업 소개</b><span>예비반 · 수시반 · 정시반</span></a>
-<a class="tile" href="#time"><b>시간표</b><span>저녁에 모여 밤까지</span></a>
-<a class="tile" href="/today"><b>오늘 수업</b><span>지점·반별 오늘 훈련</span></a>
-<a class="tile" href="/ipsi"><b>입시</b><span>대학별 전형 · 배점 · 기록 계산</span></a>
-<a class="tile" href="/lib"><b>훈련 자료</b><span>수업 전 3D 영상 99개</span></a>
-<a class="tile" href="#join"><b>수강 등록신청</b><span>상담 후 바로 시작</span></a>
-<a class="tile" href="#news"><b>입시 소식</b><span>2028 전형계획 카드</span></a>
-<a class="tile" href="#contact"><b>지점 안내</b><span>안산 · 배곧 · 장현</span></a></div>
-</header>
-
-<section class="cls" id="class"><div class="w"><a class="back" href="#top">← 처음으로</a></div><div class="w ch"><div><h2 class="rv">목표에 맞춰<br>반을 나눕니다.</h2><p class="lead rv" style="--d:80ms">같은 시간에 같은 훈련이 아니라, 시기와 지원 대학에 맞춰 설계합니다.</p></div><div class="n99 rv" style="--d:120ms"><div class="big" aria-label="99">99</div><div class="t99"><h3>수업 전에 먼저 보는 3D 훈련 자료</h3><p>동작을 먼저 보고 수업에 들어오면, 수업 시간이 훈련에 온전히 쓰여요.</p></div></div></div>
-<div class="w"><div class="cl3">
-<div class="cc rv"><h3>예비반</h3><p>기초 체력과 종목별 자세를 먼저 잡습니다. 부상 없이 기록이 오르는 몸을 만들어요.</p><span>A반 · B반</span></div>
-<div class="cc rv" style="--d:80ms"><h3>수시반</h3><p>지원 대학의 실기 종목에 맞춘 집중 훈련과 기록 관리.</p><span>수시 실기</span></div>
-<div class="cc rv" style="--d:160ms"><h3>정시반</h3><p>수능 이후 실기를 완성합니다. 대학별 배점에 맞춘 기록 전략.</p><span>A반 · B반</span></div></div></div>
+<main class="home" id="top">
+<section class="intro">
+<div><p class="eyebrow">안산 · 시흥 배곧 · 시흥 장현</p><h1>안산시흥<br>피스톤<br>체대입시</h1><p class="sub">종목별 실기 훈련부터 대학별 배점 계산, 입시 전략까지 한 명 한 명 끝까지 관리합니다.</p></div>
+<div class="dd"><small>수능까지</small><b id="dday">D-</b></div>
 </section>
+<nav class="menu" aria-label="메뉴">
+<a href="#class"><i>01</i><b>수업 소개</b><em>예비반 · 수시반 · 정시반</em><u>→</u></a>
+<a href="#time"><i>02</i><b>시간표</b><em>저녁에 모여 밤까지</em><u>→</u></a>
+<a href="/today"><i>03</i><b>오늘 수업</b><em>지점·반별 오늘 훈련</em><u>→</u></a>
+<a href="/ipsi"><i>04</i><b>입시</b><em>대학별 전형 · 배점 · 기록 계산</em><u>→</u></a>
+<a href="/lib"><i>05</i><b>훈련 자료</b><em>수업 전 3D 영상 99개</em><u>→</u></a>
+<a href="#news"><i>06</i><b>입시 소식</b><em>2028 전형계획 카드</em><u>→</u></a>
+<a href="#contact"><i>07</i><b>지점 안내</b><em>안산 · 배곧 · 장현</em><u>→</u></a>
+<a class="hot" href="#join"><i>08</i><b>수강 등록신청</b><em>상담 후 바로 시작</em><u>→</u></a>
+</nav>
+</main>
+<div class="mq" aria-hidden="true"><div><span><b>2년간</b> 인서울·수도권 합격 <b>106장</b></span><span>체육교육과 합격 <b>33장</b></span><span>동국대 수시 역대 <b>6명</b> 합격 · 지역 내 최다</span><span>안산 · 시흥 배곧 · 시흥 장현</span><span><b>2028</b> 전형계획 카드 매일 업데이트</span><span><b>2년간</b> 인서울·수도권 합격 <b>106장</b></span><span>체육교육과 합격 <b>33장</b></span><span>동국대 수시 역대 <b>6명</b> 합격 · 지역 내 최다</span><span>안산 · 시흥 배곧 · 시흥 장현</span><span><b>2028</b> 전형계획 카드 매일 업데이트</span></div></div>
 
-<section class="time" id="time"><div class="w"><a class="back" href="#top">← 처음으로</a></div><div class="w"><div><h2 class="rv">저녁에 모여<br>밤까지 훈련합니다.</h2><p class="lead rv" style="--d:80ms">지점·반마다 시간표가 다릅니다. 정확한 시간은 상담 때 안내드려요.</p></div>
-<div class="tl rv" style="--d:120ms"><div class="tr3"><span>안산점</span><b>19:00 – 21:30</b></div><div class="tr3"><span>월 – 금</span><b>20:00 – 22:30</b></div><div class="tr3"><span>토요일</span><b>18:00 – 22:30</b></div><div class="tr3 off"><span>일요일</span><b>휴무</b></div><p class="note">시간표는 변경될 수 있어요. 등록 전에 지점으로 확인해 주세요.</p></div>
+<section class="pane" id="class"><div class="in sp"><a class="back" href="#">← 메뉴</a>
+<h2>목표에 맞춰<br>반을 나눕니다.</h2><p class="lead">같은 시간에 같은 훈련이 아니라, 시기와 지원 대학에 맞춰 설계합니다.</p>
+<div class="cls-list">
+<div class="cr"><h3>예비반</h3><p>기초 체력과 종목별 자세를 먼저 잡습니다. 부상 없이 기록이 오르는 몸을 만들어요.</p><span>A반 · B반</span></div>
+<div class="cr"><h3>수시반</h3><p>지원 대학의 실기 종목에 맞춘 집중 훈련과 기록 관리.</p><span>수시 실기</span></div>
+<div class="cr"><h3>정시반</h3><p>수능 이후 실기를 완성합니다. 대학별 배점에 맞춘 기록 전략.</p><span>A반 · B반</span></div>
+</div>
+<div class="n99"><div class="big" aria-label="99">99</div><div><h3>수업 전에 먼저 보는 3D 훈련 자료</h3><p>동작을 먼저 보고 수업에 들어오면, 수업 시간이 훈련에 온전히 쓰여요.</p></div></div>
 </div></section>
 
+<section class="pane" id="time"><div class="in sp"><a class="back" href="#">← 메뉴</a>
+<h2>저녁에 모여<br>밤까지 훈련합니다.</h2><p class="lead">지점·반마다 시간표가 다릅니다. 정확한 시간은 상담 때 안내드려요.</p>
+<div class="tl"><div class="tr"><span>안산점</span><b>19:00 – 21:30</b></div><div class="tr"><span>월 – 금</span><b>20:00 – 22:30</b></div><div class="tr"><span>토요일</span><b>18:00 – 22:30</b></div><div class="tr off"><span>일요일</span><b>휴무</b></div></div>
+<p class="note">시간표는 변경될 수 있어요. 등록 전에 지점으로 확인해 주세요.</p>
+</div></section>
 
-
-<section class="join" id="join"><div class="w"><a class="back" href="#top">← 처음으로</a></div><div class="w"><div class="sticky"><h2 class="rv">수강<br>등록신청</h2><p class="lead rv" style="--d:80ms">신청서를 보내면 원장이 확인 후 연락드립니다. 신청한 학생은 입시·훈련 자료를 바로 쓸 수 있어요.</p></div>
+<section class="pane" id="join"><div class="in sp"><a class="back" href="#">← 메뉴</a>
+<div class="jg"><div class="stk"><h2>수강<br>등록신청</h2><p class="lead">신청서를 보내면 원장이 확인 후 연락드립니다. 신청한 학생은 입시·훈련 자료를 바로 쓸 수 있어요.</p></div>
 <div id="jw"><form class="jf" id="jf" autocomplete="on">
 <div class="r2"><div><label for="n">학생 이름</label><input id="n" required autocomplete="name"></div><div><label for="gr">학년</label><select id="gr" required><option value="">선택</option><option>중3</option><option>고1</option><option>고2</option><option>고3</option><option>N수·졸업생</option></select></div></div>
 <div><label for="sc">학교</label><input id="sc" required placeholder="예: OO고등학교"></div>
@@ -277,26 +183,32 @@ body[data-v="today"] #top,body[data-v="sched"] #top,body[data-v="ipsi"] #top,bod
 <tr><th>보유·이용 기간</th><td>수강 종료 또는 상담 종료 후 1년까지 보관 후 지체 없이 파기</td></tr>
 <tr><th>제3자 제공</th><td>없음</td></tr>
 <tr><th>동의 거부 권리</th><td>동의를 거부할 수 있어요. 다만 동의하지 않으면 등록 신청과 상담이 어려워요.</td></tr>
-<tr><th>개인정보 담당</th><td>원장 · 연락처 확인 중</td></tr></table></details>
+<tr><th>개인정보 담당</th><td>원장 · 010-3162-9399</td></tr></table></details>
 <label class="ag"><input type="checkbox" id="ag" required><span>[필수] 위 내용을 확인했고, 개인정보 수집·이용에 동의합니다.</span></label>
 <label class="ag"><input type="checkbox" id="ag2" required><span>[필수] 학생이 만 14세 미만이거나 미성년자인 경우, 법정대리인(부모님)의 동의를 받았습니다.</span></label>
 <label class="ag"><input type="checkbox" id="ag3"><span>[선택] 입시 일정·설명회 등 학원 소식을 문자로 받겠습니다. (동의하지 않아도 등록할 수 있어요)</span></label>
 <button id="sb" type="submit">신청서 제출</button><div class="jm" id="jm"></div></form>
-<div class="done" id="dn" hidden><h3>신청이 접수됐어요</h3><p>확인 후 입력하신 연락처로 안내드릴게요. 아래에서 입시 자료를 먼저 보실 수 있어요.</p><a class="btn p" href="/ipsi">입시·훈련 자료 보기</a></div></div>
-</div></section>
+<div class="done" id="dn" hidden><h3>신청이 접수됐어요</h3><p>확인 후 입력하신 연락처로 안내드릴게요. 아래에서 입시 자료를 먼저 보실 수 있어요.</p><a class="btn p" href="/ipsi">입시·훈련 자료 보기</a></div></div></div></div></section>
 
-<section class="nw" id="news"><div class="w"><a class="back" href="#top">← 처음으로</a></div><div class="w"><h2 class="rv">입시 소식</h2><p class="lead rv" style="--d:80ms">대학별 2028학년도 전형계획을 원문과 대조해 카드로 정리합니다. 매일 한 학교씩 인스타그램에도 올라가요.</p>
+<section class="pane" id="news"><div class="in sp"><a class="back" href="#">← 메뉴</a>
+<h2>입시 소식</h2><p class="lead">대학별 2028학년도 전형계획을 원문과 대조해 카드로 정리합니다. 매일 한 학교씩 인스타그램에도 올라가요.</p>
 <div class="set"><h3>인천대학교 체육계열 2028 수시 실기전형</h3><div class="m">스포츠의학부 · 스포츠과학부 · 체육교육과 · 2026.10.22 확인</div>
 <div class="strip"><a href="/social/out/inu-susi/post-1.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-susi/post-1.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 수시 실기전형 카드 1/6"></a><a href="/social/out/inu-susi/post-2.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-susi/post-2.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 수시 실기전형 카드 2/6"></a><a href="/social/out/inu-susi/post-3.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-susi/post-3.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 수시 실기전형 카드 3/6"></a><a href="/social/out/inu-susi/post-4.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-susi/post-4.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 수시 실기전형 카드 4/6"></a><a href="/social/out/inu-susi/post-5.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-susi/post-5.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 수시 실기전형 카드 5/6"></a><a href="/social/out/inu-susi/post-6.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-susi/post-6.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 수시 실기전형 카드 6/6"></a></div></div>
 <div class="set"><h3>인천대학교 체육계열 2028 정시 실기전형</h3><div class="m">스포츠의학부 · 스포츠과학부 · 체육교육과 · 2026.10.22 확인</div>
 <div class="strip"><a href="/social/out/inu-jeongsi/post-1.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-jeongsi/post-1.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 정시 실기전형 카드 1/7"></a><a href="/social/out/inu-jeongsi/post-2.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-jeongsi/post-2.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 정시 실기전형 카드 2/7"></a><a href="/social/out/inu-jeongsi/post-3.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-jeongsi/post-3.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 정시 실기전형 카드 3/7"></a><a href="/social/out/inu-jeongsi/post-4.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-jeongsi/post-4.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 정시 실기전형 카드 4/7"></a><a href="/social/out/inu-jeongsi/post-5.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-jeongsi/post-5.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 정시 실기전형 카드 5/7"></a><a href="/social/out/inu-jeongsi/post-6.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-jeongsi/post-6.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 정시 실기전형 카드 6/7"></a><a href="/social/out/inu-jeongsi/post-7.jpg" target="_blank" rel="noopener"><img src="/social/out/inu-jeongsi/post-7.jpg" width="864" height="1080" loading="lazy" alt="인천대 2028 체육계열 정시 실기전형 카드 7/7"></a></div>
 <div class="acts"><a class="bt" href="#join">수강 등록신청</a><a class="bt dk" href="https://www.instagram.com/siheung_piston" target="_blank" rel="noopener">인스타그램에서 보기</a></div></div>
-<p class="src" style="margin-top:28px">출처: 인천대학교 2028학년도 대학입학전형 시행계획. 전형계획은 변경될 수 있으니 지원 전 반드시 대학 모집요강 원문을 확인하세요.</p></div></div></section>
-<section class="ct" id="contact"><div class="w"><a class="back" href="#top">← 처음으로</a></div><div class="w"><h2 class="rv">가까운 지점에서<br>만나요.</h2><p class="lead rv" style="--d:80ms">전화번호와 상세 주소는 곧 채워 넣겠습니다. 지금은 신청서나 인스타그램으로 문의해 주세요.</p>
-<div class="brs"><div class="rv paper"><b>안산점</b><span>경기 안산시 단원구 고잔동</span><a href="https://www.instagram.com/ansan_piston" target="_blank" rel="noopener">@ansan_piston</a></div>
-<div class="rv paper" style="--d:80ms"><b>시흥 배곧점</b><span>경기 시흥시 배곧동</span><a href="https://www.instagram.com/siheung_piston" target="_blank" rel="noopener">@siheung_piston</a></div>
-<div class="rv paper" style="--d:160ms"><b>시흥 장현점</b><span>경기 시흥시 능곡동</span><a href="https://www.instagram.com/siheung_piston" target="_blank" rel="noopener">@siheung_piston</a></div></div></div></section>
-<footer><div class="w"><span class="big" role="img" aria-label="PISTON"></span><div><span>© 안산시흥피스톤체대입시</span><span>안산 · 시흥 배곧 · 시흥 장현</span></div></div></footer>
+<p class="src" style="margin-top:28px">출처: 인천대학교 2028학년도 대학입학전형 시행계획. 전형계획은 변경될 수 있으니 지원 전 반드시 대학 모집요강 원문을 확인하세요.</p>
+</div></section>
+
+<section class="pane" id="contact"><div class="in sp"><a class="back" href="#">← 메뉴</a>
+<h2>가까운 지점에서<br>만나요.</h2><p class="lead">상담과 등록은 전화나 DM, 신청서 어느 쪽이든 편하게 남겨 주세요.</p>
+<div class="bl">
+<div class="br"><h3>안산점</h3><p>경기 안산시 단원구 고잔동</p><div><a class="t" href="tel:0314181628">031-418-1628</a><a class="i" href="https://www.instagram.com/ansan_piston" target="_blank" rel="noopener">@ansan_piston</a></div></div>
+<div class="br"><h3>시흥 배곧점</h3><p>경기 시흥시 배곧동</p><div><a class="t" href="tel:01031629399">010-3162-9399</a><a class="i" href="https://www.instagram.com/siheung_piston" target="_blank" rel="noopener">@siheung_piston</a></div></div>
+<div class="br"><h3>시흥 장현점</h3><p>경기 시흥시 능곡동 · 시흥능곡역 3번 출구 도보 1분</p><div><a class="t" href="tel:01031629399">010-3162-9399</a><a class="i" href="https://www.instagram.com/siheung_piston" target="_blank" rel="noopener">@siheung_piston</a></div></div>
+</div></div></section>
+
+<footer><span>© 안산시흥피스톤체대입시</span><span>안산 · 시흥 배곧 · 시흥 장현</span></footer>
 <script>
 var HOOK='https://script.google.com/macros/s/AKfycbxPG25Asy3KiFr0ZGjjw1mhh_LsqxV76OPz-4-t6BbVbqFDUQgNuCudxNHEW6VtZ-Py2g/exec';
 var f=document.getElementById('jf'),m=document.getElementById('jm'),b=document.getElementById('sb');
@@ -314,15 +226,9 @@ f.addEventListener('submit',function(e){e.preventDefault();m.className='jm';m.te
 </script>
 <script>
 (function(){var t=new Date('2026-11-19T00:00:00+09:00'),n=Math.ceil((t-new Date())/864e5),e=document.getElementById('dday');
-if(n>0)e.textContent='D-'+n;else if(n===0)e.textContent='D-Day';else e.parentNode.hidden=true;
-})();
-
-document.documentElement.className+=' js';
-(function(){var els=document.querySelectorAll('.rv');if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
-var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});els.forEach(function(e){io.observe(e)});
-setTimeout(function(){els.forEach(function(e){e.classList.add('in')})},4000)})();
-
-(function(){var P=['class','time','join','contact','news'];
-function r(){var id=location.hash.slice(1),v=P.indexOf(id)>=0?id:'';document.body.setAttribute('data-v',v);window.scrollTo(0,0)}
+if(n>0)e.textContent='D-'+n;else if(n===0)e.textContent='D-Day';else e.parentNode.hidden=true})();
+(function(){var P=['class','time','join','contact','news'];function r(){var id=location.hash.slice(1),v=P.indexOf(id)>=0?id:'';
+if(v)document.body.setAttribute('data-v',v);else document.body.removeAttribute('data-v');window.scrollTo(0,0)}
 window.addEventListener('hashchange',r);r()})();
-</script><script>(function(){function k(){try{document.querySelectorAll('body *').forEach(function(e){var s=e.shadowRoot;if(s&&/Netlify/i.test(s.textContent||'')){e.style.setProperty('display','none','important')}})}catch(x){}}new MutationObserver(k).observe(document.documentElement,{childList:true,subtree:true});k();setInterval(k,800)})()</script><style>#nl-badge-frame,iframe[title="Powered by Netlify"]{display:none!important;visibility:hidden!important}</style><script>(function(){function k(){var e=document.getElementById("nl-badge-frame");if(e&&e.parentNode)e.parentNode.removeChild(e)}new MutationObserver(k).observe(document.documentElement,{childList:true,subtree:true});k()})()</script></body></html>
+</script>
+<script>(function(){function k(){try{document.querySelectorAll('body *').forEach(function(e){var s=e.shadowRoot;if(s&&/Netlify/i.test(s.textContent||'')){e.style.setProperty('display','none','important')}})}catch(x){}}new MutationObserver(k).observe(document.documentElement,{childList:true,subtree:true});k();setInterval(k,800)})()</script><style>#nl-badge-frame,iframe[title="Powered by Netlify"]{display:none!important;visibility:hidden!important}</style><script>(function(){function k(){var e=document.getElementById("nl-badge-frame");if(e&&e.parentNode)e.parentNode.removeChild(e)}new MutationObserver(k).observe(document.documentElement,{childList:true,subtree:true});k()})()</script></body></html>
