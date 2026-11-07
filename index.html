@@ -218,6 +218,27 @@ h2 .ln>span{display:block;transform:translateY(110%);transition:transform .9s va
 .cr,.tr,.br{transition:padding-left .35s var(--ez)}.cr:hover,.tr:hover,.br:hover{padding-left:14px}
 @media(prefers-reduced-motion:reduce){.ghost,.kb div{transform:none!important}h2 .ln>span{transform:none}}
 .bar{background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+
+/* v7 mobile overflow fix */
+html,body{overflow-x:clip;max-width:100%}
+.bar{overflow:hidden}
+.cta::after{inset:-4px}
+@keyframes pulse{0%{opacity:.6;transform:scale(.96)}100%{opacity:0;transform:scale(1.08)}}
+.home,.mq{max-width:100vw;overflow:hidden}
+.mq div{flex:none}
+@media(max-width:900px){
+.wm{font-size:clamp(88px,27vw,240px)}
+.menu b{font-size:clamp(28px,8.4vw,42px)}
+.menu em{font-size:13px;white-space:nowrap;flex:none}
+.menu a>div{gap:8px}
+.menu i{width:34px;font-size:12px}
+.menu a.j{padding-left:0}
+.ghost{font-size:46vw;right:-6vw}
+.kb div{font-size:18vw}
+.pane{overflow-x:clip}
+h2{font-size:clamp(40px,12vw,72px)}
+.lead{font-size:17px}
+}
 </style></head>
 <body>
 <div class="bar"><a class="logo" href="#" aria-label="PISTON 처음으로"></a><a class="cta" href="#join">수강 등록신청</a></div>
