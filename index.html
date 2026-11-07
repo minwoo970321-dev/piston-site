@@ -203,6 +203,21 @@ body::after{background:radial-gradient(520px circle at var(--mx,70%) var(--my,30
 .cur{background:var(--bl);mix-blend-mode:normal;opacity:.85}
 :focus-visible{outline-color:var(--bl)}
 footer{background:#000;color:rgba(255,255,255,.7)}
+
+/* v6 inner-page drama */
+.pane{position:relative;overflow:hidden}
+.ghost{position:absolute;right:-2vw;top:120px;font-family:var(--d);font-style:italic;font-size:clamp(160px,30vw,520px);line-height:.8;color:transparent;-webkit-text-stroke:2px rgba(23,57,255,.22);white-space:nowrap;pointer-events:none;user-select:none;z-index:0;text-transform:uppercase;will-change:transform}
+.pane .in{position:relative;z-index:1}
+.kb{background:#000;color:#fff;overflow:hidden;white-space:nowrap;padding:26px 0;margin-top:40px}
+.kb div{display:inline-block;font-family:var(--d);font-style:italic;font-size:clamp(48px,9vw,140px);line-height:1;text-transform:uppercase;will-change:transform}
+.kb span{margin:0 .4em}.kb em{font-style:italic;color:transparent;-webkit-text-stroke:2px #6f89ff}
+h2 .ln{display:block;overflow:hidden}
+h2 .ln>span{display:block;transform:translateY(110%);transition:transform .9s var(--ez)}
+.pane h2.in2 .ln>span,.pane.go h2 .ln>span{transform:none}
+.tr:hover b,.cr:hover h3{color:var(--bl)}
+.cr,.tr,.br{transition:padding-left .35s var(--ez)}.cr:hover,.tr:hover,.br:hover{padding-left:14px}
+@media(prefers-reduced-motion:reduce){.ghost,.kb div{transform:none!important}h2 .ln>span{transform:none}}
+.bar{background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 </style></head>
 <body>
 <div class="bar"><a class="logo" href="#" aria-label="PISTON 처음으로"></a><a class="cta" href="#join">수강 등록신청</a></div>
@@ -315,4 +330,18 @@ function cnt2(b){var t=+b.dataset.n,s=performance.now(),suf=b.dataset.suf;(funct
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in2');io.unobserve(e.target)}})},{threshold:.15});
 function bind(){document.querySelectorAll('.pane .cr,.pane .tr,.pane .br,.pane .set,.pane .n99,.pane h2').forEach(function(e){e.classList.add('rv');io.observe(e)})}
 bind();addEventListener('hashchange',function(){setTimeout(function(){document.querySelectorAll('.rv:not(.in2)').forEach(function(e){io.observe(e)})},60)});
+})();</script><script>(function(){
+var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var W={class:'Class',time:'Time',join:'Join',news:'News',contact:'Branch'};
+Object.keys(W).forEach(function(k){var p=document.getElementById(k);if(!p)return;
+var g=document.createElement('div');g.className='ghost';g.setAttribute('aria-hidden','true');g.textContent=W[k];p.insertBefore(g,p.firstChild);
+var kb=document.createElement('div');kb.className='kb';kb.setAttribute('aria-hidden','true');var t='<span>Piston</span><span><em>Piston</em></span>';kb.innerHTML='<div>'+t+t+t+t+'</div>';p.appendChild(kb);
+var h=p.querySelector('h2');if(h){h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map(function(l){return '<span class="ln"><span>'+l+'</span></span>'}).join('');}
+});
+function cur(){var v=document.body.dataset.v;return v&&document.getElementById(v)}
+function tick(){var p=cur();if(p&&!rm){var y=scrollY,g=p.querySelector('.ghost'),k=p.querySelector('.kb div');if(g)g.style.transform='translate3d('+(-y*.18)+'px,'+(y*.12)+'px,0)';
+if(k){var r=p.querySelector('.kb').getBoundingClientRect();k.style.transform='translate3d('+(-(innerHeight-r.top)*.5)+'px,0,0)'}}requestAnimationFrame(tick)}
+tick();
+function enter(){var p=cur();if(!p)return;p.classList.remove('go');void p.offsetWidth;setTimeout(function(){p.classList.add('go')},80)}
+addEventListener('hashchange',enter);enter();
 })();</script></body></html>
